@@ -19,7 +19,7 @@ export default function Home() {
     },
   ]
 
-  function maskMoney(str: string) {
+  function maskMoney(str: string | number) {
     let parte1;
     let parte2;
     let parte11;
@@ -27,10 +27,20 @@ export default function Home() {
     let parte111;
     let parte112;
 
-    str = str.replace(',', '')
+    if(typeof str == "number"){
+      str = str.toString()
+    }
 
-    if(str.length == 0){
-      return str;
+    if(isNaN(parseInt(str)) || str.length == 0){
+      return '0,00';
+    }
+
+    if(str.length == 1){
+      return `0,0${str}`;
+    }
+
+    if(str.length == 2){
+      return `0,${str}`;
     }
 
     parte1 = str.slice(0, -2);
@@ -55,44 +65,29 @@ export default function Home() {
   }
 
   function formatarVlr(vlr: string, campo: string) {
-
     if (vlr.length > 14) {
       return false;
     }
-    let valorFormatado = '';
-    let newValor = vlr.replace(/[^\d,]/g, '');
+    let newVlr = parseInt(vlr.replace(/[^\d]/g, ''));
+    let valorFormatado = maskMoney(newVlr.toString());
 
-    valorFormatado = maskMoney(newValor)
-
-    setVlrIni(valorFormatado);
-
-
-
-    // if(vlr.length < 1){
-    //   vlr = '0'
-    // }
-
-    // if(vlr.substring(0, 1) == '0' && vlr.length > 1){
-    //   vlr = vlr.substring(1)
-    // }
-
-    // // Remove tudo que não for dígito, ponto ou vírgula
-    // const valorSemFormatacao = vlr.replace(/[^\d.,]/g, '');
-
-    // // Substitui a vírgula pela base usada no parseFloat (ponto) se houver
-    // const valorComPonto = valorSemFormatacao.replace(',', '.');
-
-    // // Formata o valor como no exemplo anterior
-    // const numeroFormatado = parseFloat(valorComPonto).toFixed(2);
-    // const [parteInteira, parteDecimal] = numeroFormatado.split('.');
-    // const parteInteiraFormatada = parteInteira.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    // const valorFormatado = `${parteInteiraFormatada},${parteDecimal}`;
-    // console.log(valorFormatado)
-
-    // // Atualiza o valor do input com o valor formatado
-    // if(campo == 'setVlrIni'){
-    //   setVlrIni(vlr)
-    // }
+    switch (campo) {
+      case 'setVlrIni':
+        setVlrIni(valorFormatado);
+        break;
+      case 'setVlrRecorr':
+        setVlrRecorr(valorFormatado);
+        break;
+      case 'setTxPeriodo':
+        setTxPeriodo(valorFormatado);
+        break;
+      case 'setRenda':
+        setRenda(valorFormatado);
+        break;
+    
+      default:
+        break;
+    }
   }
 
   const handleCalc = (e: MouseEvent<HTMLInputElement>) => {
@@ -173,10 +168,10 @@ export default function Home() {
             <small>Deixe em branco o campo que você quer calcular</small>
             <form>
               <input className="w-full my-2 p-2 outline-0 border-indigo-500 focus:border-b-2 ease-in-out duration-150" type="number" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(e.target.value)} placeholder="Tempo de aplicação em meses" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="text" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => formatarVlr(e.target.value, 'setVlrIni')} placeholder="Valor inicial" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="text" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(e.target.value)} placeholder="Valor recorrente" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="text" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(e.target.value)} placeholder="Taxa mensal" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="text" name="renda" id="renda" value={renda} onChange={(e) => setRenda(e.target.value)} placeholder="Renda passiva" />
+              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => formatarVlr(e.target.value, 'setVlrIni')} placeholder="Valor inicial" />
+              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => formatarVlr(e.target.value, 'setVlrRecorr')} placeholder="Valor recorrente" />
+              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => formatarVlr(e.target.value, 'setTxPeriodo')} placeholder="Taxa mensal" />
+              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="renda" id="renda" value={renda} onChange={(e) => formatarVlr(e.target.value, 'setRenda')} placeholder="Renda passiva" />
               <input className=" cursor-pointer uppercase w-full my-2 p-2 bg-blue-700 rounded text-white hover:bg-blue-600 font-medium" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
             </form>
           </div>
