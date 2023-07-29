@@ -27,19 +27,19 @@ export default function Home() {
     let parte111;
     let parte112;
 
-    if(typeof str == "number"){
+    if (typeof str == "number") {
       str = str.toString()
     }
 
-    if(isNaN(parseInt(str)) || str.length == 0){
+    if (isNaN(parseInt(str)) || str.length == 0) {
       return '0,00';
     }
 
-    if(str.length == 1){
+    if (str.length == 1) {
       return `0,0${str}`;
     }
 
-    if(str.length == 2){
+    if (str.length == 2) {
       return `0,${str}`;
     }
 
@@ -84,7 +84,7 @@ export default function Home() {
       case 'setRenda':
         setRenda(valorFormatado);
         break;
-    
+
       default:
         break;
     }
@@ -104,7 +104,7 @@ export default function Home() {
     let totalCamposNPreenchidos = 0;
     let campoEmBranco: number = 999;
     camposPreenchidos.forEach((item, key) => {
-      if (item == '') {
+      if (item == '' || item == '0,00') {
         totalCamposNPreenchidos++;
         campoEmBranco = key
       }
@@ -120,21 +120,23 @@ export default function Home() {
       return false;
     }
 
+    console.log(campoEmBranco)
+
     switch (campoEmBranco) {
       case 0:
-        calcularTempoAplicacao
+        calcularTempoAplicacao()
         break;
       case 1:
-        calcularValorInicial
+        calcularValorInicial()
         break;
       case 2:
-        calcularValorRecorrente
+        calcularValorRecorrente()
         break;
       case 3:
-        calcularTaxaMensal
+        calcularTaxaMensal()
         break;
       case 4:
-        calcularRendaPassiva
+        calcularRendaPassiva()
         break;
 
       default:
@@ -144,10 +146,20 @@ export default function Home() {
   }
 
   const calcularTempoAplicacao = () => { }
+
   const calcularValorInicial = () => { }
+
   const calcularValorRecorrente = () => { }
+
   const calcularTaxaMensal = () => { }
-  const calcularRendaPassiva = () => { }
+
+  const calcularRendaPassiva = () => {
+    console.log(periodo)
+    console.log(vlrIni)
+    console.log(vlrRecorr)
+    console.log(txPeriodo)
+    console.log(renda)
+  }
 
   return (
     <div>
