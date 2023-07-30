@@ -175,16 +175,31 @@ export default function Home() {
       </nav>
       <main className="flex justify-center mt-1">
         <div className="flex justify-center rounded shadow-lg md:w-1/2">
-          <div className="flex justify-center flex-col items-center p-3">
+          <div className="flex justify-center flex-col items-center p-3 w-full">
             <h1 className="uppercase font-semibold text-slate-500">Calculadora</h1>
             <small>Deixe em branco o campo que você quer calcular</small>
-            <form>
-              <input className="w-full my-2 p-2 outline-0 border-indigo-500 focus:border-b-2 ease-in-out duration-150" type="number" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(e.target.value)} placeholder="Tempo de aplicação em meses" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => formatarVlr(e.target.value, 'setVlrIni')} placeholder="Valor inicial" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => formatarVlr(e.target.value, 'setVlrRecorr')} placeholder="Valor recorrente" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => formatarVlr(e.target.value, 'setTxPeriodo')} placeholder="Taxa mensal" />
-              <input className="w-full my-2 p-2 w-full my-2 p-2 focus:outline-0 focus:border-b-2 focus:border-indigo-500 ease-in-out duration-150" type="search" name="renda" id="renda" value={renda} onChange={(e) => formatarVlr(e.target.value, 'setRenda')} placeholder="Renda passiva" />
-              <input className=" cursor-pointer uppercase w-full my-2 p-2 bg-blue-700 rounded text-white hover:bg-blue-600 font-medium" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
+            <form className="w-full">
+              <div className="relative pt-3.5 my-2 w-full">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="number" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(e.target.value)} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="periodo">Tempo de aplicação (meses)</label>
+              </div>
+              <div className="relative pt-3.5 my-2">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => formatarVlr(e.target.value, 'setVlrIni')} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="vlrIni">Valor inicial (R$)</label>
+              </div>
+              <div className="relative pt-3.5 my-2">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => formatarVlr(e.target.value, 'setVlrRecorr')} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="vlrRecorr">Valor recorrente (R$)</label>
+              </div>
+              <div className="relative pt-3.5 my-2">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => formatarVlr(e.target.value, 'setTxPeriodo')} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="txPeriodo">Taxa mensal (%)</label>
+              </div>
+              <div className="relative pt-3.5 my-2">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="renda" id="renda" value={renda} onChange={(e) => formatarVlr(e.target.value, 'setRenda')} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="renda">Renda passiva (R$)</label>
+              </div>
+              <input className="w-full cursor-pointer uppercase my-2 p-2 bg-blue-700 rounded text-white hover:bg-blue-600 font-medium" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
             </form>
           </div>
         </div>
