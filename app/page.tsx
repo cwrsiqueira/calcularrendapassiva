@@ -120,8 +120,6 @@ export default function Home() {
       return false;
     }
 
-    console.log(campoEmBranco)
-
     switch (campoEmBranco) {
       case 0:
         calcularTempoAplicacao()
@@ -154,11 +152,33 @@ export default function Home() {
   const calcularTaxaMensal = () => { }
 
   const calcularRendaPassiva = () => {
-    console.log(periodo)
-    console.log(vlrIni)
-    console.log(vlrRecorr)
-    console.log(txPeriodo)
-    console.log(renda)
+    let crpPeriodo = parseInt(periodo);
+    let crpVlrIni = parseFloat(vlrIni.replace(/\./g, '').replace(',', '.'));
+    let crpVlrRecorr = parseFloat(vlrRecorr.replace(/\./g, '').replace(',', '.'));
+    let crpTxPeriodo = parseFloat(txPeriodo.replace(/\./g, '').replace(',', '.'));
+
+    let aplicTotal = 0;
+    let rentAtual = 0;
+    let rentabilidade = 0;
+    let rendimentos = 0;
+    let i = 1;
+
+    aplicTotal = crpVlrIni + crpVlrRecorr;
+    rentAtual = (crpVlrIni * (1 + crpTxPeriodo / 100)) + crpVlrRecorr;
+    for (i = 1; i < crpPeriodo; i++) {
+      aplicTotal += crpVlrRecorr;
+      rentAtual = (rentAtual * (1 + crpTxPeriodo / 100)) + crpVlrRecorr;
+    }
+    rentabilidade = rentAtual - aplicTotal;
+    rendimentos = rentAtual * (crpTxPeriodo / 100)
+    
+    console.log(aplicTotal)
+    console.log(rentAtual)
+    console.log(rentabilidade)
+    console.log(rendimentos)
+    console.log(crpPeriodo)
+
+    formatarVlr(rendimentos.toFixed(2), 'setRenda')
   }
 
   return (
