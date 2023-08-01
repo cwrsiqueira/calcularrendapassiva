@@ -7,6 +7,7 @@ export default function Home() {
   const [vlrRecorr, setVlrRecorr] = useState('')
   const [txPeriodo, setTxPeriodo] = useState('')
   const [renda, setRenda] = useState('')
+  const [valorAcumulado, setValorAcumulado] = useState('')
 
   const menus = [
     {
@@ -31,8 +32,8 @@ export default function Home() {
       str = str.toString()
     }
 
-    if (isNaN(parseInt(str)) || str.length == 0) {
-      return '0,00';
+    if (isNaN(parseInt(str)) || str == '0') {
+      return '';
     }
 
     if (str.length == 1) {
@@ -71,6 +72,8 @@ export default function Home() {
     let newVlr = parseInt(vlr.replace(/[^\d]/g, ''));
     let valorFormatado = maskMoney(newVlr.toString());
 
+    console.log(valorFormatado, campo)
+
     switch (campo) {
       case 'setVlrIni':
         setVlrIni(valorFormatado);
@@ -80,6 +83,9 @@ export default function Home() {
         break;
       case 'setTxPeriodo':
         setTxPeriodo(valorFormatado);
+        break;
+      case 'setValorAcumulado':
+        setValorAcumulado(valorFormatado);
         break;
       case 'setRenda':
         setRenda(valorFormatado);
@@ -92,6 +98,10 @@ export default function Home() {
 
   const handleCalc = (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault()
+
+    // if (periodo == '') {
+    //   calcularTempoAplicacao();
+    // }
 
     let camposPreenchidos = [
       periodo,
@@ -143,7 +153,25 @@ export default function Home() {
     }
   }
 
-  const calcularTempoAplicacao = () => { }
+  const calcularTempoAplicacao = () => {
+    let ctaVlrIni = parseFloat(vlrIni.replace(/\./g, '').replace(',', '.'));
+    let ctaVlrRecorr = parseFloat(vlrRecorr.replace(/\./g, '').replace(',', '.'));
+    let ctaTxPeriodo = parseFloat(txPeriodo.replace(/\./g, '').replace(',', '.'));
+    let ctaVlrAcumulado = parseFloat(txPeriodo.replace(/\./g, '').replace(',', '.'));
+    let ctaRenda = parseFloat(txPeriodo.replace(/\./g, '').replace(',', '.'));
+
+    console.log(ctaVlrIni)
+    console.log(ctaVlrRecorr)
+    console.log(ctaTxPeriodo)
+    console.log(ctaVlrAcumulado)
+    console.log(ctaRenda)
+
+    if ((!ctaVlrIni && !ctaVlrRecorr) || !ctaTxPeriodo || (!ctaVlrAcumulado && !ctaRenda)) {
+      alert('Para calcular Tempo de aplicação preencha Valor inicial, Valor recorrente (opcional), Taxa mensal e, Valor acumulado e/ou Renda passiva.');
+      return;
+    }
+
+  }
 
   const calcularValorInicial = () => { }
 
@@ -171,7 +199,7 @@ export default function Home() {
     }
     rentabilidade = rentAtual - aplicTotal;
     rendimentos = rentAtual * (crpTxPeriodo / 100)
-    
+
     console.log(aplicTotal)
     console.log(rentAtual)
     console.log(rentabilidade)
@@ -179,6 +207,7 @@ export default function Home() {
     console.log(crpPeriodo)
 
     formatarVlr(rendimentos.toFixed(2), 'setRenda')
+    formatarVlr(rentAtual.toFixed(2), 'setValorAcumulado')
   }
 
   return (
@@ -214,6 +243,10 @@ export default function Home() {
               <div className="relative pt-3.5 my-2">
                 <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => formatarVlr(e.target.value, 'setTxPeriodo')} placeholder=" " />
                 <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="txPeriodo">Taxa mensal (%)</label>
+              </div>
+              <div className="relative pt-3.5 my-2">
+                <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="valorAcumulado" id="valorAcumulado" value={valorAcumulado} onChange={(e) => formatarVlr(e.target.value, 'setValorAcumulado')} placeholder=" " />
+                <label className=" text-gray-400 pointer-events-none absolute top-0 left-0 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="renda">Valor Acumulado (R$)</label>
               </div>
               <div className="relative pt-3.5 my-2">
                 <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown" type="search" name="renda" id="renda" value={renda} onChange={(e) => formatarVlr(e.target.value, 'setRenda')} placeholder=" " />
