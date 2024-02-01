@@ -395,23 +395,23 @@ const Home = () => {
                       </div>
                     </div>
                     <div className="relative pt-3.5 my-2 w-full flex">
-                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
+                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="number" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
                       <label className=" text-gray-400 pointer-events-none absolute top-0 left-2 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="vlrIni">Valor inicial (R$)</label>
                     </div>
                     <div className="relative pt-3.5 my-2 w-full flex">
-                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
+                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="number" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
                       <label className=" text-gray-400 pointer-events-none absolute top-0 left-2 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="vlrRecorr">Valor recorrente (R$)</label>
                     </div>
                     <div className="relative pt-3.5 my-2 w-full flex">
-                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={5} />
+                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="number" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={5} />
                       <label className=" text-gray-400 pointer-events-none absolute top-0 left-2 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="txPeriodo">Taxa mensal (%)</label>
                     </div>
                     <div className="relative pt-3.5 my-2 w-full flex">
-                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="search" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
+                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="number" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder=" " maxLength={14} />
                       <label className=" text-gray-400 pointer-events-none absolute top-0 left-2 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="renda">Renda passiva (R$)</label>
                     </div>
                     <div className="relative pt-3.5 my-2 w-full flex">
-                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="search" name="valorAcumulado" id="valorAcumulado" value={valorAcumulado} placeholder=" " disabled={true} />
+                      <input className="peer text-slate-600 w-full border-0 border-b-2 border-gray-300 outline-none text-base transition-all duration-300 rounded-none focus:border-b-2 focus:border-indigo-500 not-placeholder-shown pl-2" type="number" name="valorAcumulado" id="valorAcumulado" value={valorAcumulado} placeholder=" " disabled={true} />
                       <label className=" text-gray-400 pointer-events-none absolute top-0 left-2 mt-3 transition-all duration-300 peer-focus:text-xs peer-focus:mt-0 peer-focus:text-indigo-500" htmlFor="renda">Valor Acumulado (R$)</label>
                     </div>
                   </div>
