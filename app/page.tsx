@@ -1,7 +1,8 @@
 'use client'
 import { ChangeEvent, MouseEvent, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const Home = () => {
   const [periodo, setPeriodo] = useState('')
@@ -471,6 +472,23 @@ const Home = () => {
               <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=2c938084882ea1dd0188305e8e0e00bc" target="_blank">&nbsp; Seja um Patrocinador</a>
             </button>
             <div className="text-center sm:w-80 p-4 mt-4">Considere ser um patrocinador, por apenas R$ 4,99 por mês e me ajude e manter a Calculadora de Renda Passiva sempre GRATUITA!</div>
+            <div className="text-center sm:w-80 p-4 mt-4">
+              Conheça meus outros projetos nas minhas redes <br /> <br />
+              <div className="flex justify-center">
+                <a href="https://github.com/cwrsiqueira?tab=repositories" target="_blank" className="mx-3">
+                  <FontAwesomeIcon icon={faGithub} size="xl" />
+                </a>
+                <a href="https://www.linkedin.com/in/carloswagner1975/" target="_blank" className="mx-3">
+                  <FontAwesomeIcon icon={faLinkedin} size="xl" />
+                </a>
+                <a href="https://www.youtube.com/channel/UC32eliBwKUGGc_uTgcxTJXw" target="_blank" className="mx-3">
+                  <FontAwesomeIcon icon={faYoutube} size="xl" />
+                </a>
+                <a href="mailto:suporte@calcularrendapassiva.com.br" target="_blank" className="mx-3">
+                  <FontAwesomeIcon icon={faEnvelope} size="xl" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
