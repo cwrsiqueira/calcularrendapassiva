@@ -1,6 +1,6 @@
 const politicaDePrivacidade = () => {
     return (
-        <div>
+        <div className="p-2 sm:p-3">
             <div className="mx-auto mt-20 max-w-4xl">
                 <h1 className="text-center text-3xl font-bold mb-5">Política de Privacidade e Termos de Uso</h1>
 
@@ -48,7 +48,10 @@ const politicaDePrivacidade = () => {
                     contato conosco através do e-mail: <a href="mailto:contato@calcularrendapassiva.com.br" className="text-blue-600 hover:underline">contato@calcularrendapassiva.com.br</a></p>
 
                 <footer className="mt-5 mb-3 text-center">
-                    <p>© {new Date().getFullYear()} Calcular Renda Passiva. Todos os direitos reservados.</p>
+                    <div className="flex flex-col sm:flex-row items-center justify-between p-4 mt-4 font-semibold text-sm">
+                        <a className="m-2" href="/">Voltar para Calculadora</a>
+                        <p className="m-2">© {new Date().getFullYear()} Calcular Renda Passiva. Todos os direitos reservados.</p>
+                    </div>
                 </footer>
             </div>
 

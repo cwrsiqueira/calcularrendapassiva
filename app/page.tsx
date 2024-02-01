@@ -504,6 +504,11 @@ const Home = () => {
               </div>
 
             </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between p-4 mt-4 font-semibold text-sm">
+              <a className="m-2" href="/politica-de-privacidade">Políticas de Privacidade e Termos de uso</a>
+              <p className="m-2">© {new Date().getFullYear()} Calcular Renda Passiva. Todos os direitos reservados.</p>
+            </div>
           </div>
         </div>
       </div>
