@@ -1,5 +1,6 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "Calcular Renda Passiva | Calculate Passive Income",
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html lang="en">
       <body className='font-sans text-stone-700'>
         <main>{children}</main>
+        <Analytics />
       </body>
     </html>
   )
