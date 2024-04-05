@@ -3,6 +3,7 @@ import { ChangeEvent, MouseEvent, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import Image from "next/image";
 
 const Home = () => {
   const [periodo, setPeriodo] = useState('')
@@ -364,7 +365,7 @@ const Home = () => {
   return (
     <div className="h-screen">
       <div className="max-[202px]:hidden">
-        <nav className="flex justify-between bg-stone-400 p-2">
+        <nav className="flex justify-between bg-white p-2">
           <div className='flex flex-col items-start'>
             <a href="/" className="uppercase font-semibold text-md sm:text-lg">Calculadora de Renda Passiva</a>
             <p className="text-sm sm:text-base">Calcula tempo, valor inicial, valor recorrente, taxa mensal, renda passiva e o valor acumulado</p>
@@ -479,7 +480,7 @@ const Home = () => {
               Baixe o App da Calculadora de Renda Passiva e tenha a calculadora a mão, mesmo sem internet. <br /><hr />
               <div>
                 <a href='https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank">
-                  <img alt='Disponível no Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/pt_badge_web_generic.png' />
+                  <Image alt='Disponível no Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/pt_badge_web_generic.png' width="300" height="70" />
                 </a>
               </div>
             </div>
