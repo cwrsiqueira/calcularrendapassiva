@@ -45,7 +45,7 @@ const politicaDePrivacidade = () => {
 
                 <h3 className="text-lg font-semibold mt-4">Contato</h3>
                 <p className="mt-2">Se tiver dúvidas ou preocupações com relação à nossa Política de Privacidade ou Termos de Uso, entre em
-                    contato conosco através do e-mail: <a href="mailto:contato@calcularrendapassiva.com.br" className="text-blue-600 hover:underline">contato@calcularrendapassiva.com.br</a></p>
+                    contato conosco através do e-mail: <a href="mailto:suporte@calcularrendapassiva.com.br" className="text-blue-600 hover:underline">suporte@calcularrendapassiva.com.br</a></p>
 
                 <footer className="mt-5 mb-3 text-center">
                     <div className="flex flex-col sm:flex-row items-center justify-between p-4 mt-4 font-semibold text-sm">
