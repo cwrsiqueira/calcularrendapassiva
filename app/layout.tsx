@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className='font-sans text-stone-700'>
         <main>{children}</main>
         <Analytics />
