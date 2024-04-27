@@ -11,13 +11,18 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import TextFormatter from "@/libs/textFormatter";
 import { faCircleChevronUp } from "@fortawesome/free-solid-svg-icons/faCircleChevronUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Article as Art } from "@/types/article";
 
 const Article = () => {
     const params = useParams();
     const [commentsQt, setCommentsQt] = useState(3);
+    const [itemEncontrado, setItemEncontrado] = useState<Art>();
 
-    const itemEncontrado = articles.find(item => item.slug === params.slug);
+    useEffect(() => {
+        const search = articles.find(item => item.slug === params.slug);
+        setItemEncontrado(search);
+    }, [params.slug]);
 
     function scrollToTop() {
         window.scrollTo({
@@ -67,10 +72,10 @@ const Article = () => {
                             <hr className="my-3" />
                         </div>
                     )).slice(0, commentsQt)}
-                    {commentsQt < itemEncontrado?.comments.length &&
+                    {commentsQt < (itemEncontrado?.comments.length || 0) &&
                         <button className="cursor-pointer" onClick={() => setCommentsQt(commentsQt + 3)}>Ver mais...</button>
                     }
-                    {commentsQt >= itemEncontrado?.comments.length &&
+                    {commentsQt >= (itemEncontrado?.comments.length || 0) &&
                         <button className="cursor-pointer" onClick={() => setCommentsQt(3)}>Ver menos...</button>
                     }
                 </div>
