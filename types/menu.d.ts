@@ -1,4 +1,4 @@
-export interface Menus {
+export interface Menu {
   title: string;
   url: string;
 }

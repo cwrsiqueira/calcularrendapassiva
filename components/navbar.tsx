@@ -1,11 +1,11 @@
 'use client'
 import { useState } from 'react';
-import { Menus } from '@/types/menus';
+import { Menu } from '@/types/menu';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menus: Menus[] = [
+  const menus: Menu[] = [
     // { title: "Calculadora", url: "/" },
     // { title: "Artigos", url: "/articles" },
     // Adicione mais itens conforme necessário
