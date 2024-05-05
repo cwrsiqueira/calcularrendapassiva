@@ -3,11 +3,32 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import Link from 'next/link';
 
 const MarketingArea = () => {
 
     return (
         <div className="flex flex-col items-center text-center mt-3">
+
+            <div className="flex flex-col sm:flex-row">
+
+                <Link href={'https://go.hotmart.com/I92666184R'} target='_blank'>
+                    <div className='flex flex-col items-center'>
+                        <div className="text-center sm:w-80 p-4 mt-4 font-semibold">Planilha Excel para Cálculo de Financiamento e de Desconto dos Juros para Antecipação de Parcelas.</div>
+
+                        <Image
+                            src="https://static-media.hotmart.com/xmC2TQ3svtXHAnDtNjk2rgVjMOQ=/filters:quality(100):format(webp)/klickart-prod/uploads/media/file/7813145/planilhas_excel_1200x1200.png"
+                            alt="Landscape picture"
+                            width={200}
+                            height={200}
+                        />
+
+
+                        <div className="text-center sm:w-80 p-4 mt-4 font-semibold">Utilize o código CRP20 e ganhe 20% de desconto.</div>
+                    </div>
+                </Link>
+
+            </div>
 
             <div className="flex flex-col sm:flex-row">
 
