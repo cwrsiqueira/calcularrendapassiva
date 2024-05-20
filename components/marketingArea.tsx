@@ -10,7 +10,7 @@ const MarketingArea = () => {
     return (
         <div className="flex flex-col items-center text-center mt-3">
 
-            <div className="flex flex-col sm:flex-row">
+            {/* <div className="flex flex-col sm:flex-row">
 
                 <Link href={'https://go.hotmart.com/I92666184R'} target='_blank'>
                     <div className='flex flex-col items-center'>
@@ -28,7 +28,7 @@ const MarketingArea = () => {
                     </div>
                 </Link>
 
-            </div>
+            </div> */}
 
             <div className="flex flex-col sm:flex-row">
 
