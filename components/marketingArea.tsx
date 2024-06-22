@@ -33,10 +33,10 @@ const MarketingArea = () => {
             <div className="flex flex-col sm:flex-row">
 
                 <div>
-                    <div className="text-center sm:w-80 p-4 mt-4 font-semibold">Considere ser um patrocinador por apenas R$ 4,99 por mês e ajude a manter a Calculadora de Renda Passiva sempre GRATUITA!</div>
+                    <div className="text-center sm:w-80 p-4 mt-4 font-semibold">Considere ser um patrocinador com qualquer valor por mês e ajude a manter a Calculadora de Renda Passiva sempre GRATUITA!</div>
 
                     <button className="border border-slate-600 p-4 rounded-md bg-slate-900 text-white text-2xl font-semibold">
-                        <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=2c938084882ea1dd0188305e8e0e00bc" target="_blank" className='flex items-center'>
+                        <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=2c9380848eed4752018eedb8ca7f0039" target="_blank" className='flex items-center'>
                             <FontAwesomeIcon icon={faHeart} beat style={{ color: "#b40000", }} width={29} />
                             &nbsp; Seja um Patrocinador</a>
                     </button>
