@@ -397,7 +397,7 @@ const Home = () => {
 
                     {/* CALCULADORA */}
                     <div className="flex justify-center flex-col sm:flex-row gap-2">
-                      <label className="input input-bordered flex items-center gap-2 w-full">
+                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                         <FontAwesomeIcon icon={faCalendar} />
                         <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
                       </label>

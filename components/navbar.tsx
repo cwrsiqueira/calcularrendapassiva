@@ -12,7 +12,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="relative flex w-full flex-nowrap items-center justify-between bg-slate-200 py-2 text-neutral-500 shadow-md hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
+    <nav className="relative flex w-full flex-nowrap items-center justify-between bg-slate-200 py-2 text-neutral-500 shadow-md hover:text-neutral-700 focus:text-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
       <div className="flex w-full flex-wrap items-center justify-between px-3">
         <div className="ms-2">
           <a className="text-xl text-black dark:text-white" href={'/'}>Calcular Renda Passiva</a>
