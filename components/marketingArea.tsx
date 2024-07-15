@@ -8,7 +8,7 @@ import Link from 'next/link';
 const MarketingArea = () => {
 
     return (
-        <div className="flex flex-col items-center text-center mt-3">
+        <div className="flex flex-col items-center text-center mt-3 bg-white">
 
             {/* <div className="flex flex-col sm:flex-row">
 
