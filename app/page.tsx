@@ -375,16 +375,16 @@ const Home = () => {
 
   return (
     <div className="h-screen bg-white">
-      <div className="max-[202px]:hidden">
+      <div className="max-[202px]:hidden bg-white">
 
         <Navbar />
 
-        <div id="flex flex-col justify-center items-center">
-          <div className={`flip-card text-center mt-3 p-2 ${side === 'restart' ? 'show-result' : ''}`}>
+        <div id="flex flex-col justify-center items-center bg-white">
+          <div className={`flip-card bg-white text-center mt-3 p-2 ${side === 'restart' ? 'show-result' : ''}`}>
             <h1 className="uppercase font-semibold text-slate-500 sm:text-lg">Calculadora</h1>
             <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''}`}>Deixe em branco o campo que você quer calcular</small>
             <small className={`text-xs sm:text-base ${side === 'restart' ? '' : 'hidden'}`}>Resultado baseado nas informações fornecidas</small>
-            <div className="flip-card-inner flex justify-center h-[1620px] sm:h-[2090px]">
+            <div className="flip-card-inner flex justify-center h-[1620px] sm:h-[2090px] bg-white">
               <div className="fields sm:w-[640px] flex justify-center">
                 <div className="flex flex-col justify-between w-full h-full">
 
@@ -439,51 +439,109 @@ const Home = () => {
 
 
                     {/* CARROUSEL PROPAGANDA */}
-                    <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/1.jpg"
-                          className="rounded-box" />
+                    <div className="carousel rounded-md hover:shadow-sm">
+
+                      <div id="slide1" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/1.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/2.jpg"
-                          className="rounded-box" />
+
+                      <div id="slide2" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/2.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/3.jpg"
-                          className="rounded-box" />
+
+                      <div id="slide3" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/3.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/4.jpg"
-                          className="rounded-box" />
+
+                      <div id="slide4" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/4.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/5.jpg"
-                          className="rounded-box" />
+                      <div id="slide5" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/5.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/6.jpg"
-                          className="rounded-box" />
+                      <div id="slide6" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/6.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/7.jpg"
-                          className="rounded-box" />
+                      <div id="slide7" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/7.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/8.jpg"
-                          className="rounded-box" />
+                      <div id="slide8" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/8.jpg"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
-                      <div className="carousel-item w-3/4 h-72">
-                        <Image alt="patrocinado" width={1080} height={1080}
-                          src="/assets/images/9.png"
-                          className="rounded-box" />
+                      <div id="slide9" className="carousel-item relative w-full">
+                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                          <Image alt="imagens-curso" width={1080} height={1080}
+                            src="/assets/images/9.png"
+                            className="w-full" />
+                        </a>
+                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                          <a href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
+                          <a href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                        </div>
                       </div>
                     </div>
 
