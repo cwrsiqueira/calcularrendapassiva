@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* styles/globals.css */
+:root {
+  color-scheme: light;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .not-placeholder-shown:not(:placeholder-shown) + label {

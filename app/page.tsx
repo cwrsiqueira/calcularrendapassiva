@@ -433,9 +433,7 @@ const Home = () => {
                     </div>
 
 
-
                     <div className="divider">Patrocinado</div>
-
 
 
                     {/* CARROUSEL PROPAGANDA */}
@@ -601,6 +599,8 @@ const Home = () => {
                   <CopyToClipboardButton textToCopy={`CALCULAR RENDA PASSIVA\n\nhttps://calcularrendapassiva.com\n\nResultado:\nPrazo: ${periodo} meses\nInvestido: R$ ${valorInvestido}\nRendimentos: R$ ${rendimentosPeriodo}\nAcumulado: R$ ${valorAcumulado}\nTaxa Mensal: ${txPeriodo}%\nRenda Passiva: R$ ${renda}`
                   } />
                 </div>
+
+                <div className="divider">Patrocinado</div>
 
                 <a href="https://go.hotmart.com/P94356975K" target="_blank" className="mt-6">
                   <div className="flex justify-center" style={{ width: '100%' }}>
