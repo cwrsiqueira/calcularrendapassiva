@@ -391,45 +391,47 @@ const Home = () => {
 
 
                   {/* TELA INICIAL */}
-                  <div className="flex flex-col gap-2 justify-center w-full">
+                  <div className="flex flex-col gap-2 items-center w-full">
 
 
 
                     {/* CALCULADORA */}
-                    <div className="flex justify-center flex-col sm:flex-row gap-2">
-                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
-                        <FontAwesomeIcon icon={faCalendar} />
-                        <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
-                      </label>
+                    <div className="flex flex-col gap-2 w-full">
+                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faCalendar} />
+                          <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
+                        </label>
 
-                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
-                        <FontAwesomeIcon icon={faPercent} />
-                        <input className="grow" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
-                      </label>
-                    </div>
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faPercent} />
+                          <input className="grow" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
+                        </label>
+                      </div>
 
-                    <div className="flex justify-center flex-col sm:flex-row gap-2">
-                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <input className="grow" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
-                      </label>
+                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
+                        </label>
 
-                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <input className="grow" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
-                      </label>
-                    </div>
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
+                        </label>
+                      </div>
 
-                    <div className="flex justify-center flex-col sm:flex-row gap-2">
-                      <label className="input input-bordered flex items-center gap-2 w-full bg-white">
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <input className="grow" type="search" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
-                      </label>
+                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
+                        </label>
 
-                      <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
-                        <FontAwesomeIcon icon={faCalculator} />
-                        <input className="" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
-                      </label>
+                        <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
+                          <FontAwesomeIcon icon={faCalculator} />
+                          <input className="" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
+                        </label>
+                      </div>
                     </div>
 
 
@@ -437,111 +439,54 @@ const Home = () => {
 
 
                     {/* CARROUSEL PROPAGANDA */}
-                    <div className="carousel rounded-md hover:shadow-sm">
-
-                      <div id="slide1" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/1.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide9" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide2" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                    <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/1.jpg"
+                          className="rounded-box" />
                       </div>
-
-                      <div id="slide2" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/2.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide1" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide3" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/2.jpg"
+                          className="rounded-box" />
                       </div>
-
-                      <div id="slide3" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/3.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide2" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide4" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/3.jpg"
+                          className="rounded-box" />
                       </div>
-
-                      <div id="slide4" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/4.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide3" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide5" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/4.jpg"
+                          className="rounded-box" />
                       </div>
-                      <div id="slide5" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/5.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide4" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide6" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/5.jpg"
+                          className="rounded-box" />
                       </div>
-                      <div id="slide6" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/6.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide5" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide7" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/6.jpg"
+                          className="rounded-box" />
                       </div>
-                      <div id="slide7" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/7.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide6" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide8" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/7.jpg"
+                          className="rounded-box" />
                       </div>
-                      <div id="slide8" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/8.jpg"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide7" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide9" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/8.jpg"
+                          className="rounded-box" />
                       </div>
-                      <div id="slide9" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/9.png"
-                            className="w-full" />
-                        </a>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide8" className="btn btn-circle opacity-40 hover:opacity-60">❮</a>
-                          <a href="#slide1" className="btn btn-circle opacity-40 hover:opacity-60">❯</a>
-                        </div>
+                      <div className="carousel-item w-3/4 h-72">
+                        <Image alt="patrocinado" width={1080} height={1080}
+                          src="/assets/images/9.png"
+                          className="rounded-box" />
                       </div>
                     </div>
+
 
                     <a href="https://go.hotmart.com/P94356975K" target="_blank">
                       <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO SABER MAIS</button>
