@@ -442,105 +442,105 @@ const Home = () => {
                     <div className="carousel rounded-md hover:shadow-sm">
 
                       <div id="slide1" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/1.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
 
                       <div id="slide2" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/2.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
 
                       <div id="slide3" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/3.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
 
                       <div id="slide4" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/4.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                       <div id="slide5" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/5.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                       <div id="slide6" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/6.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                       <div id="slide7" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/7.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                       <div id="slide8" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/8.jpg"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                       <div id="slide9" className="carousel-item relative w-full">
-                        <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
                           <Image alt="imagens-curso" width={1080} height={1080}
                             src="/assets/images/9.png"
                             className="w-full" />
-                        </a>
+                        </Link>
                         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <a href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❮</a>
-                          <a href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❯</a>
+                          <Link href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
+                          <Link href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
                         </div>
                       </div>
                     </div>
