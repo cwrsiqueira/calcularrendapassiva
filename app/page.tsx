@@ -546,7 +546,7 @@ const Home = () => {
                     </div>
 
                     <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                      <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO MEU ACESSO</button>
+                      <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO SABER MAIS</button>
                     </a>
 
                     <a href="https://go.hotmart.com/P94356975K" target="_blank">
@@ -564,7 +564,7 @@ const Home = () => {
 
 
               {/* TELA RESULTADOS */}
-              <div className="result p-3 justify-between sm:w-[640px]">
+              <div className="result p-3 justify-start sm:w-[640px]">
                 <h3>Resultado</h3>
                 <div className="resultados w-full">
                   <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
@@ -601,6 +601,18 @@ const Home = () => {
                   <CopyToClipboardButton textToCopy={`CALCULAR RENDA PASSIVA\n\nhttps://calcularrendapassiva.com\n\nResultado:\nPrazo: ${periodo} meses\nInvestido: R$ ${valorInvestido}\nRendimentos: R$ ${rendimentosPeriodo}\nAcumulado: R$ ${valorAcumulado}\nTaxa Mensal: ${txPeriodo}%\nRenda Passiva: R$ ${renda}`
                   } />
                 </div>
+
+                <a href="https://go.hotmart.com/P94356975K" target="_blank" className="mt-6">
+                  <div className="flex justify-center" style={{ width: '100%' }}>
+                    <Image alt="propaganda" width={1080} height={1080}
+                      src="/assets/images/capa.jpg"
+                      className="w-full rounded-md hover:shadow-sm" />
+                  </div>
+                </a>
+
+                <a href="https://go.hotmart.com/P94356975K" target="_blank">
+                  <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO SABER MAIS</button>
+                </a>
               </div>
 
             </div>
