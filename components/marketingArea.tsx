@@ -35,10 +35,10 @@ const MarketingArea = () => {
                 <div>
                     <div className="text-center sm:w-80 p-4 mt-4 font-semibold">Considere ser um patrocinador com qualquer valor por mês e ajude a manter a Calculadora de Renda Passiva sempre GRATUITA!</div>
 
-                    <button className="border border-slate-600 p-4 rounded-md bg-slate-900 text-white text-2xl font-semibold">
+                    <button className="border-2 border-slate-400 py-6 px-8 rounded-xl bg-slate-900 text-white text-md font-semibold max-w-[300px]">
                         <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=2c9380848eed4752018eedb8ca7f0039" target="_blank" className='flex items-center'>
                             <FontAwesomeIcon icon={faHeart} beat style={{ color: "#b40000", }} width={29} />
-                            &nbsp; Seja um Patrocinador</a>
+                            &nbsp; SEJA UM PATROCINADOR</a>
                     </button>
                 </div>
 
