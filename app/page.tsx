@@ -404,31 +404,31 @@ const Home = () => {
                       <div className="flex justify-between flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faCalendar} />
-                          <input className="grow" type="number" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
+                          <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
                         </label>
 
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faPercent} />
-                          <input className="grow" type="number" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
+                          <input className="grow" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
                         </label>
                       </div>
 
                       <div className="flex justify-center flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="number" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
+                          <input className="grow" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
                         </label>
 
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="number" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
+                          <input className="grow" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
                         </label>
                       </div>
 
                       <div className="flex justify-center flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="number" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
+                          <input className="grow" type="search" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
                         </label>
 
                         <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
