@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /** ICONS */
-import { faCalculator, faCalendar, faDollarSign, faPercent } from "@fortawesome/free-solid-svg-icons";
+import { faCalculator, faCalendar, faDollarSign, faEraser, faPercent } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 const Home = () => {
@@ -363,6 +363,14 @@ const Home = () => {
     );
   };
 
+  const handleCResetRendaPassiva = () => {
+    setPeriodo('');
+    setTxPeriodo('');
+    setVlrIni('');
+    setVlrRecorr('');
+    setRenda('');
+  }
+
   return (
     <div className="h-screen bg-white">
       <div className="flex flex-col items-center max-[202px]:hidden bg-white">
@@ -388,7 +396,7 @@ const Home = () => {
             <h1 className="uppercase font-semibold text-slate-500 text-2xl">Calculadora de Renda Passiva</h1>
             <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''} roboto-mono-comment`}>Deixe em branco o campo que você quer calcular</small>
             <small className={`text-xs sm:text-base ${side === 'restart' ? '' : 'hidden'}`}>Resultado baseado nas informações fornecidas</small>
-            <div className="flip-card-inner flex justify-center h-96 sm:h-[450px] bg-white">
+            <div className="flip-card-inner flex justify-center h-[420px] sm:h-[450px] bg-white">
               <div className="fields sm:w-[640px] flex justify-center items-center">
                 <div className="w-full">
 
@@ -404,37 +412,43 @@ const Home = () => {
                       <div className="flex justify-between flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faCalendar} />
-                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
+                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} tabIndex={1} />
                         </label>
 
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faPercent} />
-                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
+                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} tabIndex={2} />
                         </label>
                       </div>
 
                       <div className="flex justify-center flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
+                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} tabIndex={3} />
                         </label>
 
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
+                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} tabIndex={4} />
                         </label>
                       </div>
 
                       <div className="flex justify-center flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faDollarSign} />
-                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
+                          <input className="grow" type="search" pattern="[0-9.,]*" inputMode="decimal" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} tabIndex={5} />
                         </label>
 
-                        <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
-                          <FontAwesomeIcon icon={faCalculator} />
-                          <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcRendaPassiva(e)} value="Calcular" />
-                        </label>
+                        <div className="flex gap-3">
+                          <label title="Calcular" className="input flex items-center justify-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
+                            <FontAwesomeIcon size="xl" icon={faCalculator} />
+                            <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcRendaPassiva(e)} value="" />
+                          </label>
+                          <label title="Limpar" className="input flex items-center justify-center gap-2 w-full bg-red-800 text-white hover:bg-red-700 cursor-pointer">
+                            <FontAwesomeIcon size="xl" icon={faEraser} />
+                            <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCResetRendaPassiva()} value="" />
+                          </label>
+                        </div>
                       </div>
                     </div>
 
@@ -556,9 +570,12 @@ const Home = () => {
 
 
               {/* TELA RESULTADOS */}
-              {/* <div className="result p-3 justify-start sm:w-[640px]">
+              <div className="result p-3 justify-start sm:w-[640px]">
                 <h3>Resultado</h3>
-                <div className="resultados w-full">
+
+                <h1>Em breve...</h1>
+
+                {/* <div className="resultados w-full">
                   <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
                     <label className="text-sm sm:text-xl" htmlFor="tempoAplicado">Tempo aplicado:</label>
                     <div className="value text-sm sm:text-xl"> {periodo} meses</div>
@@ -592,9 +609,9 @@ const Home = () => {
                   <button className="w-full cursor-pointer uppercase my-2 p-2 bg-green-700 rounded text-white hover:bg-green-600 font-medium" onClick={() => setSide('calcular')} id="restart">Refazer cálculo</button>
                   <CopyToClipboardButton textToCopy={`CALCULAR RENDA PASSIVA\n\nhttps://calcularrendapassiva.com\n\nResultado:\nPrazo: ${periodo} meses\nInvestido: R$ ${valorInvestido}\nRendimentos: R$ ${rendimentosPeriodo}\nAcumulado: R$ ${valorAcumulado}\nTaxa Mensal: ${txPeriodo}%\nRenda Passiva: R$ ${renda}`
                   } />
-                </div>
+                </div> */}
 
-              </div> */}
+              </div>
 
             </div>
           </div>
