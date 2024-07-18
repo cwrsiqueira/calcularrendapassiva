@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import Image from 'next/image'
 import { Menu } from '@/types/menu';
 
 export default function Navbar() {
@@ -12,11 +13,19 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="relative flex w-full flex-nowrap items-center justify-between bg-slate-200 py-2 text-neutral-500 shadow-md hover:text-neutral-700 focus:text-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
+    <nav className="relative flex w-full flex-nowrap items-center justify-between bg-slate-600 py-2 text-neutral-500 shadow-md hover:text-neutral-700 focus:text-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
       <div className="flex w-full flex-wrap items-center justify-between px-3">
-        <div className="ms-2">
-          <a className="text-xl text-black " href={'/'}>Calcular Renda Passiva</a>
-          <p className='hidden md:flex'>Calcula tempo, valor inicial, valor recorrente, taxa mensal, renda passiva e o valor acumulado</p>
+        <div className="flex">
+          <Image
+            src="/logo.png"
+            width={50}
+            height={50}
+            alt="Logomarca"
+          />
+          <div>
+            <a className="text-xl text-white roboto-mono-title" href={'/'}>CRP</a>
+            <p className='flex roboto-mono-subtitle text-slate-100 text-xs'>Calculadoras financeiras</p>
+          </div>
         </div>
         <button
           className="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"

@@ -19,6 +19,7 @@ const Home = () => {
   const [valorAcumulado, setValorAcumulado] = useState('')
   const [rendimentosPeriodo, setRendimentosPeriodo] = useState('')
   const [side, setSide] = useState('calcular')
+  const [sideCalcOutro, setSideCalcOutro] = useState('calcularOutro')
 
   const handleMaxLength = (event: ChangeEvent<HTMLInputElement>) => {
     let newValue = event.target.value;
@@ -104,7 +105,7 @@ const Home = () => {
     setRenda('');
   }
 
-  const handleCalc = (e: MouseEvent<HTMLInputElement>) => {
+  const handleCalcRendaPassiva = (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     let camposPreenchidos = [
@@ -335,6 +336,10 @@ const Home = () => {
     setRenda(maskMoney((acumulado * (crpTxPeriodo / 100)).toFixed(2)));
   }
 
+  const handleCalcOutro = (e: MouseEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  }
+
   // Definindo a tipagem para as props do componente
   type CopyToClipboardButtonProps = {
     textToCopy: string;
@@ -358,35 +363,34 @@ const Home = () => {
     );
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const activeSlide = document.querySelector('.carousel-item.active');
-  //     let nextSlide = activeSlide?.nextElementSibling;
-  //     if (!nextSlide) {
-  //       nextSlide = document.querySelector('.carousel-item:first-child');
-  //     }
-  //     activeSlide?.classList.remove('active');
-  //     nextSlide?.classList.add('active');
-  //   }, 3000); // intervalo de 3 segundos
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
-
   return (
     <div className="h-screen bg-white">
-      <div className="max-[202px]:hidden bg-white">
+      <div className="flex flex-col items-center max-[202px]:hidden bg-white">
 
         <Navbar />
 
+        {/* BANNER PATROCINADO */}
+        <div className="" style={{ maxWidth: "600px" }}>
+          <div className="divider">Patrocinado</div>
+          <a href="https://go.hotmart.com/P94356975K" target="_blank">
+            <Image
+              src="/assets/images/banner_criptoblinders.png"
+              width={6912}
+              height={3456}
+              alt="Banner Criptoblinders"
+            />
+          </a>
+        </div>
+
+        {/* CALCULADORA DE RENDA PASSIVA / CÁLCULO E RESULTADOS */}
         <div id="flex flex-col justify-center items-center bg-white">
           <div className={`flip-card bg-white text-center mt-3 p-2 ${side === 'restart' ? 'show-result' : ''}`}>
-            <h1 className="uppercase font-semibold text-slate-500 sm:text-lg">Calculadora</h1>
-            <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''}`}>Deixe em branco o campo que você quer calcular</small>
+            <h1 className="uppercase font-semibold text-slate-500 text-2xl">Calculadora de Renda Passiva</h1>
+            <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''} roboto-mono-comment`}>Deixe em branco o campo que você quer calcular</small>
             <small className={`text-xs sm:text-base ${side === 'restart' ? '' : 'hidden'}`}>Resultado baseado nas informações fornecidas</small>
-            <div className="flip-card-inner flex justify-center h-[1620px] sm:h-[2090px] bg-white">
-              <div className="fields sm:w-[640px] flex justify-center">
-                <div className="flex flex-col justify-between w-full h-full">
+            <div className="flip-card-inner flex justify-center h-96 sm:h-[450px] bg-white">
+              <div className="fields sm:w-[640px] flex justify-center items-center">
+                <div className="w-full">
 
 
 
@@ -397,7 +401,7 @@ const Home = () => {
 
                     {/* CALCULADORA */}
                     <div className="flex flex-col gap-2 w-full">
-                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                      <div className="flex justify-between flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faCalendar} />
                           <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
@@ -429,134 +433,10 @@ const Home = () => {
 
                         <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
                           <FontAwesomeIcon icon={faCalculator} />
-                          <input className="" type="submit" onClick={(e) => handleCalc(e)} value="Calcular" />
+                          <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcRendaPassiva(e)} value="Calcular" />
                         </label>
                       </div>
                     </div>
-
-
-                    <div className="divider">Patrocinado</div>
-
-
-                    {/* CARROUSEL PROPAGANDA */}
-                    <div className="carousel rounded-md hover:shadow-sm">
-
-                      <div id="slide1" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/1.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-
-                      <div id="slide2" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/2.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-
-                      <div id="slide3" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/3.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide2" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-
-                      <div id="slide4" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/4.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide3" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                      <div id="slide5" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/5.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide4" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                      <div id="slide6" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/6.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide5" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                      <div id="slide7" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/7.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide6" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                      <div id="slide8" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/8.jpg"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide7" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide9" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                      <div id="slide9" className="carousel-item relative w-full">
-                        <Link href="https://go.hotmart.com/P94356975K" target="_blank">
-                          <Image alt="imagens-curso" width={1080} height={1080}
-                            src="/assets/images/9.png"
-                            className="w-full" />
-                        </Link>
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                          <Link href="#slide8" className="btn btn-circle opacity-60 hover:opacity-80">❮</Link>
-                          <Link href="#slide1" className="btn btn-circle opacity-60 hover:opacity-80">❯</Link>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                      <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO SABER MAIS</button>
-                    </a>
-
-                    <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                      <div className="flex justify-center" style={{ width: '100%' }}>
-                        <Image alt="propaganda" width={1080} height={1080}
-                          src="/assets/images/capa.jpg"
-                          className="w-full rounded-md hover:shadow-sm" />
-                      </div>
-                    </a>
 
                   </div>
                 </div>
@@ -603,19 +483,114 @@ const Home = () => {
                   } />
                 </div>
 
-                <div className="divider">Patrocinado</div>
+              </div>
 
-                <a href="https://go.hotmart.com/P94356975K" target="_blank" className="mt-6">
-                  <div className="flex justify-center" style={{ width: '100%' }}>
-                    <Image alt="propaganda" width={1080} height={1080}
-                      src="/assets/images/capa.jpg"
-                      className="w-full rounded-md hover:shadow-sm" />
+            </div>
+          </div>
+
+        </div>
+
+        {/* CALCULADORA DE ... / CÁLCULO E RESULTADOS */}
+        <div id="flex flex-col justify-center items-center bg-white">
+          <div className={`flip-card bg-white text-center mt-3 p-2 ${side === 'restart' ? 'show-result' : ''}`}>
+            <h1 className="uppercase font-semibold text-slate-500 text-2xl">Calculadora de Renda Passiva</h1>
+            <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''} roboto-mono-comment`}>Deixe em branco o campo que você quer calcular</small>
+            <small className={`text-xs sm:text-base ${side === 'restart' ? '' : 'hidden'}`}>Resultado baseado nas informações fornecidas</small>
+            <div className="flip-card-inner flex justify-center h-96 sm:h-[450px] bg-white">
+              <div className="fields sm:w-[640px] flex justify-center items-center">
+                <div className="w-full">
+
+
+
+                  {/* TELA INICIAL */}
+                  <div className="flex flex-col gap-2 items-center w-full">
+
+
+
+                    {/* CALCULADORA */}
+                    <div className="flex flex-col gap-2 w-full">
+                      <div className="flex justify-between flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faCalendar} />
+                          <input className="grow" type="search" name="periodo" id="periodo" value={periodo} onChange={(e) => setPeriodo(handleMaxLength(e))} placeholder="Meses" maxLength={3} />
+                        </label>
+
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faPercent} />
+                          <input className="grow" type="search" name="txPeriodo" id="txPeriodo" value={txPeriodo} onChange={(e) => setTxPeriodo(maskMoney(handleMaxLength(e)))} placeholder="Taxa Mensal" maxLength={5} />
+                        </label>
+                      </div>
+
+                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="vlrIni" id="vlrIni" value={vlrIni} onChange={(e) => setVlrIni(maskMoney(handleMaxLength(e)))} placeholder="Valor Inicial" maxLength={14} />
+                        </label>
+
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="vlrRecorr" id="vlrRecorr" value={vlrRecorr} onChange={(e) => setVlrRecorr(maskMoney(handleMaxLength(e)))} placeholder="Valor Recorrente" maxLength={14} />
+                        </label>
+                      </div>
+
+                      <div className="flex justify-center flex-col sm:flex-row gap-2">
+                        <label className="input input-bordered flex items-center gap-2 w-full bg-white">
+                          <FontAwesomeIcon icon={faDollarSign} />
+                          <input className="grow" type="search" name="renda" id="renda" value={renda} onChange={(e) => setRenda(maskMoney(handleMaxLength(e)))} placeholder="Renda" maxLength={14} />
+                        </label>
+
+                        <label className="input flex items-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
+                          <FontAwesomeIcon icon={faCalculator} />
+                          <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcOutro(e)} value="Calcular" />
+                        </label>
+                      </div>
+                    </div>
+
                   </div>
-                </a>
+                </div>
+              </div>
 
-                <a href="https://go.hotmart.com/P94356975K" target="_blank">
-                  <button className="my-6 border border-[#FF4141] bg-[#FF4141] hover:bg-[#ff2d2d] text-white py-4 px-8 rounded-lg text-xl font-bold" style={{ fontFamily: 'sans-serif' }}>QUERO SABER MAIS</button>
-                </a>
+
+
+              {/* TELA RESULTADOS */}
+              <div className="result p-3 justify-start sm:w-[640px]">
+                <h3>Resultado</h3>
+                <div className="resultados w-full">
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="tempoAplicado">Tempo aplicado:</label>
+                    <div className="value text-sm sm:text-xl"> {periodo} meses</div>
+                  </div>
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="vlrInvestidoTotal">Investido:</label>
+                    <div className="value text-sm sm:text-xl"> R$ {valorInvestido}</div>
+                  </div>
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="vlrRendimento">Rendimentos:</label>
+                    <div className="value text-sm sm:text-xl"> R$ {rendimentosPeriodo}</div>
+                  </div>
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="vlrAcumulado">Acumulado:</label>
+                    <div className="value text-sm sm:text-xl"> R$ {valorAcumulado}</div>
+                  </div>
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="txPeriodo">Taxa Mensal:</label>
+                    <div className="value text-sm sm:text-xl"> {txPeriodo}%</div>
+                  </div>
+                  <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
+                    <label className="text-sm sm:text-xl" htmlFor="vlrRendaPassiva">Renda passiva:</label>
+                    <div className="value text-sm sm:text-xl"> R$ {renda}</div>
+                  </div>
+                </div>
+                <div className="text-justify text-sm sm:text-base">
+                  IMPORTANTE: Lembre-se de que esses cálculos são baseados em projeções e resultados reais podem variar de acordo com o comportamento do mercado financeiro.
+                </div>
+
+                <div>
+                  <button className="w-full cursor-pointer uppercase my-2 p-2 bg-green-700 rounded text-white hover:bg-green-600 font-medium" onClick={() => setSide('calcular')} id="restart">Refazer cálculo</button>
+                  <CopyToClipboardButton textToCopy={`CALCULAR RENDA PASSIVA\n\nhttps://calcularrendapassiva.com\n\nResultado:\nPrazo: ${periodo} meses\nInvestido: R$ ${valorInvestido}\nRendimentos: R$ ${rendimentosPeriodo}\nAcumulado: R$ ${valorAcumulado}\nTaxa Mensal: ${txPeriodo}%\nRenda Passiva: R$ ${renda}`
+                  } />
+                </div>
+
               </div>
 
             </div>
