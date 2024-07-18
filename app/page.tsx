@@ -440,11 +440,11 @@ const Home = () => {
                         </label>
 
                         <div className="flex gap-3">
-                          <label title="Calcular" className="input flex items-center justify-center gap-2 w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
+                          <label title="Calcular" className="input flex items-center justify-center w-full bg-sky-800 text-white hover:bg-sky-700 cursor-pointer">
                             <FontAwesomeIcon size="xl" icon={faCalculator} />
                             <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcRendaPassiva(e)} value="" />
                           </label>
-                          <label title="Limpar" className="input flex items-center justify-center gap-2 w-full bg-red-800 text-white hover:bg-red-700 cursor-pointer">
+                          <label title="Limpar" className="input flex items-center justify-center w-full bg-red-800 text-white hover:bg-red-700 cursor-pointer">
                             <FontAwesomeIcon size="xl" icon={faEraser} />
                             <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCResetRendaPassiva()} value="" />
                           </label>
