@@ -493,8 +493,8 @@ const Home = () => {
         {/* CALCULADORA DE ... / CÁLCULO E RESULTADOS */}
         <div id="flex flex-col justify-center items-center bg-white">
           <div className={`flip-card bg-white text-center mt-3 p-2 ${side === 'restart' ? 'show-result' : ''}`}>
-            <h1 className="uppercase font-semibold text-slate-500 text-2xl">Calculadora de Renda Passiva</h1>
-            <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''} roboto-mono-comment`}>Deixe em branco o campo que você quer calcular</small>
+            <h1 className="uppercase font-semibold text-slate-500 text-2xl">Conversores</h1>
+            <small className={`text-xs sm:text-base ${side === 'restart' ? 'hidden' : ''} roboto-mono-comment`}>Converte meses e anos, juros mensais e juros anuais, e outros</small>
             <small className={`text-xs sm:text-base ${side === 'restart' ? '' : 'hidden'}`}>Resultado baseado nas informações fornecidas</small>
             <div className="flip-card-inner flex justify-center h-96 sm:h-[450px] bg-white">
               <div className="fields sm:w-[640px] flex justify-center items-center">
@@ -506,9 +506,12 @@ const Home = () => {
                   <div className="flex flex-col gap-2 items-center w-full">
 
 
+                    <h1>Em breve...</h1>
+
+
 
                     {/* CALCULADORA */}
-                    <div className="flex flex-col gap-2 w-full">
+                    {/* <div className="flex flex-col gap-2 w-full">
                       <div className="flex justify-between flex-col sm:flex-row gap-2">
                         <label className="input input-bordered flex items-center gap-2 w-full bg-white">
                           <FontAwesomeIcon icon={faCalendar} />
@@ -544,7 +547,7 @@ const Home = () => {
                           <input className="roboto-mono-subtitle cursor-pointer" type="submit" onClick={(e) => handleCalcOutro(e)} value="Calcular" />
                         </label>
                       </div>
-                    </div>
+                    </div> */}
 
                   </div>
                 </div>
@@ -553,7 +556,7 @@ const Home = () => {
 
 
               {/* TELA RESULTADOS */}
-              <div className="result p-3 justify-start sm:w-[640px]">
+              {/* <div className="result p-3 justify-start sm:w-[640px]">
                 <h3>Resultado</h3>
                 <div className="resultados w-full">
                   <div className="flex justify-between w-full border-b-2 border-gray-400 my-1">
@@ -591,7 +594,7 @@ const Home = () => {
                   } />
                 </div>
 
-              </div>
+              </div> */}
 
             </div>
           </div>
