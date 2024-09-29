@@ -1,0 +1,168 @@
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  height: 100%; /* Garantir que o body ocupe toda a altura */
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que o conteúdo ocupe a tela inteira */
+}
+
+.content {
+  flex: 1; /* Faz com que o conteúdo cresça e empurre o rodapé para baixo */
+}
+
+.title-section {
+  position: relative;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.explosion-badge {
+  position: absolute;
+  top: -50px;
+  left: 0px;
+  width: 150px;
+  height: 150px;
+  background-image: url("novosistema.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  transform: rotate(-25deg); /* Rotação aplicada diretamente */
+  animation: explode 2s ease-in-out 3; /* Animação incluída */
+  opacity: 0.5; /* Meio transparente ao final */
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1) rotate(-25deg);
+    opacity: 1; /* Meio transparente ao final */
+    z-index: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(-25deg);
+    opacity: 1; /* Meio transparente ao final */
+    z-index: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-25deg);
+    opacity: 1; /* Meio transparente ao final */
+    z-index: 1;
+  }
+}
+
+.container {
+  max-width: 600px;
+  margin-top: 50px;
+}
+
+.form-floating label {
+  transition: all 0.2s;
+  color: #6c757d;
+}
+
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+  font-size: 0.85rem;
+  transform: translateY(-150%);
+  opacity: 1;
+}
+
+.btn-lg {
+  width: 100%;
+}
+
+.btn-cafe {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-playstore {
+  background-color: #000;
+  color: #fff;
+}
+
+.flip-card {
+  perspective: 1000px;
+  margin-bottom: 50px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  min-height: 400px;
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.flip-card-back {
+  z-index: 1;
+  transform: rotateY(180deg);
+  background-color: #ffffff6c;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 408px;
+}
+
+.flip-card-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.result-section {
+  text-align: start;
+  margin-top: 20px;
+}
+
+.result-section p {
+  font-size: 1.2rem;
+  margin: 2px 0;
+}
+
+.result-section .btn-area {
+  margin: 10px 0;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 20px 0;
+  background-color: #212529;
+  color: white;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
+
+footer a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+footer .social-icons a:hover {
+  transform: scale(1.1);
+  color: #ffd900aa;
+}

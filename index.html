@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Renda Passiva</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="title-section text-center">
+                    <h1>Calcular de Renda Passiva</h1>
+                    <div class="explosion-badge"></div>
+                    <p>Calcule sua renda passiva ou outro dado que falta para alcançar sua meta. Deixe o campo que
+                        deseja
+                        calcular em branco.</p>
+                    <a href="mailto:cwrsiqueira@hotmail.com?subject=Críticas%20e%20Sugestões"
+                        class="btn btn-primary btn-sm mb-3"><i class="fas fa-envelope"></i> Críticas
+                        e Sugestões</a>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Formulário (frente) -->
+                        <div class="flip-card-front">
+                            <form id="rendaForm">
+                                <div class="form-floating mb-3">
+                                    <input type="search" class="form-control" id="periodo" placeholder="Prazo (meses)"
+                                        maxlength="3">
+                                    <label for="periodo">Prazo (meses)</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" class="form-control percent" id="txPeriodo"
+                                        placeholder="Taxa Mensal (%)" maxlength="5">
+                                    <label for="txPeriodo">Taxa Mensal (%)</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" class="form-control value" id="valorInicial"
+                                        placeholder="Valor Inicial">
+                                    <label for="valorInicial">Valor Inicial</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" class="form-control value" id="valorRecorrente"
+                                        placeholder="Valor Recorrente Mensal">
+                                    <label for="valorRecorrente">Valor Recorrente Mensal</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" class="form-control value" id="rendaPassiva"
+                                        placeholder="Renda Passiva">
+                                    <label for="rendaPassiva">Renda Passiva</label>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-success" id="calcularBtn">
+                                        <i class="fas fa-calculator"></i> Calcular
+                                    </button>
+                                    <button type="reset" class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Limpar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Resultados (verso) -->
+                        <div class="flip-card-back">
+                            <div class="result-section">
+                                <h3>Resultados</h3>
+                                <p id="resultPrazo"></p>
+                                <p id="resultValorInicial"></p>
+                                <p id="resultValorRecorrente"></p>
+                                <p id="resultValorInvestido"></p>
+                                <p id="resultRendimentos"></p>
+                                <p id="resultValorAcumulado"></p>
+                                <p id="resultTaxa"></p>
+                                <p id="resultRendaPassiva"></p>
+                                <hr>
+                                <div class="btn-area">
+                                    <button type="button" class="btn btn-primary" id="voltarBtn">
+                                        <i class="fas fa-arrow-left"></i> Voltar
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="copiarBtn">
+                                        <i class="fas fa-copy"></i> Copiar Resultados
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões extras -->
+                <div class="row gap-3">
+                    <div class="col-sm">
+                        <a href="https://link.mercadopago.com.br/carlosdev" target="_blank"
+                            class="btn btn-lg btn-cafe d-block">
+                            <div class="row align-items-center">
+                                <div class="col-2"><i class="fas fa-coffee" style="font-size: 28px;"></i></div>
+                                <div class="col-10">Me pague um cafezinho</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm">
+                        <a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share"
+                            target="_blank" class="btn btn-lg btn-playstore d-block">
+                            <div class="row align-items-center">
+                                <div class="col-2"><i class="fa-brands fa-google-play" style="font-size: 28px;"></i>
+                                </div>
+                                <div class="col-10">Baixe o App na PlayStore</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="information-text">
+
+
+                    <h4>Como Utilizar a Calculadora de Renda Passiva</h4>
+                    <p>A <strong>Calculadora de Renda Passiva</strong> foi desenvolvida para ajudar você a estimar
+                        quanto tempo
+                        falta
+                        para atingir sua renda passiva ideal e, ao mesmo tempo, simular diferentes cenários de
+                        investimento. A
+                        calculadora é simples de usar e permite que você ajuste facilmente os valores de acordo com suas
+                        metas
+                        financeiras.</p>
+                    <p>Você pode realizar cálculos com base em <strong>cinco parâmetros principais</strong>, que
+                        correspondem a
+                        campos
+                        no formulário:</p>
+
+                    <ul>
+                        <li><strong>Prazo (meses)</strong>: Esse campo refere-se ao período de tempo (em meses) que você
+                            pretende
+                            manter
+                            seus investimentos. Caso deseje descobrir quantos meses são necessários para atingir uma
+                            meta de
+                            renda
+                            passiva, basta deixar este campo vazio e preencher os outros.</li>
+                        <li><strong>Taxa Mensal (%)</strong>: Aqui, você insere a taxa de rendimento mensal que espera
+                            obter com
+                            seus
+                            investimentos, em percentual. A calculadora utilizará essa taxa para calcular o crescimento
+                            do seu
+                            montante
+                            ao longo do tempo. Caso você não saiba qual a taxa de retorno necessária para atingir uma
+                            determinada
+                            renda,
+                            basta deixar este campo em branco e preencher os demais.</li>
+                        <li><strong>Valor Inicial</strong>: Esse é o valor com o qual você iniciará o investimento. Se
+                            você quer
+                            saber
+                            qual valor inicial seria necessário para atingir sua meta de renda passiva, deixe este campo
+                            em
+                            branco e
+                            preencha os outros.</li>
+                        <li><strong>Valor Recorrente Mensal</strong>: Refere-se ao valor que você pretende investir
+                            mensalmente,
+                            além do
+                            valor inicial. Caso você queira saber qual seria o valor necessário para investir
+                            mensalmente para
+                            atingir
+                            sua meta de renda passiva, deixe este campo em branco.</li>
+                        <li><strong>Renda Passiva</strong>: O valor desejado de renda passiva mensal que você pretende
+                            alcançar.
+                            Se
+                            quiser saber qual renda passiva seu investimento produzirá, preencha os outros campos e
+                            deixe este
+                            em
+                            branco.</li>
+                    </ul>
+
+                    <p>A calculadora realiza todos os cálculos com base nos dados fornecidos. Por exemplo, ao inserir o
+                        <strong>prazo</strong>, <strong>taxa mensal</strong>, <strong>valor inicial</strong> e
+                        <strong>valor
+                            recorrente</strong>, a ferramenta calculará qual será a <strong>renda passiva</strong>
+                        gerada ao
+                        final
+                        do
+                        período. Você também pode fazer o inverso: ao informar a renda passiva desejada, a calculadora
+                        pode te
+                        ajudar a
+                        descobrir quanto tempo precisará investir, qual valor inicial deve aplicar, ou qual taxa de
+                        rendimento
+                        precisa
+                        buscar.
+                    </p>
+
+                    <p>Além disso, a <strong>Calculadora de Renda Passiva</strong> já calcula automaticamente o
+                        <strong>montante
+                            final</strong> e os <strong>rendimentos acumulados</strong> ao longo do tempo,
+                        independentemente de
+                        qual
+                        campo você tenha deixado em branco. Esses resultados mostram o total que você terá ao final do
+                        período
+                        de
+                        investimento e quanto desse valor é proveniente de rendimentos e não do capital investido.
+                    </p>
+
+                    <h2>O que é Renda Passiva?</h2>
+                    <p>A <strong>renda passiva</strong> é o dinheiro que você recebe regularmente sem a necessidade de
+                        um
+                        trabalho
+                        ativo
+                        constante. Ou seja, ao contrário do seu salário ou renda proveniente de trabalho direto, a renda
+                        passiva
+                        é
+                        obtida a partir de investimentos ou ativos que geram retorno, como imóveis alugados, ações,
+                        fundos de
+                        investimento, entre outros.</p>
+                    <p>Esse conceito é fundamental para quem deseja alcançar a independência financeira, já que o
+                        objetivo da
+                        renda
+                        passiva é permitir que você continue recebendo dinheiro mesmo sem a necessidade de trabalhar
+                        ativamente.
+                        Com
+                        uma
+                        renda passiva suficiente, você pode cobrir todas as suas despesas de forma contínua, utilizando
+                        o
+                        retorno
+                        dos
+                        seus investimentos.</p>
+                    <p>Aqui estão algumas das formas mais comuns de gerar renda passiva:</p>
+
+                    <ul>
+                        <li><strong>Investimentos em ações</strong>: Ao investir em empresas que pagam dividendos, você
+                            recebe
+                            uma
+                            parte
+                            dos lucros da empresa regularmente, sem precisar vender suas ações.</li>
+                        <li><strong>Fundos imobiliários</strong>: Fundos que investem em imóveis e distribuem parte dos
+                            lucros
+                            de
+                            aluguéis ou vendas para os cotistas.</li>
+                        <li><strong>Juros sobre investimentos</strong>: Aplicações como CDBs, títulos públicos, e outros
+                            tipos
+                            de
+                            renda
+                            fixa geram uma renda passiva na forma de juros, depositados periodicamente em sua conta.
+                        </li>
+                        <li><strong>Imóveis alugados</strong>: Se você possui imóveis alugados, o valor do aluguel
+                            mensal é
+                            considerado
+                            uma forma de renda passiva.</li>
+                    </ul>
+
+                    <p>A <strong>Calculadora de Renda Passiva</strong> permite que você simule o quanto seu investimento
+                        pode
+                        gerar
+                        mensalmente com base em diferentes condições de mercado. Assim, você pode planejar melhor sua
+                        jornada
+                        rumo à
+                        independência financeira, ajustando seus investimentos para atingir a renda passiva que cobrirá
+                        suas
+                        despesas e
+                        proporcionará tranquilidade financeira no futuro.</p>
+                    <p>Lembre-se: a chave para alcançar a liberdade financeira por meio da renda passiva é o
+                        planejamento e a
+                        consistência. Comece agora, explore as diferentes simulações e descubra quanto tempo falta para
+                        atingir
+                        suas
+                        metas financeiras!</p>
+                    <p><strong>IMPORTANTE: </strong>Os cálculos realizados por esta calculadora são baseados nas
+                        informações
+                        fornecidas por você e são apenas estimativas. As taxas de rendimento e valores que você insere
+                        não
+                        refletem necessariamente as condições reais do mercado financeiro. Mesmo que fossem baseados em
+                        índices
+                        reais, os resultados dependeriam das variações e flutuações constantes do mercado financeiro.
+                        Portanto,
+                        a calculadora não garante que você atingirá a renda passiva estimada. Lembre-se de que o
+                        desempenho de
+                        qualquer investimento pode mudar devido a fatores externos e dinâmicas do mercado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Todos os direitos reservados.<br>Conheça nossos projetos nas nossas redes sociais:</p>
+            <div class="social-icons d-flex gap-3 justify-content-center">
+                <a target="_blank" href="https://www.youtube.com/@carlosjornadadev"><i class="fab fa-youtube"
+                        style="font-size: 26px;"></i></a>
+                <a target="_blank" href="https://github.com/cwrsiqueira"><i class="fab fa-github"
+                        style="font-size: 26px;"></i></a>
+                <a target="_blank" href="https://www.linkedin.com/in/carloswagner1975/"><i class="fab fa-linkedin"
+                        style="font-size: 26px;"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="jquery.mask.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
