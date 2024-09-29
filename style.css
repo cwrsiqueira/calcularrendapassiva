@@ -34,6 +34,20 @@ body {
   }
 }
 
+.logo {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  width: 80px;
+  height: 80px;
+  background-image: url("favicon.ico");
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: rotate(20deg);
+  z-index: -1;
+  opacity: 0.8;
+}
+
 .explosion-badge {
   position: absolute;
   top: -50px;
