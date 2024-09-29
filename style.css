@@ -22,6 +22,19 @@ body {
   margin-top: 50px;
 }
 
+.title {
+  font-size: 2rem;
+  color: #eee;
+  -webkit-text-stroke: 1px #555; /* Borda preta */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+}
+
+@media (min-width: 576px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
 .explosion-badge {
   position: absolute;
   top: -50px;
