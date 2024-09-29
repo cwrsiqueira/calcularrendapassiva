@@ -24,8 +24,8 @@ body {
 
 .title {
   font-size: 2rem;
-  color: #eee;
-  -webkit-text-stroke: 1px #555; /* Borda preta */
+  color: #000;
+  -webkit-text-stroke: 1px #999; /* Borda preta */
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
 }
 
