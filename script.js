@@ -171,99 +171,121 @@ function calcularRendaPassiva() {
 
   anosEMeses = calcularAnosEMeses(prazo);
 
-  // Exibir os resultados
-  document.getElementById("resultPrazo").textContent = `Prazo: ${
+  sessionStorage.setItem(
+    "prazo",
     prazo ? prazo + " meses (ou " + anosEMeses + ")" : "N/A"
-  }`;
-  document.getElementById(
-    "resultValorInicial"
-  ).textContent = `Valor Inicial: $ ${
+  );
+  sessionStorage.setItem(
+    "valorInicial",
     inicial ? formatarValor(inicial, false) : "N/A"
-  }`;
-  document.getElementById(
-    "resultValorRecorrente"
-  ).textContent = `Valor Recorrente: $ ${
+  );
+  sessionStorage.setItem(
+    "valorRecorrente",
     recorrente ? formatarValor(recorrente, false) : "N/A"
-  }`;
-  document.getElementById(
-    "resultValorInvestido"
-  ).textContent = `Valor Investido: $ ${
+  );
+  sessionStorage.setItem(
+    "valorInvestido",
     investido ? formatarValor(investido, false) : "N/A"
-  }`;
-  document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
+  );
+  sessionStorage.setItem(
+    "rendimentos",
     rendimentos ? formatarValor(rendimentos, false) : "N/A"
-  }`;
-  document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
-    taxa ? formatarValor(taxa, false) : "N/A"
-  }%`;
-  document.getElementById(
-    "resultRendaPassiva"
-  ).textContent = `Renda Passiva: $ ${
+  );
+  sessionStorage.setItem("taxa", taxa ? formatarValor(taxa, false) : "N/A");
+  sessionStorage.setItem(
+    "rendaPassiva",
     renda ? formatarValor(renda, false) : "N/A"
-  }`;
-  document.getElementById(
-    "resultValorAcumulado"
-  ).textContent = `Valor Acumulado: $ ${
+  );
+  sessionStorage.setItem(
+    "valorAcumulado",
     acumulado ? formatarValor(acumulado, false) : "N/A"
-  }`;
+  );
 
-  // Girar o cartão para mostrar o resultado
-  document.querySelector(".flip-card").classList.add("flip-card-flipped");
-}
-
-// Função para voltar ao formulário
-function voltarFormulario() {
-  document.querySelector(".flip-card").classList.remove("flip-card-flipped");
+  window.location.href = "results.html";
 }
 
 // Adicionar eventos aos botões
-document
-  .getElementById("calcularBtn")
-  .addEventListener("click", calcularRendaPassiva);
-document
-  .getElementById("voltarBtn")
-  .addEventListener("click", voltarFormulario);
+if (document.getElementById("calcularBtn")) {
+  document
+    .getElementById("calcularBtn")
+    .addEventListener("click", calcularRendaPassiva);
+}
 
-document.getElementById("copiarBtn").addEventListener("click", function () {
-  const prazo = document.getElementById("resultPrazo").textContent;
-  const valorInicial =
-    document.getElementById("resultValorInicial").textContent;
-  const valorRecorrente = document.getElementById(
+if (document.getElementById("resultPrazo")) {
+  document.getElementById(
+    "resultPrazo"
+  ).textContent = `Prazo: ${sessionStorage.getItem("prazo")}`;
+  document.getElementById(
+    "resultValorInicial"
+  ).textContent = `Valor Inicial: $ ${sessionStorage.getItem("valorInicial")}`;
+  document.getElementById(
     "resultValorRecorrente"
-  ).textContent;
-  const valorInvestido = document.getElementById(
+  ).textContent = `Valor Recorrente: $ ${sessionStorage.getItem(
+    "valorRecorrente"
+  )}`;
+  document.getElementById(
     "resultValorInvestido"
-  ).textContent;
-  const valorRendimentos =
-    document.getElementById("resultRendimentos").textContent;
-  const taxa = document.getElementById("resultTaxa").textContent;
-  const rendaPassiva =
-    document.getElementById("resultRendaPassiva").textContent;
-  const valorAcumulado = document.getElementById(
+  ).textContent = `Valor Investido: $ ${sessionStorage.getItem(
+    "valorInvestido"
+  )}`;
+  document.getElementById(
+    "resultRendimentos"
+  ).textContent = `Rendimentos: $ ${sessionStorage.getItem("rendimentos")}`;
+  document.getElementById(
+    "resultTaxa"
+  ).textContent = `Taxa Mensal: ${sessionStorage.getItem("taxa")}%`;
+  document.getElementById(
+    "resultRendaPassiva"
+  ).textContent = `Renda Passiva: $ ${sessionStorage.getItem("rendaPassiva")}`;
+  document.getElementById(
     "resultValorAcumulado"
-  ).textContent;
+  ).textContent = `Valor Acumulado: $ ${sessionStorage.getItem(
+    "valorAcumulado"
+  )}`;
+}
 
-  const resultado = `Calcular Renda Passiva
-https://www.calcularrendapassiva.com
+if (document.getElementById("copiarBtn")) {
+  document.getElementById("copiarBtn").addEventListener("click", function () {
+    const prazo = document.getElementById("resultPrazo").textContent;
+    const valorInicial =
+      document.getElementById("resultValorInicial").textContent;
+    const valorRecorrente = document.getElementById(
+      "resultValorRecorrente"
+    ).textContent;
+    const valorInvestido = document.getElementById(
+      "resultValorInvestido"
+    ).textContent;
+    const valorRendimentos =
+      document.getElementById("resultRendimentos").textContent;
+    const taxa = document.getElementById("resultTaxa").textContent;
+    const rendaPassiva =
+      document.getElementById("resultRendaPassiva").textContent;
+    const valorAcumulado = document.getElementById(
+      "resultValorAcumulado"
+    ).textContent;
 
-Resultados
-${prazo}
-${valorInicial}
-${valorRecorrente}
-${valorInvestido}
-${valorRendimentos}
-${valorAcumulado}
-${taxa}
-${rendaPassiva}
-`;
+    const resultado = `Calcular Renda Passiva
+  https://www.calcularrendapassiva.com
 
-  navigator.clipboard
-    .writeText(resultado)
-    .then(() => {
-      alert("Resultados copiados para a área de transferência!");
-    })
-    .catch((err) => {
-      alert("Erro ao copiar os resultados. Tente novamente.");
-      console.error("Erro ao copiar", err);
-    });
-});
+  Resultados
+  ${prazo}
+  ${valorInicial}
+  ${valorRecorrente}
+  ${valorInvestido}
+  ${valorRendimentos}
+  ${valorAcumulado}
+  ${taxa}
+  ${rendaPassiva}
+  `;
+
+    navigator.clipboard
+      .writeText(resultado)
+      .then(() => {
+        alert("Resultados copiados para a área de transferência!");
+      })
+      .catch((err) => {
+        alert("Erro ao copiar os resultados. Tente novamente.");
+        console.error("Erro ao copiar", err);
+      });
+  });
+}
