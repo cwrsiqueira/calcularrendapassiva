@@ -235,7 +235,7 @@ function voltarFormulario(e) {
   e.preventDefault();
   document.querySelector(".flip-card").classList.remove("flip-card-flipped");
   setTimeout(() => {
-    window.location.href = "index.html";
+    window.location.href = "/";
   }, 500);
 }
 
