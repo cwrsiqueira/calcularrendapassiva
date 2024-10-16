@@ -248,36 +248,41 @@ document
   .getElementById("voltarBtn")
   .addEventListener("click", voltarFormulario);
 
-document.getElementById(
-  "resultPrazo"
-).textContent = `Prazo: ${sessionStorage.getItem("prazo")}`;
-document.getElementById(
-  "resultValorInicial"
-).textContent = `Valor Inicial: $ ${sessionStorage.getItem("valorInicial")}`;
+currentPage = window.location.pathname.split("/").pop();
+if (currentPage == "results.html" && !sessionStorage.getItem("rendaPassiva")) {
+  window.location.href = "/";
+}
+
+document.getElementById("resultPrazo").textContent = `Prazo: ${
+  sessionStorage.getItem("prazo") || "---"
+}`;
+document.getElementById("resultValorInicial").textContent = `Valor Inicial: $ ${
+  sessionStorage.getItem("valorInicial") || "---"
+}`;
 document.getElementById(
   "resultValorRecorrente"
-).textContent = `Valor Recorrente: $ ${sessionStorage.getItem(
-  "valorRecorrente"
-)}`;
+).textContent = `Valor Recorrente: $ ${
+  sessionStorage.getItem("valorRecorrente") || "---"
+}`;
 document.getElementById(
   "resultValorInvestido"
-).textContent = `Valor Investido: $ ${sessionStorage.getItem(
-  "valorInvestido"
-)}`;
-document.getElementById(
-  "resultRendimentos"
-).textContent = `Rendimentos: $ ${sessionStorage.getItem("rendimentos")}`;
-document.getElementById(
-  "resultTaxa"
-).textContent = `Taxa Mensal: ${sessionStorage.getItem("taxa")}%`;
-document.getElementById(
-  "resultRendaPassiva"
-).textContent = `Renda Passiva: $ ${sessionStorage.getItem("rendaPassiva")}`;
+).textContent = `Valor Investido: $ ${
+  sessionStorage.getItem("valorInvestido") || "---"
+}`;
+document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
+  sessionStorage.getItem("rendimentos") || "---"
+}`;
+document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
+  sessionStorage.getItem("taxa") || "---"
+}%`;
+document.getElementById("resultRendaPassiva").textContent = `Renda Passiva: $ ${
+  sessionStorage.getItem("rendaPassiva") || "---"
+}`;
 document.getElementById(
   "resultValorAcumulado"
-).textContent = `Valor Acumulado: $ ${sessionStorage.getItem(
-  "valorAcumulado"
-)}`;
+).textContent = `Valor Acumulado: $ ${
+  sessionStorage.getItem("valorAcumulado") || "---"
+}`;
 
 document.getElementById("copiarBtn").addEventListener("click", function () {
   const prazo = document.getElementById("resultPrazo").textContent;
