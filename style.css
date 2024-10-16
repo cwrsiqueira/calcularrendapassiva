@@ -127,6 +127,29 @@ body {
   margin-top: 50px;
 }
 
+/* DIVIDER */
+.section-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.section-title {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #f8f9fa; /* Para interromper a linha */
+}
+
 .form-floating label {
   transition: all 0.2s;
   color: #6c757d;

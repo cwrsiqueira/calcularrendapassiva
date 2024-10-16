@@ -51,20 +51,67 @@
                             class="btn btn-primary btn-sm mb-3"><i class="fas fa-envelope"></i> Críticas
                             e Sugestões</a>
 
-                        <a href="premium.html" class="btn btn-warning btn-sm mb-3 border border-dark"><i
+                        <!-- <a href="premium.html" class="btn btn-warning btn-sm mb-3 border border-dark"><i
                                 class="fa-regular fa-star"></i>
                             Tirar
-                            Anúncios</a>
+                            Anúncios</a> -->
                     </div>
                 </div>
 
                 <div class="flip-card flip-card-flipped">
+
+                    <div class="section-divider">
+                        <span class="section-title">Resultados</span>
+                    </div>
+
                     <div class="flip-card-inner">
+                        <!-- Formulário (frente) -->
+                        <div class="flip-card-front">
+                            <form id="rendaForm">
+                                <div class="form-floating mb-3">
+                                    <input type="search" inputmode="numeric" class="form-control" id="periodo"
+                                        placeholder="Prazo (meses)" maxlength="3">
+                                    <label for="periodo">Prazo (meses)</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" inputmode="numeric" class="form-control percent" id="txPeriodo"
+                                        placeholder="Taxa Mensal (%)" maxlength="5">
+                                    <label for="txPeriodo">Taxa Mensal (%)</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" inputmode="numeric" class="form-control value"
+                                        id="valorInicial" placeholder="Valor Inicial">
+                                    <label for="valorInicial">Valor Inicial</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" inputmode="numeric" class="form-control value"
+                                        id="valorRecorrente" placeholder="Valor Recorrente Mensal">
+                                    <label for="valorRecorrente">Valor Recorrente Mensal</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="search" inputmode="numeric" class="form-control value"
+                                        id="rendaPassiva" placeholder="Renda Passiva">
+                                    <label for="rendaPassiva">Renda Passiva</label>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-success" id="calcularBtn">
+                                        <i class="fas fa-calculator"></i> Calcular
+                                    </button>
+                                    <button type="reset" class="btn btn-danger" id="btn-reset">
+                                        <i class="fas fa-trash-alt"></i> Limpar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
                         <!-- Resultados (verso) -->
                         <div class="flip-card-back">
                             <div class="result-section">
-                                <h3>Resultados</h3>
                                 <p id="resultPrazo"></p>
                                 <p id="resultValorInicial"></p>
                                 <p id="resultValorRecorrente"></p>
@@ -75,10 +122,10 @@
                                 <p id="resultRendaPassiva"></p>
                                 <hr>
                                 <div class="btn-area">
-                                    <a href="index.html" class="btn btn-primary" id="voltarBtn">
+                                    <button class="btn btn-primary my-1" id="voltarBtn">
                                         <i class="fas fa-arrow-left"></i> Voltar
-                                    </a>
-                                    <button type="button" class="btn btn-secondary" id="copiarBtn">
+                                    </button>
+                                    <button type="button" class="btn btn-secondary my-1" id="copiarBtn">
                                         <i class="fas fa-copy"></i> Copiar Resultados
                                     </button>
                                 </div>
@@ -89,6 +136,11 @@
 
                 <!-- Botões extras -->
                 <div class="row gap-3">
+
+                    <div class="section-divider">
+                        <span class="section-title">App Grátis na Playstore</span>
+                    </div>
+
                     <div class="col-sm">
                         <a href="https://link.mercadopago.com.br/carlosdev" target="_blank"
                             class="btn btn-lg btn-cafe d-block">
@@ -104,13 +156,69 @@
                             <div class="row align-items-center">
                                 <div class="col-2"><i class="fa-brands fa-google-play" style="font-size: 28px;"></i>
                                 </div>
-                                <div class="col-10">Baixe o App na PlayStore</div>
+                                <div class="col-10">Baixe o app na PlayStore</div>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <hr>
+                <!-- <div class="section-divider">
+                    <span class="section-title">Outras calculadoras</span>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center">
+                    <div>
+                        <ul>
+                            <li><strong>Aplicações financeiras</strong> <br>
+                                <small>Calcule o rendimento e o valor acumulado</small>
+                            </li>
+                            <li><strong>Empréstimos e financiamentos</strong> <br>
+                                <small>Calcule o valor a pagar de parcela e total</small>
+                            </li>
+                            <li><strong>Antecipação de parcelas</strong> <br>
+                                <small>Calcule o desconto e o valor a pagar de parcelas antecipadas</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><strong>Juros simples e compostos</strong> <br>
+                                <small>Calcule um valor com os dois tipos de juros e compare</small>
+                            </li>
+                            <li><strong>Outras em breve</strong> <br>
+                                <small>Estamos sempre criando. Aguarde as novidades</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+
+                <!-- <div class="section-divider">
+                    <span class="section-title">Sugestão de vídeos e artigos</span>
+                </div> -->
+            </div>
+
+            <!-- <div class="container-fluid">
+                <div class="row justify-content-center gap-3">
+                    <div class="col-sm-4 text-center text-sm-end">
+                        <iframe style="width: 100%; max-width: 310px;"
+                            src="https://www.youtube.com/embed/lvL8-vF3Wjc?si=KIDohUxcuegt_Pf2"
+                            title="YouTube video player" frameborder="0" class="rounded"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-sm-4 text-center text-sm-start">
+                        <iframe style="width: 100%; max-width: 310px;"
+                            src="https://www.youtube.com/embed/lvL8-vF3Wjc?si=KIDohUxcuegt_Pf2"
+                            title="YouTube video player" frameborder="0" class="rounded"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="container">
+
+                <div class="section-divider">
+                    <span class="section-title">Bom saber</span>
+                </div>
 
                 <div class="information-text">
 

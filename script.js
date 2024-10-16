@@ -2,6 +2,22 @@
 $(".value").mask("000.000.000,00", { reverse: true });
 $(".percent").mask("00,00", { reverse: true });
 
+document.getElementById("periodo").value =
+  sessionStorage.getItem("periodo") ?? "";
+document.getElementById("txPeriodo").value =
+  sessionStorage.getItem("txPeriodo") ?? "";
+document.getElementById("valorInicial").value =
+  sessionStorage.getItem("valorInicial") ?? "";
+document.getElementById("valorRecorrente").value =
+  sessionStorage.getItem("valorRecorrente") ?? "";
+document.getElementById("rendaPassiva").value =
+  sessionStorage.getItem("rendaPassiva") ?? "";
+
+// Limpar Session Storage
+document.querySelector("#btn-reset").addEventListener("click", function () {
+  sessionStorage.clear();
+});
+
 // Função de cálculo de Renda Passiva
 function calcularRendaPassiva() {
   const periodo = document.getElementById("periodo").value;
@@ -9,6 +25,12 @@ function calcularRendaPassiva() {
   const valorInicial = document.getElementById("valorInicial").value;
   const valorRecorrente = document.getElementById("valorRecorrente").value;
   const rendaPassiva = document.getElementById("rendaPassiva").value;
+
+  sessionStorage.setItem("periodo", periodo);
+  sessionStorage.setItem("txPeriodo", txPeriodo);
+  sessionStorage.setItem("valorInicial", valorInicial);
+  sessionStorage.setItem("valorRecorrente", valorRecorrente);
+  sessionStorage.setItem("rendaPassiva", rendaPassiva);
 
   let camposPreenchidos = [
     periodo,
@@ -201,70 +223,82 @@ function calcularRendaPassiva() {
     acumulado ? formatarValor(acumulado, false) : "N/A"
   );
 
-  window.location.href = "results.html";
+  document.querySelector(".flip-card").classList.add("flip-card-flipped");
+
+  setTimeout(() => {
+    window.location.href = "results.html";
+  }, 500);
+}
+
+// Função para voltar ao formulário
+function voltarFormulario(e) {
+  e.preventDefault();
+  document.querySelector(".flip-card").classList.remove("flip-card-flipped");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 500);
 }
 
 // Adicionar eventos aos botões
-if (document.getElementById("calcularBtn")) {
-  document
-    .getElementById("calcularBtn")
-    .addEventListener("click", calcularRendaPassiva);
-}
+document
+  .getElementById("calcularBtn")
+  .addEventListener("click", calcularRendaPassiva);
 
-if (document.getElementById("resultPrazo")) {
-  document.getElementById(
-    "resultPrazo"
-  ).textContent = `Prazo: ${sessionStorage.getItem("prazo")}`;
-  document.getElementById(
-    "resultValorInicial"
-  ).textContent = `Valor Inicial: $ ${sessionStorage.getItem("valorInicial")}`;
-  document.getElementById(
+document
+  .getElementById("voltarBtn")
+  .addEventListener("click", voltarFormulario);
+
+document.getElementById(
+  "resultPrazo"
+).textContent = `Prazo: ${sessionStorage.getItem("prazo")}`;
+document.getElementById(
+  "resultValorInicial"
+).textContent = `Valor Inicial: $ ${sessionStorage.getItem("valorInicial")}`;
+document.getElementById(
+  "resultValorRecorrente"
+).textContent = `Valor Recorrente: $ ${sessionStorage.getItem(
+  "valorRecorrente"
+)}`;
+document.getElementById(
+  "resultValorInvestido"
+).textContent = `Valor Investido: $ ${sessionStorage.getItem(
+  "valorInvestido"
+)}`;
+document.getElementById(
+  "resultRendimentos"
+).textContent = `Rendimentos: $ ${sessionStorage.getItem("rendimentos")}`;
+document.getElementById(
+  "resultTaxa"
+).textContent = `Taxa Mensal: ${sessionStorage.getItem("taxa")}%`;
+document.getElementById(
+  "resultRendaPassiva"
+).textContent = `Renda Passiva: $ ${sessionStorage.getItem("rendaPassiva")}`;
+document.getElementById(
+  "resultValorAcumulado"
+).textContent = `Valor Acumulado: $ ${sessionStorage.getItem(
+  "valorAcumulado"
+)}`;
+
+document.getElementById("copiarBtn").addEventListener("click", function () {
+  const prazo = document.getElementById("resultPrazo").textContent;
+  const valorInicial =
+    document.getElementById("resultValorInicial").textContent;
+  const valorRecorrente = document.getElementById(
     "resultValorRecorrente"
-  ).textContent = `Valor Recorrente: $ ${sessionStorage.getItem(
-    "valorRecorrente"
-  )}`;
-  document.getElementById(
+  ).textContent;
+  const valorInvestido = document.getElementById(
     "resultValorInvestido"
-  ).textContent = `Valor Investido: $ ${sessionStorage.getItem(
-    "valorInvestido"
-  )}`;
-  document.getElementById(
-    "resultRendimentos"
-  ).textContent = `Rendimentos: $ ${sessionStorage.getItem("rendimentos")}`;
-  document.getElementById(
-    "resultTaxa"
-  ).textContent = `Taxa Mensal: ${sessionStorage.getItem("taxa")}%`;
-  document.getElementById(
-    "resultRendaPassiva"
-  ).textContent = `Renda Passiva: $ ${sessionStorage.getItem("rendaPassiva")}`;
-  document.getElementById(
+  ).textContent;
+  const valorRendimentos =
+    document.getElementById("resultRendimentos").textContent;
+  const taxa = document.getElementById("resultTaxa").textContent;
+  const rendaPassiva =
+    document.getElementById("resultRendaPassiva").textContent;
+  const valorAcumulado = document.getElementById(
     "resultValorAcumulado"
-  ).textContent = `Valor Acumulado: $ ${sessionStorage.getItem(
-    "valorAcumulado"
-  )}`;
-}
+  ).textContent;
 
-if (document.getElementById("copiarBtn")) {
-  document.getElementById("copiarBtn").addEventListener("click", function () {
-    const prazo = document.getElementById("resultPrazo").textContent;
-    const valorInicial =
-      document.getElementById("resultValorInicial").textContent;
-    const valorRecorrente = document.getElementById(
-      "resultValorRecorrente"
-    ).textContent;
-    const valorInvestido = document.getElementById(
-      "resultValorInvestido"
-    ).textContent;
-    const valorRendimentos =
-      document.getElementById("resultRendimentos").textContent;
-    const taxa = document.getElementById("resultTaxa").textContent;
-    const rendaPassiva =
-      document.getElementById("resultRendaPassiva").textContent;
-    const valorAcumulado = document.getElementById(
-      "resultValorAcumulado"
-    ).textContent;
-
-    const resultado = `Calcular Renda Passiva
+  const resultado = `Calcular Renda Passiva
   https://www.calcularrendapassiva.com
 
   Resultados
@@ -278,14 +312,13 @@ if (document.getElementById("copiarBtn")) {
   ${rendaPassiva}
   `;
 
-    navigator.clipboard
-      .writeText(resultado)
-      .then(() => {
-        alert("Resultados copiados para a área de transferência!");
-      })
-      .catch((err) => {
-        alert("Erro ao copiar os resultados. Tente novamente.");
-        console.error("Erro ao copiar", err);
-      });
-  });
-}
+  navigator.clipboard
+    .writeText(resultado)
+    .then(() => {
+      alert("Resultados copiados para a área de transferência!");
+    })
+    .catch((err) => {
+      alert("Erro ao copiar os resultados. Tente novamente.");
+      console.error("Erro ao copiar", err);
+    });
+});
