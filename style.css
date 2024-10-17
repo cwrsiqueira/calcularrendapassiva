@@ -26,6 +26,22 @@ body {
   font-size: 2rem;
   color: #000;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  margin-bottom: 0;
+}
+
+.version-area {
+  display: flex;
+  justify-content: end;
+}
+
+.version {
+  font-size: 12px;
+  font-weight: bolder;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: fit-content;
+  padding: 4px;
+  border-radius: 4px;
+  color: #f8f9fa;
 }
 
 @media (min-width: 576px) {
@@ -80,46 +96,6 @@ body {
   transform: rotate(20deg);
   z-index: -1;
   opacity: 0.8;
-}
-
-.explosion-badge {
-  position: absolute;
-  top: -50px;
-  left: 0px;
-  width: 150px;
-  height: 150px;
-  background-image: url("novosistema.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  transform: rotate(-25deg); /* Rotação aplicada diretamente */
-  animation: explode 2s ease-in-out 3; /* Animação incluída */
-  opacity: 0.5; /* Meio transparente ao final */
-}
-
-@keyframes explode {
-  0% {
-    transform: scale(1) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
-  50% {
-    transform: scale(1.2) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
-  100% {
-    transform: scale(1) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
 }
 
 .container {
