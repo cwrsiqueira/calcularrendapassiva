@@ -282,60 +282,67 @@ if (currentPage == "results.html" && !sessionStorage.getItem("rendaPassiva")) {
   window.location.href = "/"; // Redireciona para o início se não houver dados calculados
 }
 
-// Exibe os resultados na página de resultados
-document.getElementById("resultPrazo").textContent = `Prazo: ${
-  sessionStorage.getItem("prazo") || "---"
-}`;
-document.getElementById("resultValorInicial").textContent = `Valor Inicial: $ ${
-  sessionStorage.getItem("valorInicial") || "---"
-}`;
-document.getElementById(
-  "resultValorRecorrente"
-).textContent = `Valor Recorrente: $ ${
-  sessionStorage.getItem("valorRecorrente") || "---"
-}`;
-document.getElementById(
-  "resultValorInvestido"
-).textContent = `Valor Investido: $ ${
-  sessionStorage.getItem("valorInvestido") || "---"
-}`;
-document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
-  sessionStorage.getItem("rendimentos") || "---"
-}`;
-document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
-  sessionStorage.getItem("taxa") || "---"
-}%`;
-document.getElementById("resultRendaPassiva").textContent = `Renda Passiva: $ ${
-  sessionStorage.getItem("rendaPassiva") || "---"
-}`;
-document.getElementById(
-  "resultValorAcumulado"
-).textContent = `Valor Acumulado: $ ${
-  sessionStorage.getItem("valorAcumulado") || "---"
-}`;
-
-// Função para copiar os resultados
-document.getElementById("copiarBtn").addEventListener("click", function () {
-  const prazo = document.getElementById("resultPrazo").textContent;
-  const valorInicial =
-    document.getElementById("resultValorInicial").textContent;
-  const valorRecorrente = document.getElementById(
+if (document.getElementById("resultPrazo")) {
+  // Exibe os resultados na página de resultados
+  document.getElementById("resultPrazo").textContent = `Prazo: ${
+    sessionStorage.getItem("prazo") || "---"
+  }`;
+  document.getElementById(
+    "resultValorInicial"
+  ).textContent = `Valor Inicial: $ ${
+    sessionStorage.getItem("valorInicial") || "---"
+  }`;
+  document.getElementById(
     "resultValorRecorrente"
-  ).textContent;
-  const valorInvestido = document.getElementById(
+  ).textContent = `Valor Recorrente: $ ${
+    sessionStorage.getItem("valorRecorrente") || "---"
+  }`;
+  document.getElementById(
     "resultValorInvestido"
-  ).textContent;
-  const valorRendimentos =
-    document.getElementById("resultRendimentos").textContent;
-  const taxa = document.getElementById("resultTaxa").textContent;
-  const rendaPassiva =
-    document.getElementById("resultRendaPassiva").textContent;
-  const valorAcumulado = document.getElementById(
+  ).textContent = `Valor Investido: $ ${
+    sessionStorage.getItem("valorInvestido") || "---"
+  }`;
+  document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
+    sessionStorage.getItem("rendimentos") || "---"
+  }`;
+  document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
+    sessionStorage.getItem("taxa") || "---"
+  }%`;
+  document.getElementById(
+    "resultRendaPassiva"
+  ).textContent = `Renda Passiva: $ ${
+    sessionStorage.getItem("rendaPassiva") || "---"
+  }`;
+  document.getElementById(
     "resultValorAcumulado"
-  ).textContent;
+  ).textContent = `Valor Acumulado: $ ${
+    sessionStorage.getItem("valorAcumulado") || "---"
+  }`;
+}
 
-  // Formata o resultado para ser copiado
-  const resultado = `Calcular Renda Passiva
+if (document.getElementById("copiarBtn")) {
+  // Função para copiar os resultados
+  document.getElementById("copiarBtn").addEventListener("click", function () {
+    const prazo = document.getElementById("resultPrazo").textContent;
+    const valorInicial =
+      document.getElementById("resultValorInicial").textContent;
+    const valorRecorrente = document.getElementById(
+      "resultValorRecorrente"
+    ).textContent;
+    const valorInvestido = document.getElementById(
+      "resultValorInvestido"
+    ).textContent;
+    const valorRendimentos =
+      document.getElementById("resultRendimentos").textContent;
+    const taxa = document.getElementById("resultTaxa").textContent;
+    const rendaPassiva =
+      document.getElementById("resultRendaPassiva").textContent;
+    const valorAcumulado = document.getElementById(
+      "resultValorAcumulado"
+    ).textContent;
+
+    // Formata o resultado para ser copiado
+    const resultado = `Calcular Renda Passiva
 https://www.calcularrendapassiva.com
 
 Resultados
@@ -349,14 +356,15 @@ ${taxa}
 ${rendaPassiva}
 `;
 
-  // Copia o texto para a área de transferência e alerta o usuário
-  navigator.clipboard
-    .writeText(resultado)
-    .then(() => {
-      alert("Resultados copiados para a área de transferência!");
-    })
-    .catch((err) => {
-      alert("Erro ao copiar os resultados. Tente novamente.");
-      console.error("Erro ao copiar", err);
-    });
-});
+    // Copia o texto para a área de transferência e alerta o usuário
+    navigator.clipboard
+      .writeText(resultado)
+      .then(() => {
+        alert("Resultados copiados para a área de transferência!");
+      })
+      .catch((err) => {
+        alert("Erro ao copiar os resultados. Tente novamente.");
+        console.error("Erro ao copiar", err);
+      });
+  });
+}
