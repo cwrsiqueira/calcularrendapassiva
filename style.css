@@ -173,16 +173,16 @@ body {
 }
 
 .flip-card-front {
-  z-index: 2;
+  z-index: 999;
   transform: rotateY(0deg);
-  background-color: #ffffff6c;
+  background-color: #fbfcfc;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   min-height: 408px;
 }
 
 .flip-card-back {
-  z-index: 1;
+  z-index: 99;
   transform: rotateY(180deg);
   background-color: #ffffff6c;
   padding: 20px;

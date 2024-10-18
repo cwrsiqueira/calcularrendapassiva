@@ -1,3 +1,9 @@
+// Pega o offsetHeight do tamanho atual do card da calculadora
+// e acrescenta a diferença como margin top do elemento abaixo.
+const flipcardfront = document.querySelector(".flip-card-front").offsetHeight;
+const botoesextras = document.querySelector(".botoes-extras");
+botoesextras.style.marginTop = flipcardfront - 408 + "px";
+
 // Formatar máscaras dos valores (para campos de input com valores monetários e percentuais)
 $(".value").mask("000.000.000,00", { reverse: true }); // Formata o valor monetário com pontuação e vírgula (ex: 1.000,00)
 $(".percent").mask("00,00", { reverse: true }); // Formata o valor percentual com vírgula (ex: 10,00%)
@@ -263,9 +269,12 @@ function voltarFormulario(e) {
 document
   .getElementById("calcularBtn")
   .addEventListener("click", calcularRendaPassiva);
-document
-  .getElementById("voltarBtn")
-  .addEventListener("click", voltarFormulario);
+
+if (document.getElementById("voltarBtn")) {
+  document
+    .getElementById("voltarBtn")
+    .addEventListener("click", voltarFormulario);
+}
 
 // Verifica se a página de resultados está acessada diretamente sem cálculo
 currentPage = window.location.pathname.split("/").pop(); // Pega a última parte da URL /index.html, /results.html etc.
