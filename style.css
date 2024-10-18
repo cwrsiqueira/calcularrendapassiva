@@ -175,6 +175,10 @@ body {
 .flip-card-front {
   z-index: 2;
   transform: rotateY(0deg);
+  background-color: #ffffff6c;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 408px;
 }
 
 .flip-card-back {
