@@ -3,9 +3,11 @@ $(".value").mask("000.000.000,00", { reverse: true });
 $(".percent").mask("00,00", { reverse: true });
 
 // Função de cálculo de Renda Passiva
-function calcularRendaPassiva() {
+function calcularRendaPassiva () {
   const periodo = document.getElementById("periodo").value;
+  const tipoPeriodo = document.getElementById("tipoPeriodo").value;
   const txPeriodo = document.getElementById("txPeriodo").value;
+  const tipoTaxa = document.getElementById("tipoTaxa").value;
   const valorInicial = document.getElementById("valorInicial").value;
   const valorRecorrente = document.getElementById("valorRecorrente").value;
   const rendaPassiva = document.getElementById("rendaPassiva").value;
@@ -32,18 +34,19 @@ function calcularRendaPassiva() {
     return;
   }
 
-  function formatarValor(valor, sistema = true) {
+  function formatarValor (valor, sistema = true) {
     if (sistema) {
       return valor.replace(/\./g, "").replace(",", ".");
     } else {
-      return valor
-        .toFixed(2)
+      let truncated = Math.floor(valor * 100) / 100;
+      return truncated
+        .toString()
         .replace(".", ",")
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
   }
 
-  function calcularAnosEMeses(totalMeses) {
+  function calcularAnosEMeses (totalMeses) {
     const anos = Math.floor(totalMeses / 12); // Calcula os anos inteiros
     const meses = totalMeses % 12; // Calcula os meses restantes
 
@@ -63,6 +66,14 @@ function calcularRendaPassiva() {
       ? parseFloat(formatarValor(valorRecorrente))
       : 0,
     renda = rendaPassiva ? parseFloat(formatarValor(rendaPassiva)) : 0;
+
+  if (tipoPeriodo == "anos") {
+    prazo = prazo * 12;
+  }
+
+  if (tipoTaxa == "anual") {
+    taxa = taxa / 12;
+  }
 
   switch (campoEmBranco) {
     case 0: // Calcular o prazo
@@ -172,39 +183,32 @@ function calcularRendaPassiva() {
   anosEMeses = calcularAnosEMeses(prazo);
 
   // Exibir os resultados
-  document.getElementById("resultPrazo").textContent = `Prazo: ${
-    prazo ? prazo + " meses (ou " + anosEMeses + ")" : "N/A"
-  }`;
+  document.getElementById("resultPrazo").textContent = `Prazo: ${prazo ? prazo + " meses (ou " + anosEMeses + ")" : "N/A"
+    }`;
   document.getElementById(
     "resultValorInicial"
-  ).textContent = `Valor Inicial: $ ${
-    inicial ? formatarValor(inicial, false) : "N/A"
+  ).textContent = `Valor Inicial: $ ${inicial ? formatarValor(inicial, false) : "N/A"
   }`;
   document.getElementById(
     "resultValorRecorrente"
-  ).textContent = `Valor Recorrente: $ ${
-    recorrente ? formatarValor(recorrente, false) : "N/A"
+  ).textContent = `Valor Recorrente: $ ${recorrente ? formatarValor(recorrente, false) : "N/A"
   }`;
   document.getElementById(
     "resultValorInvestido"
-  ).textContent = `Valor Investido: $ ${
-    investido ? formatarValor(investido, false) : "N/A"
+  ).textContent = `Valor Investido: $ ${investido ? formatarValor(investido, false) : "N/A"
   }`;
-  document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
-    rendimentos ? formatarValor(rendimentos, false) : "N/A"
-  }`;
-  document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
-    taxa ? formatarValor(taxa, false) : "N/A"
-  }%`;
+  document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${rendimentos ? formatarValor(rendimentos, false) : "N/A"
+    }`;
+  console.log(taxa);
+  document.getElementById("resultTaxa").textContent = `Taxa: ${taxa ? formatarValor(taxa, false) + "% ao mês (" + formatarValor(taxa * 12, false) + "% ao ano)" : "N/A"
+    }`;
   document.getElementById(
     "resultRendaPassiva"
-  ).textContent = `Renda Passiva: $ ${
-    renda ? formatarValor(renda, false) : "N/A"
+  ).textContent = `Renda Passiva: $ ${renda ? formatarValor(renda, false) : "N/A"
   }`;
   document.getElementById(
     "resultValorAcumulado"
-  ).textContent = `Valor Acumulado: $ ${
-    acumulado ? formatarValor(acumulado, false) : "N/A"
+  ).textContent = `Valor Acumulado: $ ${acumulado ? formatarValor(acumulado, false) : "N/A"
   }`;
 
   // Girar o cartão para mostrar o resultado
@@ -212,7 +216,7 @@ function calcularRendaPassiva() {
 }
 
 // Função para voltar ao formulário
-function voltarFormulario() {
+function voltarFormulario () {
   document.querySelector(".flip-card").classList.remove("flip-card-flipped");
 }
 
