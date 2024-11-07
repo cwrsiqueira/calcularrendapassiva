@@ -195,7 +195,7 @@ function calcularRendaPassiva() {
   // Conversão e cálculo dos valores
   let prazo = periodo ? periodo : 0,
     taxa = txPeriodo ? parseFloat(formatarValor(txPeriodo)) : 0,
-    taxaAnual = txPeriodoAnual ? parseFloat(formatarValor(txPeriodo)) : 0,
+    taxaAnual = txPeriodoAnual ? parseFloat(formatarValor(txPeriodoAnual)) : 0,
     inicial = valorInicial ? parseFloat(formatarValor(valorInicial)) : 0,
     recorrente = valorRecorrente
       ? parseFloat(formatarValor(valorRecorrente))
