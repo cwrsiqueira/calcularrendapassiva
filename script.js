@@ -4,7 +4,7 @@ document.getElementById("shareButton").addEventListener("click", async () => {
     try {
       await navigator.share({
         title: "Calculadora de Renda Passiva",
-        text: "Confira o resultado da calculadora de empréstimos!",
+        text: "A Calculadora de Renda Passiva foi desenvolvida para ajudar você a estimar quanto tempo falta para atingir sua renda passiva ideal e, ao mesmo tempo, simular diferentes cenários de investimento.",
         url: "https://calcularrendapassiva.com",
       });
       console.log("Compartilhamento bem-sucedido!");
@@ -63,17 +63,25 @@ const txPeriodoAnual = document.querySelector("#txPeriodoAnual");
 const txPeriodo = document.querySelector("#txPeriodo");
 
 // Enquanto o usuário digita o juros anual, transforma em juros mensal e preenche o campo Taxa Mensal
-txPeriodoAnual.addEventListener("keyup", function () {
-  let value = this.value.replace(",", ".");
-  let txMensal = Math.pow(1 + value / 100, 1 / 12) - 1;
-  txPeriodo.value = (txMensal * 100).toFixed(2).replace(".", ",");
+txPeriodoAnual.addEventListener("input", function () {
+  if (this.value == "") {
+    txPeriodo.value = "";
+  } else {
+    let value = this.value.replace(",", ".");
+    let txMensal = Math.pow(1 + value / 100, 1 / 12) - 1;
+    txPeriodo.value = (txMensal * 100).toFixed(2).replace(".", ",");
+  }
 });
 
 // Enquanto o usuário digita o juros mensal, transforma em juros anual e preenche o campo Taxa Anual
-txPeriodo.addEventListener("keyup", function () {
-  let value = this.value.replace(",", ".");
-  let txPeriodo = Math.pow(1 + value / 100, 12) - 1;
-  txPeriodoAnual.value = (txPeriodo * 100).toFixed(2).replace(".", ",");
+txPeriodo.addEventListener("input", function () {
+  if (this.value == "") {
+    txPeriodoAnual.value = "";
+  } else {
+    let value = this.value.replace(",", ".");
+    let txPeriodo = Math.pow(1 + value / 100, 12) - 1;
+    txPeriodoAnual.value = (txPeriodo * 100).toFixed(2).replace(".", ",");
+  }
 });
 
 //// -----------
@@ -187,6 +195,7 @@ function calcularRendaPassiva() {
   // Conversão e cálculo dos valores
   let prazo = periodo ? periodo : 0,
     taxa = txPeriodo ? parseFloat(formatarValor(txPeriodo)) : 0,
+    taxaAnual = txPeriodoAnual ? parseFloat(formatarValor(txPeriodo)) : 0,
     inicial = valorInicial ? parseFloat(formatarValor(valorInicial)) : 0,
     recorrente = valorRecorrente
       ? parseFloat(formatarValor(valorRecorrente))
@@ -264,11 +273,14 @@ function calcularRendaPassiva() {
           montanteAtualizado = montante;
           taxaAtualizada = t;
           t = t + 0.01;
-          console.log(rendaAtualizada, montanteAtualizado, taxaAtualizada, t);
         }
       }
 
+      let taxaAtualizadaAnual =
+        (Math.pow(1 + taxaAtualizada / 100, 12) - 1) * 100;
+
       taxa = taxaAtualizada;
+      taxaAnual = taxaAtualizadaAnual;
       investido = inicial + recorrente * prazo;
       rendimentos = montanteAtualizado - (inicial + recorrente * prazo);
       acumulado = montanteAtualizado;
@@ -322,6 +334,10 @@ function calcularRendaPassiva() {
     rendimentos ? formatarValor(rendimentos, false) : "N/A"
   );
   sessionStorage.setItem("taxa", taxa ? formatarValor(taxa, false) : "N/A");
+  sessionStorage.setItem(
+    "taxaAnual",
+    taxaAnual ? formatarValor(taxaAnual, false) : "N/A"
+  );
   sessionStorage.setItem(
     "rendaPassiva",
     renda ? formatarValor(renda, false) : "N/A"
@@ -408,7 +424,7 @@ if (document.getElementById("resultPrazo")) {
   document.getElementById(
     "resultTaxaAnual"
   ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Anual:</span><span>${
-    sessionStorage.getItem("txPeriodoAnual") || "---"
+    sessionStorage.getItem("taxaAnual") || "---"
   } %</span></p>`;
 
   document.getElementById(
