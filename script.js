@@ -1,3 +1,23 @@
+//Compartilhar
+document.getElementById("shareButton").addEventListener("click", async () => {
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Calculadora de Renda Passiva",
+        text: "Confira o resultado da calculadora de empréstimos!",
+        url: "https://calcularrendapassiva.com",
+      });
+      console.log("Compartilhamento bem-sucedido!");
+    } catch (error) {
+      console.log("Erro ao compartilhar:", error);
+    }
+  } else {
+    alert(
+      "A API de compartilhamento não é suportada neste navegador. Tente copiar os resultados e colar."
+    );
+  }
+});
+
 window.addEventListener("load", function () {
   // Pega o offsetHeight do tamanho atual do card da calculadora
   // e acrescenta a diferença como margin top do elemento abaixo.
@@ -10,15 +30,73 @@ window.addEventListener("load", function () {
 $(".value").mask("000.000.000,00", { reverse: true }); // Formata o valor monetário com pontuação e vírgula (ex: 1.000,00)
 $(".percent").mask("00,00", { reverse: true }); // Formata o valor percentual com vírgula (ex: 10,00%)
 
+//// CONVERTE PRAZO MENSAL EM ANUAL E VICE VERSA
+
+// Pega os campos onde o usuário digita os prazos
+const periodoAnual = document.querySelector("#periodoAnual");
+const periodo = document.querySelector("#periodo");
+
+// Enquanto o usuário digita o prazo anual, transforma em prazo mensal e preenche o campo Prazo (meses)
+periodoAnual.addEventListener("input", function () {
+  if (this.value == "") periodo.value = "";
+  else periodo.value = Math.floor(periodoAnual.value * 12);
+});
+
+// Enquanto o usuário digita o prazo mensal, transforma em prazo anual e preenche o campo Prazo (anos)
+// O campo Prazo (anos) fica desabilitado quando o usuário preenche o Prazo (meses) e habilita quando está em branco
+periodo.addEventListener("input", function () {
+  if (this.value == "") {
+    periodoAnual.value = "";
+    periodoAnual.removeAttribute("disabled");
+  } else {
+    periodoAnual.setAttribute("disabled", true);
+    periodoAnual.value = Math.floor(periodo.value / 12);
+  }
+});
+
+//// -----------
+
+//// CONVERTE JUROS MENSAIS EM ANUAIS E VICE VERSA
+
+// Pega os campos onde o usuário digita as taxas de juros
+const txPeriodoAnual = document.querySelector("#txPeriodoAnual");
+const txPeriodo = document.querySelector("#txPeriodo");
+
+// Enquanto o usuário digita o juros anual, transforma em juros mensal e preenche o campo Taxa Mensal
+txPeriodoAnual.addEventListener("keyup", function () {
+  let value = this.value.replace(",", ".");
+  let txMensal = Math.pow(1 + value / 100, 1 / 12) - 1;
+  txPeriodo.value = (txMensal * 100).toFixed(2).replace(".", ",");
+});
+
+// Enquanto o usuário digita o juros mensal, transforma em juros anual e preenche o campo Taxa Anual
+txPeriodo.addEventListener("keyup", function () {
+  let value = this.value.replace(",", ".");
+  let txPeriodo = Math.pow(1 + value / 100, 12) - 1;
+  txPeriodoAnual.value = (txPeriodo * 100).toFixed(2).replace(".", ",");
+});
+
+//// -----------
+
 // Recupera valores previamente salvos no sessionStorage e preenche os campos correspondentes
 document.getElementById("periodo").value =
   sessionStorage.getItem("periodo") ?? "";
+
+document.getElementById("periodoAnual").value =
+  sessionStorage.getItem("periodoAnual") ?? "";
+
 document.getElementById("txPeriodo").value =
   sessionStorage.getItem("txPeriodo") ?? "";
+
+document.getElementById("txPeriodoAnual").value =
+  sessionStorage.getItem("txPeriodoAnual") ?? "";
+
 document.getElementById("valorInicial").value =
   sessionStorage.getItem("valorInicial") ?? "";
+
 document.getElementById("valorRecorrente").value =
   sessionStorage.getItem("valorRecorrente") ?? "";
+
 document.getElementById("rendaPassiva").value =
   sessionStorage.getItem("rendaPassiva") ?? "";
 
@@ -31,14 +109,18 @@ document.querySelector("#btn-reset").addEventListener("click", function () {
 function calcularRendaPassiva() {
   // Captura os valores inseridos pelo usuário
   const periodo = document.getElementById("periodo").value;
+  const periodoAnual = document.getElementById("periodoAnual").value;
   const txPeriodo = document.getElementById("txPeriodo").value;
+  const txPeriodoAnual = document.getElementById("txPeriodoAnual").value;
   const valorInicial = document.getElementById("valorInicial").value;
   const valorRecorrente = document.getElementById("valorRecorrente").value;
   const rendaPassiva = document.getElementById("rendaPassiva").value;
 
   // Salva os valores no sessionStorage para manter as informações na página
   sessionStorage.setItem("periodo", periodo);
+  sessionStorage.setItem("periodoAnual", periodoAnual);
   sessionStorage.setItem("txPeriodo", txPeriodo);
+  sessionStorage.setItem("txPeriodoAnual", txPeriodoAnual);
   sessionStorage.setItem("valorInicial", valorInicial);
   sessionStorage.setItem("valorRecorrente", valorRecorrente);
   sessionStorage.setItem("rendaPassiva", rendaPassiva);
@@ -286,40 +368,60 @@ if (currentPage == "results.html" && !sessionStorage.getItem("rendaPassiva")) {
 
 if (document.getElementById("resultPrazo")) {
   // Exibe os resultados na página de resultados
-  document.getElementById("resultPrazo").textContent = `Prazo: ${
+
+  document.getElementById(
+    "resultPrazo"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Prazo:</span><span>${
     sessionStorage.getItem("prazo") || "---"
-  }`;
+  }</span></p>`;
+
   document.getElementById(
     "resultValorInicial"
-  ).textContent = `Valor Inicial: $ ${
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Inicial:</span><span>$ ${
     sessionStorage.getItem("valorInicial") || "---"
-  }`;
+  }</span></p>`;
+
   document.getElementById(
     "resultValorRecorrente"
-  ).textContent = `Valor Recorrente: $ ${
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Recorrente Mensal:</span><span>$ ${
     sessionStorage.getItem("valorRecorrente") || "---"
-  }`;
+  }</span></p>`;
+
   document.getElementById(
     "resultValorInvestido"
-  ).textContent = `Valor Investido: $ ${
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Investido:</span><span>$ ${
     sessionStorage.getItem("valorInvestido") || "---"
-  }`;
-  document.getElementById("resultRendimentos").textContent = `Rendimentos: $ ${
+  }</span></p>`;
+
+  document.getElementById(
+    "resultRendimentos"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Rendimentos:</span><span>$ ${
     sessionStorage.getItem("rendimentos") || "---"
-  }`;
-  document.getElementById("resultTaxa").textContent = `Taxa Mensal: ${
+  }</span></p>`;
+
+  document.getElementById(
+    "resultTaxa"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Mensal:</span><span>${
     sessionStorage.getItem("taxa") || "---"
-  }%`;
+  } %</span></p>`;
+
+  document.getElementById(
+    "resultTaxaAnual"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Anual:</span><span>${
+    sessionStorage.getItem("txPeriodoAnual") || "---"
+  } %</span></p>`;
+
   document.getElementById(
     "resultRendaPassiva"
-  ).textContent = `Renda Passiva: $ ${
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Renda Passiva:</span><span>$ ${
     sessionStorage.getItem("rendaPassiva") || "---"
-  }`;
+  }</span></p>`;
+
   document.getElementById(
     "resultValorAcumulado"
-  ).textContent = `Valor Acumulado: $ ${
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Acumulado:</span><span>$ ${
     sessionStorage.getItem("valorAcumulado") || "---"
-  }`;
+  }</span></p>`;
 }
 
 if (document.getElementById("copiarBtn")) {
@@ -337,6 +439,7 @@ if (document.getElementById("copiarBtn")) {
     const valorRendimentos =
       document.getElementById("resultRendimentos").textContent;
     const taxa = document.getElementById("resultTaxa").textContent;
+    const taxaAnual = document.getElementById("resultTaxaAnual").textContent;
     const rendaPassiva =
       document.getElementById("resultRendaPassiva").textContent;
     const valorAcumulado = document.getElementById(
@@ -355,6 +458,7 @@ ${valorInvestido}
 ${valorRendimentos}
 ${valorAcumulado}
 ${taxa}
+${taxaAnual}
 ${rendaPassiva}
 `;
 
