@@ -26,11 +26,61 @@ body {
   font-size: 2rem;
   color: #000;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  margin-bottom: 0;
+}
+
+.version-area {
+  display: flex;
+  justify-content: end;
+}
+
+.version {
+  font-size: 12px;
+  font-weight: bolder;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: fit-content;
+  padding: 4px;
+  border-radius: 4px;
+  color: #f8f9fa;
 }
 
 @media (min-width: 576px) {
   .title {
     font-size: 2.5rem;
+  }
+}
+
+.btn-premium {
+  background: linear-gradient(45deg, #ffd700, #ffc700, #ffb700, #ffd700);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-premium::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+  transition: all 0.5s ease-in-out;
+  animation: shine-effect 0.5s ease forwards;
+}
+
+@keyframes shine-effect {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 110%;
   }
 }
 
@@ -48,49 +98,32 @@ body {
   opacity: 0.8;
 }
 
-.explosion-badge {
-  position: absolute;
-  top: -50px;
-  left: 0px;
-  width: 150px;
-  height: 150px;
-  background-image: url("novosistema.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  transform: rotate(-25deg); /* Rotação aplicada diretamente */
-  animation: explode 2s ease-in-out 3; /* Animação incluída */
-  opacity: 0.5; /* Meio transparente ao final */
-}
-
-@keyframes explode {
-  0% {
-    transform: scale(1) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
-  50% {
-    transform: scale(1.2) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
-  100% {
-    transform: scale(1) rotate(-25deg);
-    opacity: 1; /* Meio transparente ao final */
-    z-index: 1;
-  }
-}
-
 .container {
   max-width: 600px;
   margin-top: 50px;
+}
+
+/* DIVIDER */
+.section-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.section-title {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #f8f9fa; /* Para interromper a linha */
 }
 
 .form-floating label {
@@ -142,6 +175,10 @@ body {
 .flip-card-front {
   z-index: 2;
   transform: rotateY(0deg);
+  background-color: #fbfcfc;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 450px;
 }
 
 .flip-card-back {
@@ -150,7 +187,7 @@ body {
   background-color: #ffffff6c;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-height: 408px;
+  min-height: 450px;
 }
 
 .flip-card-flipped .flip-card-inner {
