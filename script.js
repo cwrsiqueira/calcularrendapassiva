@@ -31,17 +31,14 @@ $(".value").mask("000.000.000,00", { reverse: true }); // Formata o valor monet�
 $(".percent").mask("00,00", { reverse: true }); // Formata o valor percentual com vírgula (ex: 10,00%)
 
 //// CONVERTE PRAZO MENSAL EM ANUAL E VICE VERSA
-
 // Pega os campos onde o usuário digita os prazos
 const periodoAnual = document.querySelector("#periodoAnual");
 const periodo = document.querySelector("#periodo");
-
 // Enquanto o usuário digita o prazo anual, transforma em prazo mensal e preenche o campo Prazo (meses)
 periodoAnual.addEventListener("input", function () {
   if (this.value == "") periodo.value = "";
   else periodo.value = Math.floor(periodoAnual.value * 12);
 });
-
 // Enquanto o usuário digita o prazo mensal, transforma em prazo anual e preenche o campo Prazo (anos)
 // O campo Prazo (anos) fica desabilitado quando o usuário preenche o Prazo (meses) e habilita quando está em branco
 periodo.addEventListener("input", function () {
@@ -53,15 +50,12 @@ periodo.addEventListener("input", function () {
     periodoAnual.value = Math.floor(periodo.value / 12);
   }
 });
-
 //// -----------
 
 //// CONVERTE JUROS MENSAIS EM ANUAIS E VICE VERSA
-
 // Pega os campos onde o usuário digita as taxas de juros
 const txPeriodoAnual = document.querySelector("#txPeriodoAnual");
 const txPeriodo = document.querySelector("#txPeriodo");
-
 // Enquanto o usuário digita o juros anual, transforma em juros mensal e preenche o campo Taxa Mensal
 txPeriodoAnual.addEventListener("input", function () {
   if (this.value == "") {
@@ -72,7 +66,6 @@ txPeriodoAnual.addEventListener("input", function () {
     txPeriodo.value = (txMensal * 100).toFixed(2).replace(".", ",");
   }
 });
-
 // Enquanto o usuário digita o juros mensal, transforma em juros anual e preenche o campo Taxa Anual
 txPeriodo.addEventListener("input", function () {
   if (this.value == "") {
@@ -83,7 +76,6 @@ txPeriodo.addEventListener("input", function () {
     txPeriodoAnual.value = (txPeriodo * 100).toFixed(2).replace(".", ",");
   }
 });
-
 //// -----------
 
 // Recupera valores previamente salvos no sessionStorage e preenche os campos correspondentes
