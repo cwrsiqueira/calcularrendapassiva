@@ -1,3 +1,21 @@
+//// SCRIPT BOTÃO BACK TO TOP
+// Exibe o botão quando o usuário rola para baixo
+window.onscroll = function () {
+  const backToTopButton = document.getElementById("backToTop");
+  if (document.documentElement.scrollTop > 300) {
+    // Mostrar após 300px de rolagem
+    backToTopButton.style.display = "block";
+  } else {
+    backToTopButton.style.display = "none";
+  }
+};
+
+// Função para rolar suavemente até o topo
+document.getElementById("backToTop").onclick = function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+////----
+
 //Compartilhar
 document.getElementById("shareButton").addEventListener("click", async () => {
   if (navigator.share) {
