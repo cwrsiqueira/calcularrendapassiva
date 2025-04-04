@@ -397,56 +397,47 @@ if (document.getElementById("resultPrazo")) {
 
   document.getElementById(
     "resultPrazo"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Prazo:</span><span>${
-    sessionStorage.getItem("prazo") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Prazo:</span><span>${sessionStorage.getItem("prazo") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultValorInicial"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Inicial:</span><span>$ ${
-    sessionStorage.getItem("valorInicial") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Inicial:</span><span>$ ${sessionStorage.getItem("valorInicial") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultValorRecorrente"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Recorrente Mensal:</span><span>$ ${
-    sessionStorage.getItem("valorRecorrente") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Recorrente Mensal:</span><span>$ ${sessionStorage.getItem("valorRecorrente") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultValorInvestido"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Investido:</span><span>$ ${
-    sessionStorage.getItem("valorInvestido") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Investido:</span><span>$ ${sessionStorage.getItem("valorInvestido") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultRendimentos"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Rendimentos:</span><span>$ ${
-    sessionStorage.getItem("rendimentos") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Rendimentos:</span><span>$ ${sessionStorage.getItem("rendimentos") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultTaxa"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Mensal:</span><span>${
-    sessionStorage.getItem("taxa") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Mensal:</span><span>${sessionStorage.getItem("taxa") || "---"
   } %</span></p>`;
 
   document.getElementById(
     "resultTaxaAnual"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Anual:</span><span>${
-    sessionStorage.getItem("taxaAnual") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Taxa Anual:</span><span>${sessionStorage.getItem("taxaAnual") || "---"
   } %</span></p>`;
 
   document.getElementById(
     "resultRendaPassiva"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Renda Passiva:</span><span>$ ${
-    sessionStorage.getItem("rendaPassiva") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Renda Passiva:</span><span>$ ${sessionStorage.getItem("rendaPassiva") || "---"
   }</span></p>`;
 
   document.getElementById(
     "resultValorAcumulado"
-  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Acumulado:</span><span>$ ${
-    sessionStorage.getItem("valorAcumulado") || "---"
+  ).innerHTML = `<p class="d-flex justify-content-between border-bottom" style="border-color:#6c757d1a;"><span>Valor Acumulado:</span><span>$ ${sessionStorage.getItem("valorAcumulado") || "---"
   }</span></p>`;
 }
 
