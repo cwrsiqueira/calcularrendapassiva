@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 body {
-  background-color: #f8f9fa;
+  background-color: #030711;
   color: #333;
   height: 100%; /* Garantir que o body ocupe toda a altura */
   display: flex;
@@ -12,6 +14,66 @@ body {
   right: 20px;
   display: none; /* O botão ficará oculto até o usuário rolar a página */
   z-index: 1000;
+  background-color: #1d193e;
+  padding: 10px;
+  border: 1px solid rgba(30, 41, 59, 0.5);
+  border-radius: 8px;
+}
+
+.header {
+  background: linear-gradient(to left, #e847eb, #7d38f0);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  padding: 48px 0;
+}
+
+.shadow-lg {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-md {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-default {
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid rgba(255, 255, 255, 0.125); /* border padrão com leve transparência */
+  background-color: rgba(255, 255, 255, 0.05); /* bg-card estilo glassmorphism */
+  color: #f8fafc; /* text-card-foreground (geralmente texto claro) */
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px); /* efeito glassmorphism */
+  transition: all 0.3s ease-in-out;
+  padding: 20px;
+}
+
+.card-default:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* hover:shadow-2xl */
+  border-color: #3b82f6; /* hover:border-primary — azul padrão Tailwind */
+}
+
+.card-icon {
+  padding: 0.75rem; /* p-3 = 12px */
+  background-color: rgba(59, 130, 246, 0.1); /* bg-primary/10 → azul primário com 10% de opacidade */
+  border-radius: 0.5rem; /* rounded-lg = 8px */
+}
+
+.text-card-icon {
+  color: #f8fafc;
+  /* font-size: 24px; */
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-family: "Inter", sans-serif;
+  margin-left: 1rem;
 }
 
 .wrapper {
@@ -31,15 +93,48 @@ body {
 }
 
 .title {
-  font-size: 2rem;
-  color: #000;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  /* font-size: 3rem; */
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1;
+  color: #f8fafc;
   margin-bottom: 0;
+}
+
+.subtitle {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  /* font-size: 20px; */
+  font-size: clamp(0.75rem, 2vw, 1.25rem);
+  margin-top: 8px;
+  color: #f8fafccc;
 }
 
 .version-area {
   display: flex;
-  justify-content: end;
+  justify-content: center;
+}
+
+.input-label {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  margin-top: 8px;
+  color: #f8fafccc;
+}
+
+.btn-default {
+  background: linear-gradient(to left, #e847eb, #7d38f0);
+  width: 100%;
+  height: 44px;
+  color: #f8fafc;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  padding: 0px 32px;
+  border-radius: 8px;
+  text-align: center;
 }
 
 .version {
@@ -50,12 +145,6 @@ body {
   padding: 4px;
   border-radius: 4px;
   color: #f8f9fa;
-}
-
-@media (min-width: 576px) {
-  .title {
-    font-size: 2.5rem;
-  }
 }
 
 .btn-premium {
@@ -92,21 +181,7 @@ body {
   }
 }
 
-.logo {
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  width: 80px;
-  height: 80px;
-  background-image: url("favicon.ico");
-  background-size: cover;
-  background-repeat: no-repeat;
-  transform: rotate(20deg);
-  z-index: -1;
-  opacity: 0.8;
-}
-
-.container {
+.calculadora-container {
   max-width: 600px;
   margin-top: 50px;
 }
@@ -162,40 +237,37 @@ body {
 
 .flip-card {
   perspective: 1000px;
-  margin-bottom: 50px;
+  height: 620px;
 }
 
 .flip-card-inner {
   position: relative;
   width: 100%;
+  height: inherit;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  min-height: 400px;
 }
 
 .flip-card-front,
 .flip-card-back {
   position: absolute;
   width: 100%;
+  height: 620px;
   backface-visibility: hidden;
 }
 
 .flip-card-front {
   z-index: 2;
   transform: rotateY(0deg);
-  background-color: #fbfcfc;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-height: 450px;
 }
 
 .flip-card-back {
   z-index: 1;
   transform: rotateY(180deg);
-  background-color: #ffffff6c;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-height: 450px;
 }
 
 .flip-card-flipped .flip-card-inner {
@@ -217,23 +289,45 @@ body {
 }
 
 footer {
-  margin-top: 50px;
-  padding: 20px 0;
-  background-color: #212529;
-  color: white;
+  background-color: #030711;
   text-align: center;
   position: relative;
   bottom: 0;
   width: 100%;
   left: 0;
+  border: 1px solid rgba(30, 41, 59, 0.5);
+  margin: 64px 0px 0px;
+  padding: 32px 0px;
+  font-size: clamp(0.75rem, 2vw, 1rem);
 }
 
 footer a {
-  color: #ffd700;
+  color: #eb47eb;
   text-decoration: none;
 }
 
-footer .social-icons a:hover {
-  transform: scale(1.1);
-  color: #ffd900aa;
+@media screen and (max-width: 575px) {
+  .flip-card {
+    height: 760px;
+  }
+  .flip-card-inner {
+    height: 760px;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    height: 760px;
+  }
+}
+
+@media screen and (max-width: 334px) {
+  .flip-card {
+    height: 800px;
+  }
+  .flip-card-inner {
+    height: 800px;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    height: 800px;
+  }
 }

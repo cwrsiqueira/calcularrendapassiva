@@ -42,67 +42,46 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793"
-        crossorigin="anonymous"></script>
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793"
+        crossorigin="anonymous"></script> -->
 </head>
 
 <body>
 
-    <button id="backToTop" class="btn btn-primary p-3">
-        <i class="fa-solid fa-circle-arrow-up fa-2xl"></i>
+    <button id="backToTop">
+        <i class="fa-solid fa-circle-arrow-up fa-2xl" style="color: #eb47eb;font-size: 32px;"></i>
     </button>
 
+    <header class="container-fluid header shadow-lg">
+        <section class="text-center">
+            <i class="fa-solid fa-calculator" style="color: #f8fafc;font-size: 64px;margin-bottom: 16px;"></i>
+            <h1 class="title">Calculadora de Renda Passiva</h1>
+            <div class="version-area text-center">
+            </div>
+            <p class="subtitle">Descubra quanto investir para viver de renda.</p>
+        </section>
+    </header>
+
     <div class="wrapper">
+
         <main class="content">
-            <div class="container">
-                <h5 class="text-center">
-                    <small>
-                        <a target="_blank" href="https://calcularrendapassiva.com.br/loja/">
-                            Quer multiplicar sua renda passiva? Aprenda aqui
-                            <br>
-                            Conheça a <strong>Loja
-                                Renda Passiva</strong> <br> Cursos &
-                            Livros
-                        </a>
-                    </small>
-                </h5>
-                <section class="title-section text-center">
-                    <h1 class="title">Calcular Renda Passiva</h1>
-                    <div class="version-area">
-                        <a href="#atualizacoes" class="text-decoration-none"><span class="version">v2.2 - 14/04/2025
-                                - Ver atualizações</span></a>
-                    </div>
-                    <div class="logo"></div>
-                    <p class="fw-bold">Calcule sua renda passiva ou outro dado que falta para alcançar sua meta.
-                        <br>
-                        Deixe o campo que
-                        deseja
-                        calcular em branco.
-                    </p>
-                    <div class="d-flex justify-content-center">
-
-                        <a href="mailto:suporte@calcularrendapassiva.com.br?subject=Críticas%20e%20Sugestões"
-                            class="btn btn-primary btn-sm mb-3"><i class="fas fa-envelope"></i> Críticas
-                            e Sugestões</a>
-
-                        <!-- <a href="premium.html" class="btn btn-warning btn-sm mb-3 border border-dark"><i
-                                class="fa-regular fa-star"></i>
-                            Tirar
-                            Anúncios</a> -->
-                    </div>
-                </section>
+            <div class="container calculadora-container">
 
 
 
-                <section class="flip-card">
-                    <div class="section-divider">
-                        <span class="section-title">Calculadora de Renda Passiva</span>
-                    </div>
+                <!-- Calculadora -->
+                <section class="flip-card mb-4">
                     <div class="flip-card-inner">
                         <!-- Formulário (frente) -->
-                        <div class="flip-card-front">
+                        <div class="flip-card-front card-default">
+                            <div class="text-end">
+                                <a title="Como usar a Calculadora de renda passiva"
+                                    href="/articles/como-usar-calculadora-renda-passiva.html">
+                                    <i class="fa-solid fa-circle-question" style="color: #eb47eb;font-size: 24px;"></i>
+                                </a>
+                            </div>
                             <form id="rendaForm">
-                                <p>Preencha Prazo em meses ou anos</p>
+                                <p class="input-label">Preencha Prazo em meses ou anos</p>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
@@ -120,7 +99,7 @@
                                     </div>
                                 </div>
 
-                                <p>Preencha Taxa mensal ou anual (%)</p>
+                                <p class="input-label">Preencha Taxa mensal ou anual (%)</p>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
@@ -138,7 +117,12 @@
                                     </div>
                                 </div>
 
-                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <p class="input-label">Preencha os valores</p>
+                                    <i title="Limpar e reiniciar" class="fa-solid fa-rotate-left"
+                                        style="color: #eb47eb;font-size: 24px;cursor: pointer;" id="btn-reset"></i>
+                                </div>
+
                                 <div class="form-floating mb-3">
                                     <input type="search" inputmode="numeric" class="form-control value"
                                         id="valorInicial" placeholder="Valor Inicial">
@@ -157,22 +141,14 @@
                                     <label for="rendaPassiva">Renda passiva</label>
                                 </div>
 
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-sm btn-success" id="calcularBtn">
-                                        <i class="fas fa-calculator"></i> Calcular
-                                    </button>
-                                    <button type="reset" class="btn btn-sm btn-danger" id="btn-reset">
-                                        <i class="fas fa-trash-alt"></i> Limpar
-                                    </button>
-                                    <button id="shareButton" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-share-alt"></i> Compartilhar
-                                    </button>
-                                </div>
+                                <button type="button" class="btn-default shadow-md" id="calcularBtn">
+                                    Calcular <i class="fa-solid fa-arrow-right"></i>
+                                </button>
                             </form>
                         </div>
 
                         <!-- Resultados (carregando...) -->
-                        <div class="flip-card-back h-100 d-flex justify-content-center align-items-center">
+                        <div class="flip-card-back h-100 d-flex justify-content-center align-items-center card-default">
                             <div class="result-section">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                     <div class="spinner-border text-primary" role="status">
@@ -185,12 +161,17 @@
                     </div>
                 </section>
 
+
+
                 <!-- Botões extras -->
-                <section class="botoes-extras">
+                <section class="botoes-extras card-default mb-4">
                     <div class="row gap-3">
 
-                        <div class="section-divider">
-                            <span class="section-title">App Grátis na Playstore</span>
+                        <div class="d-flex align-items-center py-2">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-coins" style="color: #eb47eb;font-size: 32px;"></i>
+                            </div>
+                            <span class="text-card-icon" style="color: #f8fafc;">Ajude a manter o site</span>
                         </div>
 
                         <div class="col-sm">
@@ -199,9 +180,12 @@
                                 <div class="row align-items-center">
                                     <div class="col-2"><i class="fa-solid fa-hand-holding-dollar fa-lg"></i>
                                     </div>
-                                    <div class="col-10 text-start">Gorjeta</div>
+                                    <div class="col-10 text-start" style="color: #f8fafccc;">Doação</div>
                                 </div>
                             </a>
+                            <ul>
+                                <li style="color: #f8fafccc;">Ajude-nos e contribua com qualquer valor.</li>
+                            </ul>
                         </div>
                         <div class="col-sm">
                             <a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share"
@@ -209,145 +193,143 @@
                                 <div class="row align-items-center">
                                     <div class="col-2"><i class="fa-brands fa-google-play" style="font-size: 28px;"></i>
                                     </div>
-                                    <div class="col-10 text-start">Baixe na PlayStore</div>
+                                    <div class="col-10 text-start" style="color: #f8fafccc;">Grátis na PlayStore</div>
                                 </div>
                             </a>
+                            <ul>
+                                <li style="color: #f8fafccc;">Baixe o App da Calculadora grátis na Playstore.</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
 
-                <div class="section-divider">
-                    <span class="section-title">Conheça também</span>
-                </div>
 
-                <div class="d-flex flex-column flex-sm-row justify-content-center">
-                    <div>
-                        <ul>
-                            <a href="https://calcularrendapassiva.com.br/loja/" target="_blank"
-                                class="text-decoration-none text-secondary-emphasis">
-                                <li class="position-relative border border-1 border-emphasis p-2 rounded">
-                                    <strong class="position-relative">Loja Renda Passiva</strong>
-                                    <br>
-                                    Ferramentas para alcançar sua Renda Passiva
-                                    <br>
-                                    <small>Cursos & Livros</small>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
-                                        Novo
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
-                                </li>
-                            </a>
-                            <a href="https://calcularemprestimo.com" target="_blank"
-                                class="text-decoration-none text-secondary-emphasis">
-                                <li class="position-relative border border-1 border-emphasis p-2 rounded mt-3">
-                                    <strong class="position-relative">Calculadora de Empréstimo</strong>
-                                    <br>
-                                    <small>Calcule o empréstimo, a parcela, o prazo ou a taxa, na tabela PRICE ou
-                                        SAC..</small>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        Grátis
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
-                                </li>
-                            </a>
-                            <a href="https://calcularaposentadoria.com" target="_blank"
-                                class="text-decoration-none text-secondary-emphasis">
-                                <li class="position-relative border border-1 border-emphasis p-2 rounded mt-3">
-                                    <strong class="position-relative">Calculadora de Aposentadoria</strong>
-                                    <br>
-                                    <small>Planeje seu futuro financeiro, estimando o valor necessário para alcançar sua
-                                        aposentadoria ideal ou o tempo necessário para atingir suas metas.</small>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        Grátis
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
-                                </li>
-                            </a>
-                        </ul>
+
+                <!-- Conheça também -->
+                <section class="card-default mb-4">
+                    <div class="d-flex align-items-center py-2">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-screwdriver-wrench" style="color: #eb47eb;font-size: 32px;"></i>
+                        </div>
+                        <span class="text-card-icon" style="color: #f8fafc;">Outras ferramentas</span>
                     </div>
-                </div>
 
-                <div class="section-divider" id="atualizacoes">
-                    <span class="section-title">Atualizações dessa versão v2.2</span>
-                </div>
-
-                <div class="d-flex flex-column flex-sm-row justify-content-center">
-                    <div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <ul>
-                            <li>Incluído Artigos na seção Bom saber</li>
-                        </ul>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center">
+                        <div>
+                            <ul>
+                                <a href="https://calcularrendapassiva.com.br/loja/" target="_blank"
+                                    class="text-decoration-none text-secondary-emphasis">
+                                    <li class="position-relative p-2 rounded" style="color: #f8fafccc;">
+                                        <strong class="position-relative">Loja Renda Passiva</strong>
+                                        <br>
+                                        Ferramentas para alcançar sua Renda Passiva
+                                        <br>
+                                        <small>Cursos & Livros</small>
+                                    </li>
+                                </a>
+                                <a href="https://calcularemprestimo.com" target="_blank"
+                                    class="text-decoration-none text-secondary-emphasis">
+                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
+                                        <strong class="position-relative">Calculadora de Empréstimo</strong>
+                                        <br>
+                                        <small>Calcule o empréstimo, a parcela, o prazo ou a taxa, na tabela PRICE ou
+                                            SAC..</small>
+                                    </li>
+                                </a>
+                                <a href="https://calcularaposentadoria.com" target="_blank"
+                                    class="text-decoration-none text-secondary-emphasis">
+                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
+                                        <strong class="position-relative">Calculadora de Aposentadoria</strong>
+                                        <br>
+                                        <small>Planeje seu futuro financeiro, estimando o valor necessário para alcançar
+                                            sua
+                                            aposentadoria ideal ou o tempo necessário para atingir suas metas.</small>
+                                    </li>
+                                </a>
+                                <a href="https://calculadorasfinanceiras.com.br" target="_blank"
+                                    class="text-decoration-none text-secondary-emphasis">
+                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
+                                        <strong class="position-relative">Calculadoras Financeiras</strong>
+                                        <br>
+                                        <small>Conheça todas as nossas ferramentas gratuitas.</small>
+                                    </li>
+                                </a>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </section>
+
+
+
+                <!-- Blog -->
+                <section id="blog" class="card-default mb-4">
+                    <div id="blog-title" class="d-flex align-items-center py-2">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-newspaper" style="color: #eb47eb;font-size: 32px;"></i>
+                        </div>
+                        <span class="text-card-icon" style="color: #f8fafc;">Artigos</span>
+                    </div>
+
+                    <article id="blog-articles-como-usar-calculadora-renda-passiva"
+                        class="card shadow rounded my-3 bg-transparent" id="comoUtilizarACalculadoraDeRendaPassiva">
+                        <a href="/articles/como-usar-calculadora-renda-passiva.html"
+                            class="text-decoration-none text-light">
+                            <li class="position-relative p-2 rounded mt-3 list-unstyled">
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <img src="/articles/images/como-usar-renda-passiva.jpg"
+                                            class="img-fluid rounded"
+                                            alt="Imagem ilustrativa da calculadora de renda passiva" />
+                                    </div>
+                                    <div class="col-md-8" style="color: #f8fafccc;">
+                                        <strong class="position-relative d-block">Como Utilizar a Calculadora de Renda
+                                            Passiva</strong>
+                                        <small class="d-block mt-1">
+                                            Aprenda como preencher corretamente os campos e simule sua independência
+                                            financeira com exemplos práticos.
+                                        </small>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    </article>
+
+                    <article id="blog-articles" class="card shadow rounded my-3 bg-transparent"
+                        id="comoUtilizarACalculadoraDeRendaPassiva">
+                        <a href="/articles/o-que-e-renda-passiva.html" class="text-decoration-none text-light">
+                            <li class="position-relative p-2 rounded mt-3 list-unstyled">
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <img src="/articles/images/o-que-e-renda-passiva.jpg" class="img-fluid rounded"
+                                            alt="Imagem sobre renda passiva" />
+                                    </div>
+                                    <div class="col-md-8" style="color: #f8fafccc;">
+                                        <strong class="position-relative d-block">O que é Renda Passiva?</strong>
+                                        <small class="d-block mt-1">
+                                            Entenda o conceito de renda passiva, como ela funciona, e quais são as
+                                            principais
+                                            formas de gerar uma fonte de renda automática.
+                                        </small>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    </article>
+                </section>
             </div>
-
-            <section class="container mt-3">
-
-                <div class="section-divider">
-                    <span class="section-title">Bom saber</span>
-                </div>
-
-                <div class="card shadow rounded my-3" id="comoUtilizarACalculadoraDeRendaPassiva">
-                    <a href="/articles/como-usar-calculadora-renda-passiva.html"
-                        class="text-decoration-none text-secondary-emphasis">
-                        <li class="position-relative p-2 rounded mt-3 list-unstyled">
-                            <div class="row g-2">
-                                <div class="col-md-4">
-                                    <img src="/articles/images/como-usar-renda-passiva.jpg" class="img-fluid rounded"
-                                        alt="Imagem ilustrativa da calculadora de renda passiva" />
-                                </div>
-                                <div class="col-md-8">
-                                    <strong class="position-relative d-block">Como Utilizar a Calculadora de Renda
-                                        Passiva</strong>
-                                    <small class="d-block mt-1">
-                                        Aprenda como preencher corretamente os campos e simule sua independência
-                                        financeira com exemplos práticos.
-                                    </small>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info text-dark">
-                                        Artigo
-                                        <span class="visually-hidden">leia o artigo</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                    </a>
-                </div>
-
-                <div class="card shadow rounded my-3" id="comoUtilizarACalculadoraDeRendaPassiva">
-                    <a href="/articles/o-que-e-renda-passiva.html" class="text-decoration-none text-secondary-emphasis">
-                        <li class="position-relative p-2 rounded mt-3 list-unstyled">
-                            <div class="row g-2">
-                                <div class="col-md-4">
-                                    <img src="/articles/images/o-que-e-renda-passiva.jpg" class="img-fluid rounded"
-                                        alt="Imagem sobre renda passiva" />
-                                </div>
-                                <div class="col-md-8">
-                                    <strong class="position-relative d-block">O que é Renda Passiva?</strong>
-                                    <small class="d-block mt-1">
-                                        Entenda o conceito de renda passiva, como ela funciona, e quais são as
-                                        principais
-                                        formas de gerar uma fonte de renda automática.
-                                    </small>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info text-dark">
-                                        Artigo
-                                        <span class="visually-hidden">leia o artigo</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                    </a>
-                </div>
-
-            </section>
         </main>
 
+
+
         <!-- Footer -->
-        <footer>
-            <p>&copy; 2024 Todos os direitos reservados.<br>Conheça nossos projetos nas nossas redes sociais:</p>
+        <footer style="color: #94a3b8;font-family: 'Inter', sans-serif;">
+            <p class="mb-1">&copy; 2025 Calcular Renda Passiva. Todos os direitos reservados.</p>
+            <a href="termos-de-uso-e-politicas-de-privacidade.html" target="_blank"
+                style="color: #94a3b8;font-family: 'Inter', sans-serif;">Termos de Uso e Políticas de
+                Privacidade</a>
+            <p class="mt-1">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank"
+                    style="color: #94a3b8;">Carlos
+                    Dev</a></p>
             <div class="social-icons d-flex gap-3 justify-content-center mb-3">
                 <a target="_blank" href="https://www.youtube.com/@carlosjornadadev"><i class="fab fa-youtube"
                         style="font-size: 26px;"></i></a>
@@ -356,8 +338,6 @@
                 <a target="_blank" href="https://www.linkedin.com/in/carloswagner1975/"><i class="fab fa-linkedin"
                         style="font-size: 26px;"></i></a>
             </div>
-            <a style="color: white;" href="termos-de-uso-e-politicas-de-privacidade.html">Termos de Uso e Políticas de
-                Privacidade</a>
         </footer>
     </div>
 
