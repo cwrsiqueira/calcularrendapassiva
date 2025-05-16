@@ -17,25 +17,26 @@ document.getElementById("backToTop").onclick = function () {
 ////----
 
 //Compartilhar
-document.getElementById("shareButton").addEventListener("click", async () => {
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: "Calculadora de Renda Passiva",
-        text: "A Calculadora de Renda Passiva foi desenvolvida para ajudar você a estimar quanto tempo falta para atingir sua renda passiva ideal e, ao mesmo tempo, simular diferentes cenários de investimento.",
-        url: "https://calcularrendapassiva.com",
-      });
-      console.log("Compartilhamento bem-sucedido!");
-    } catch (error) {
-      console.log("Erro ao compartilhar:", error);
-    }
-  } else {
-    alert(
-      "A API de compartilhamento não é suportada neste navegador. Tente copiar os resultados e colar."
-    );
-  }
-});
+// document.getElementById("shareButton").addEventListener("click", async () => {
+//   if (navigator.share) {
+//     try {
+//       await navigator.share({
+//         title: "Calculadora de Renda Passiva",
+//         text: "A Calculadora de Renda Passiva foi desenvolvida para ajudar você a estimar quanto tempo falta para atingir sua renda passiva ideal e, ao mesmo tempo, simular diferentes cenários de investimento.",
+//         url: "https://calcularrendapassiva.com",
+//       });
+//       console.log("Compartilhamento bem-sucedido!");
+//     } catch (error) {
+//       console.log("Erro ao compartilhar:", error);
+//     }
+//   } else {
+//     alert(
+//       "A API de compartilhamento não é suportada neste navegador. Tente copiar os resultados e colar."
+//     );
+//   }
+// });
 
+/*
 window.addEventListener("load", function () {
   // Pega o offsetHeight do tamanho atual do card da calculadora
   // e acrescenta a diferença como margin top do elemento abaixo.
@@ -43,6 +44,7 @@ window.addEventListener("load", function () {
   const botoesextras = document.querySelector(".botoes-extras");
   botoesextras.style.marginTop = flipcardfront - 400 + "px";
 });
+*/
 
 // Formatar máscaras dos valores (para campos de input com valores monetários e percentuais)
 $(".value").mask("000.000.000,00", { reverse: true }); // Formata o valor monetário com pontuação e vírgula (ex: 1.000,00)
@@ -119,9 +121,9 @@ document.getElementById("rendaPassiva").value =
   sessionStorage.getItem("rendaPassiva") ?? "";
 
 // Limpar o Session Storage ao clicar no botão de reset
-document.querySelector("#btn-reset").addEventListener("click", function () {
-  sessionStorage.clear(); // Limpa todos os dados do sessionStorage
-});
+// document.querySelector("#btn-reset").addEventListener("click", function () {
+//   sessionStorage.clear(); // Limpa todos os dados do sessionStorage
+// });
 
 // Função de cálculo de Renda Passiva
 function calcularRendaPassiva() {
