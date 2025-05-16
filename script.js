@@ -121,9 +121,10 @@ document.getElementById("rendaPassiva").value =
   sessionStorage.getItem("rendaPassiva") ?? "";
 
 // Limpar o Session Storage ao clicar no botão de reset
-// document.querySelector("#btn-reset").addEventListener("click", function () {
-//   sessionStorage.clear(); // Limpa todos os dados do sessionStorage
-// });
+document.querySelector("#btn-reset").addEventListener("click", function () {
+  sessionStorage.clear(); // Limpa todos os dados do sessionStorage
+  document.querySelector("#rendaForm").reset(); // Reseta o formulário
+});
 
 // Função de cálculo de Renda Passiva
 function calcularRendaPassiva() {
