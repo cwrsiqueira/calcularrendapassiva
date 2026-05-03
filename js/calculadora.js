@@ -469,9 +469,47 @@ function compartilharWhatsApp() {
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-function baixarCard() {
+async function compartilharResultado() {
   const canvas = document.getElementById('cardCompartilhar');
   if (!canvas) return;
+
+  const idx     = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
+  const prazo   = sessionStorage.getItem('prazo') || '---';
+  const renda   = sessionStorage.getItem('rendaPassivaResult') || '---';
+  const inicial = sessionStorage.getItem('valorInicialResult') || '---';
+  const recorr  = sessionStorage.getItem('valorRecorrenteResult') || '---';
+  const taxa    = sessionStorage.getItem('taxa') || '---';
+
+  const frases = [
+    `Descobri que em ${prazo} terei renda passiva de R$ ${renda}/mês! 🎯`,
+    `Descobri que preciso de R$ ${inicial} de valor inicial para ter renda passiva de R$ ${renda}/mês! 🎯`,
+    `Descobri que preciso aportar R$ ${recorr}/mês para ter renda passiva de R$ ${renda}/mês! 🎯`,
+    `Descobri que preciso de ${taxa}% ao mês para ter renda passiva de R$ ${renda}/mês! 🎯`,
+    `Descobri que minha renda passiva será de R$ ${renda}/mês em ${prazo}! 🎯`,
+  ];
+  const texto = frases[idx >= 0 && idx < 5 ? idx : 4];
+  const url = 'https://calcularrendapassiva.com';
+
+  if (navigator.share) {
+    try {
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      const file = new File([blob], 'minha-renda-passiva.png', { type: 'image/png' });
+      const shareData = (navigator.canShare && navigator.canShare({ files: [file] }))
+        ? { files: [file], text: texto, url }
+        : { text: `${texto}\n\nCalcule a sua: ${url}` };
+      await navigator.share(shareData);
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      // Falhou com arquivo, tenta sem
+      try {
+        await navigator.share({ text: `${texto}\n\nCalcule a sua: ${url}` });
+        return;
+      } catch (_) { /* fallback para download */ }
+    }
+  }
+
+  // Fallback: download da imagem
   const link = document.createElement('a');
   link.download = 'minha-renda-passiva.png';
   link.href = canvas.toDataURL('image/png');
