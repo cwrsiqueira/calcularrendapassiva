@@ -218,6 +218,22 @@
           </p>
         </section>
 
+        <!-- Captura de Email -->
+        <section class="card email-section" aria-label="Receba dicas de investimento">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Dicas gratuitas de investimento</span>
+          </div>
+          <p class="email-subtitle">Receba estratégias para alcançar sua renda passiva mais rápido.</p>
+          <form id="emailForm" class="email-form" novalidate>
+            <div class="email-row">
+              <input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required />
+              <button type="submit" id="emailBtn" class="btn-primary email-btn">Receber dicas</button>
+            </div>
+            <p id="emailMsg" class="email-msg" aria-live="polite"></p>
+          </form>
+        </section>
+
         <!-- Apoie o site -->
         <section class="card" aria-label="Apoie o site">
           <div class="card-header">
@@ -298,5 +314,7 @@
 
   <!-- Calculadora -->
   <script defer src="/js/calculadora.js"></script>
+  <!-- Email -->
+  <script defer src="/js/email.js"></script>
 </body>
 </html>
