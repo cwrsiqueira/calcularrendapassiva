@@ -36,7 +36,7 @@
       msg.textContent = err.message || 'Erro ao cadastrar. Tente novamente.';
       msg.className = 'email-msg error';
       btn.disabled = false;
-      btn.textContent = 'Receber dicas';
+      btn.textContent = 'Quero novidades';
     }
   });
 })();

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Free Passive Income Calculator | Financial Independence Simulator</title>
+  <meta name="description" content="Free passive income calculator. Simulate how much to invest to live off passive income. Calculate wealth accumulation, monthly contributions, and monthly passive income with compound interest." />
+  <meta name="author" content="Passive Income Calculator" />
+  <meta name="keywords" content="passive income calculator, financial independence calculator, compound interest calculator, investment calculator, how much to invest, passive income simulator" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://calcularrendapassiva.com/en/" />
+  <link rel="alternate" hreflang="en"    href="https://calcularrendapassiva.com/en/" />
+  <link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://calcularrendapassiva.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Passive Income Calculator | Financial Independence Simulator" />
+  <meta property="og:description" content="Free passive income calculator. Simulate how much to invest to live off passive income with compound interest calculations." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcularrendapassiva.com/en/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Passive Income Calculator" />
+  <meta property="og:image" content="https://calcularrendapassiva.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Passive Income Calculator | Financial Independence Simulator" />
+  <meta name="twitter:description" content="Free passive income calculator. Simulate how much to invest to live off passive income." />
+  <meta name="twitter:image" content="https://calcularrendapassiva.com/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#7d38f0" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- JSON-LD: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Passive Income Calculator",
+    "url": "https://calcularrendapassiva.com/en/",
+    "description": "Free passive income calculator. Simulate how much to invest to live off passive income with compound interest.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "inLanguage": "en",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1JD0D4KM1');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793" crossorigin="anonymous"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <button id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-circle-arrow-up" style="color:#eb47eb;font-size:32px;"></i>
+  </button>
+
+  <header class="site-header">
+    <i class="fa-solid fa-calculator header-icon" aria-hidden="true"></i>
+    <h1 class="site-title">Passive Income Calculator</h1>
+    <p class="site-subtitle">Discover how much to invest to live off passive income.</p>
+  </header>
+
+  <div class="wrapper">
+    <main class="content">
+      <div class="calculadora-container">
+
+        <!-- Calculator -->
+        <section class="flip-card" aria-label="Passive income calculator">
+          <div class="flip-card-inner">
+
+            <!-- Front: form -->
+            <div class="flip-card-front">
+              <form id="rendaForm" novalidate>
+                <p class="input-hint">Fill in Period in months or years</p>
+                <div class="form-row">
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" id="periodo" placeholder=" " maxlength="3" autocomplete="off" />
+                    <label for="periodo">Period (months)</label>
+                  </div>
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" id="periodoAnual" placeholder=" " maxlength="2" autocomplete="off" />
+                    <label for="periodoAnual">Period (years)</label>
+                  </div>
+                </div>
+
+                <p class="input-hint">Fill in Monthly or Annual Rate (%)</p>
+                <div class="form-row">
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" class="percent" id="txPeriodo" placeholder=" " maxlength="6" autocomplete="off" />
+                    <label for="txPeriodo">Monthly rate (%)</label>
+                  </div>
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" class="percent" id="txPeriodoAnual" placeholder=" " maxlength="7" autocomplete="off" />
+                    <label for="txPeriodoAnual">Annual rate (%)</label>
+                  </div>
+                </div>
+
+                <p class="input-hint">Fill in the amounts — leave one blank to calculate it</p>
+
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
+                  <label for="valorInicial">Initial amount</label>
+                </div>
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="valorRecorrente" placeholder=" " autocomplete="off" />
+                  <label for="valorRecorrente">Monthly contribution</label>
+                </div>
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="rendaPassiva" placeholder=" " autocomplete="off" />
+                  <label for="rendaPassiva">Desired passive income</label>
+                </div>
+
+                <button type="button" class="btn-primary" id="calcularBtn">
+                  Calculate <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+
+            <!-- Back: loading -->
+            <div class="flip-card-back flip-loading">
+              <div class="spinner" role="status"></div>
+              <p>Calculating, please wait...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Articles -->
+        <section class="card" id="blog" aria-label="Articles">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-newspaper" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Learn more</span>
+          </div>
+
+          <article>
+            <a href="/articles/o-que-e-renda-passiva.html" class="article-card">
+              <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
+                alt="What is passive income"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>What is Passive Income?</strong>
+                <small>Understand the concept of passive income, how it works, and the main ways to generate an automatic income stream.</small>
+              </div>
+            </a>
+          </article>
+        </section>
+
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Passive Income Calculator. All rights reserved.</p>
+      <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Terms of Use &amp; Privacy Policy</a>
+      <p style="margin-top:0.25rem;">Developed with ❤️ by <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+        <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/carloswagner1975/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Flock Analytics -->
+  <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script>
+
+  <!-- Calculator -->
+  <script defer src="/js/calculadora.js"></script>
+</body>
+</html>

@@ -541,25 +541,6 @@ function compartilharWhatsApp() {
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-function compartilharTwitter() {
-  const idx    = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
-  const prazo  = sessionStorage.getItem('prazo') || '---';
-  const renda  = sessionStorage.getItem('rendaPassivaResult') || '---';
-  const inic   = sessionStorage.getItem('valorInicialResult') || '---';
-  const recorr = sessionStorage.getItem('valorRecorrenteResult') || '---';
-  const taxa   = sessionStorage.getItem('taxa') || '---';
-
-  const tweets = [
-    `Em ${prazo} terei R$ ${renda}/mês de renda passiva! 🎯 Calculei com juros compostos. Calcule a sua →`,
-    `Preciso de apenas R$ ${inic} de inicial para ter R$ ${renda}/mês de renda passiva! 🎯 Calcule a sua →`,
-    `Aportando R$ ${recorr}/mês terei R$ ${renda}/mês de renda passiva! 🎯 Calcule a sua →`,
-    `Com ${taxa}% a.m. alcanço minha independência financeira de R$ ${renda}/mês! 🎯 Calcule a sua →`,
-    `Minha renda passiva será de R$ ${renda}/mês! 🎯 Calculei com juros compostos. Calcule a sua →`,
-  ];
-  const text = tweets[idx >= 0 && idx < 5 ? idx : 4];
-  const url = 'https://calcularrendapassiva.com';
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-}
 
 async function compartilharResultado() {
   const canvas = document.getElementById('cardCompartilhar');
@@ -613,24 +594,6 @@ if (document.getElementById('cardCompartilhar')) {
   document.fonts.ready.then(gerarCard);
 }
 
-/* ===== COPIAR RESULTADOS ===== */
-document.getElementById('copiarBtn')?.addEventListener('click', function () {
-  const linhas = [
-    'Calcular Renda Passiva\nhttps://calcularrendapassiva.com\n',
-    `Prazo: ${sessionStorage.getItem('prazo') || '---'}`,
-    `Valor Inicial: R$ ${sessionStorage.getItem('valorInicialResult') || '---'}`,
-    `Valor Recorrente: R$ ${sessionStorage.getItem('valorRecorrenteResult') || '---'}`,
-    `Valor Investido: R$ ${sessionStorage.getItem('valorInvestido') || '---'}`,
-    `Rendimentos: R$ ${sessionStorage.getItem('rendimentos') || '---'}`,
-    `Valor Acumulado: R$ ${sessionStorage.getItem('valorAcumulado') || '---'}`,
-    `Taxa Mensal: ${sessionStorage.getItem('taxa') || '---'}%`,
-    `Taxa Anual: ${sessionStorage.getItem('taxaAnual') || '---'}%`,
-    `Renda Passiva: R$ ${sessionStorage.getItem('rendaPassivaResult') || '---'}`,
-  ];
-  navigator.clipboard.writeText(linhas.join('\n'))
-    .then(() => alert('Resultados copiados para a área de transferência!'))
-    .catch(() => alert('Erro ao copiar. Tente novamente.'));
-});
 
 /* ===== BACK TO TOP ===== */
 const backToTop = document.getElementById('backToTop');

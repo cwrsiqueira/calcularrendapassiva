@@ -111,11 +111,31 @@
 
             <!-- Frente: formulário -->
             <div class="flip-card-front">
-              <div style="text-align:right;margin-bottom:0.5rem;">
-                <a title="Como usar a Calculadora de renda passiva" href="/articles/como-usar-calculadora-renda-passiva.html">
-                  <i class="fa-solid fa-circle-question" style="color:#eb47eb;font-size:24px;" aria-hidden="true"></i>
-                  <span class="sr-only">Como usar</span>
-                </a>
+              <div class="result-header" style="margin-bottom:0.5rem;">
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div class="card-icon"><i class="fa-solid fa-calculator" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+                  <span class="card-title">Calculadora</span>
+                </div>
+                <div class="result-actions">
+                  <a href="#sec-afiliados" class="btn-nav" title="Cursos recomendados" aria-label="Cursos recomendados">
+                    <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-email" class="btn-nav" title="Novidades por email" aria-label="Novidades por email">
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-apoio" class="btn-nav" title="Apoie o site" aria-label="Apoie o site">
+                    <i class="fa-solid fa-coins" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-ferramentas" class="btn-nav" title="Outras ferramentas" aria-label="Outras ferramentas">
+                    <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                  </a>
+                  <a href="#blog" class="btn-nav" title="Artigos" aria-label="Artigos">
+                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+                  </a>
+                  <a href="/articles/como-usar-calculadora-renda-passiva.html" class="btn-icon" title="Como usar a Calculadora de renda passiva" aria-label="Como usar">
+                    <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+                  </a>
+                </div>
               </div>
 
               <form id="rendaForm" novalidate>
@@ -143,12 +163,7 @@
                   </div>
                 </div>
 
-                <div class="form-actions">
-                  <p class="input-hint" style="margin:0;">Preencha os valores</p>
-                  <button type="button" class="btn-reset" id="btn-reset" title="Limpar e reiniciar" aria-label="Limpar campos">
-                    <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
-                  </button>
-                </div>
+                <p class="input-hint">Preencha os valores abaixo</p>
 
                 <div class="input-float">
                   <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
@@ -163,9 +178,14 @@
                   <label for="rendaPassiva">Renda passiva desejada (R$)</label>
                 </div>
 
-                <button type="button" class="btn-primary" id="calcularBtn">
-                  Calcular <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                </button>
+                <div class="calc-actions">
+                  <button type="button" class="btn-primary" id="calcularBtn">
+                    Calcular <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="btn-clear" id="btn-reset" title="Limpar campos" aria-label="Limpar campos">
+                    <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+                  </button>
+                </div>
               </form>
             </div>
 
@@ -177,13 +197,71 @@
           </div>
         </section>
 
+        <!-- Afiliados -->
+        <section id="sec-afiliados" class="card affiliates-section" aria-label="Cursos de investimento">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-graduation-cap" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Aprenda a investir e viva de renda</span>
+          </div>
+          <p class="affiliates-subtitle">Cursos selecionados para te ajudar a alcançar sua renda passiva</p>
+          <div class="affiliates-grid">
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Recomendado</span>
+              <div class="affiliate-logo affiliate-logo-irm">IRM</div>
+              <p class="affiliate-name">Método IRM do Tesouro Direto</p>
+              <p class="affiliate-benefit">Invista no Tesouro Direto com estratégia e alcance a independência financeira</p>
+              <a href="https://go.hotmart.com/F105671164L?dp=1" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Quero aprender <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Recomendado</span>
+              <div class="affiliate-logo affiliate-logo-ebook"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
+              <p class="affiliate-name">Investimentos para um Futuro Tranquilo</p>
+              <p class="affiliate-benefit">Ebook prático para proteger seu dinheiro e viver de renda passiva</p>
+              <a href="https://go.hotmart.com/J82329175Y" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Quero o ebook <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Recomendado</span>
+              <div class="affiliate-logo affiliate-logo-planilha"><i class="fa-solid fa-table" aria-hidden="true"></i></div>
+              <p class="affiliate-name">Planilha de Investimentos</p>
+              <p class="affiliate-benefit">Controle e simule seus investimentos com uma planilha completa</p>
+              <a href="https://go.hotmart.com/P83025749U" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Quero a planilha <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <p class="affiliate-disclaimer">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            Links de afiliado — sem custo adicional para você
+          </p>
+        </section>
+
+        <!-- Captura de Email -->
+        <section id="sec-email" class="card email-section" aria-label="Receba novidades">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Fique por dentro das novidades</span>
+          </div>
+          <p class="email-subtitle">Novidades do site direto no seu email. Sem spam.</p>
+          <form id="emailForm" class="email-form" novalidate>
+            <div class="email-row">
+              <input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required />
+              <button type="submit" id="emailBtn" class="btn-primary email-btn">Quero novidades</button>
+            </div>
+            <p id="emailMsg" class="email-msg" aria-live="polite"></p>
+          </form>
+        </section>
+
         <!-- Apoie o site -->
-        <section class="card" aria-label="Apoie o site">
+        <section id="sec-apoio" class="card" aria-label="Apoie o site">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-coins" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Ajude a manter o site</span>
           </div>
-          <div style="display:flex;flex-direction:column;gap:1rem;" class="support-grid">
+          <div class="support-grid">
             <div>
               <a href="https://link.mercadopago.com.br/carlosdev" target="_blank" rel="noopener" class="btn-dark">
                 <i class="fa-solid fa-hand-holding-dollar btn-dark-icon" aria-hidden="true"></i>
@@ -198,33 +276,52 @@
               </a>
               <p class="support-note">Baixe o App da Calculadora grátis na Playstore.</p>
             </div>
+            <div>
+              <a href="https://apps.apple.com/us/app/calculadora-renda-passiva/id6762054224" target="_blank" rel="noopener" class="btn-dark">
+                <i class="fa-brands fa-apple btn-dark-icon" aria-hidden="true"></i>
+                <span>Grátis na App Store</span>
+              </a>
+              <p class="support-note">Baixe o App da Calculadora grátis na App Store.</p>
+            </div>
           </div>
         </section>
 
         <!-- Outras ferramentas -->
-        <section class="card" aria-label="Outras ferramentas">
+        <section id="sec-ferramentas" class="card" aria-label="Outras ferramentas">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Outras ferramentas</span>
           </div>
-          <nav aria-label="Links para outras calculadoras">
-            <a href="https://calcularrendapassiva.com.br/loja/" target="_blank" rel="noopener" class="tool-item">
-              <strong>Loja Renda Passiva</strong>
-              <small>Ferramentas para alcançar sua Renda Passiva — Cursos &amp; Livros</small>
+          <div class="tools-grid">
+            <a href="https://charconverter.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-font tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Conversor de Caracteres</strong>
+                <small>Converta textos, remova acentos e caracteres especiais.</small>
+              </div>
             </a>
-            <a href="https://calcularemprestimo.com" target="_blank" rel="noopener" class="tool-item">
-              <strong>Calculadora de Empréstimo</strong>
-              <small>Calcule o empréstimo, a parcela, o prazo ou a taxa, na tabela PRICE ou SAC.</small>
+            <a href="https://calcularemprestimo.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-money-bill-wave tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadora de Empréstimo</strong>
+                <small>Calcule parcelas, prazo ou taxa nas tabelas PRICE ou SAC.</small>
+              </div>
             </a>
-            <a href="https://calcularaposentadoria.com" target="_blank" rel="noopener" class="tool-item">
-              <strong>Calculadora de Aposentadoria</strong>
-              <small>Planeje seu futuro financeiro estimando o valor necessário para sua aposentadoria ideal.</small>
+            <a href="https://calcularaposentadoria.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-umbrella-beach tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadora de Aposentadoria</strong>
+                <small>Planeje sua aposentadoria estimando o valor necessário.</small>
+              </div>
             </a>
-            <a href="https://calculadorasfinanceiras.com.br" target="_blank" rel="noopener" class="tool-item">
-              <strong>Calculadoras Financeiras</strong>
-              <small>Conheça todas as nossas ferramentas gratuitas.</small>
+            <a href="https://calculadorasfinanceiras.com.br" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-calculator tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadoras Financeiras</strong>
+                <small>Todas as nossas ferramentas gratuitas em um só lugar.</small>
+              </div>
             </a>
-          </nav>
+          </div>
         </section>
 
         <!-- Artigos -->
@@ -283,5 +380,7 @@
 
   <!-- Calculadora -->
   <script defer src="/js/calculadora.js"></script>
+  <!-- Email -->
+  <script defer src="/js/email.js"></script>
 </body>
 </html>

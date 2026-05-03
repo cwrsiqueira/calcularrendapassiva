@@ -109,11 +109,29 @@
                   <span class="card-title">Resultados</span>
                 </div>
                 <div class="result-actions">
-                  <button class="btn-icon" id="copiarBtn" title="Copiar resultados" aria-label="Copiar resultados">
-                    <i class="fa-solid fa-copy" aria-hidden="true"></i>
-                  </button>
-                  <a href="/articles/entendendo-os-resultados.html" title="Entendendo os resultados" aria-label="Entendendo os resultados">
-                    <i class="fa-solid fa-circle-question" style="color:#eb47eb;font-size:24px;" aria-hidden="true"></i>
+                  <a href="#sec-compartilhar" class="btn-nav" title="Compartilhar resultado" aria-label="Compartilhar resultado">
+                    <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-grafico" class="btn-nav" title="Gráfico de evolução" aria-label="Gráfico de evolução">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-afiliados" class="btn-nav" title="Cursos recomendados" aria-label="Cursos recomendados">
+                    <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-email" class="btn-nav" title="Novidades por email" aria-label="Novidades por email">
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-apoio" class="btn-nav" title="Apoie o site" aria-label="Apoie o site">
+                    <i class="fa-solid fa-coins" aria-hidden="true"></i>
+                  </a>
+                  <a href="#sec-ferramentas" class="btn-nav" title="Outras ferramentas" aria-label="Outras ferramentas">
+                    <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                  </a>
+                  <a href="#blog" class="btn-nav" title="Artigos" aria-label="Artigos">
+                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+                  </a>
+                  <a href="/articles/entendendo-os-resultados.html" class="btn-icon" title="Entendendo os resultados" aria-label="Entendendo os resultados">
+                    <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
@@ -138,7 +156,7 @@
         </section>
 
         <!-- Card Compartilhável -->
-        <section class="card share-card-section" aria-label="Compartilhe seu resultado">
+        <section id="sec-compartilhar" class="card share-card-section" aria-label="Compartilhe seu resultado">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-share-nodes" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Compartilhe seu resultado</span>
@@ -153,14 +171,11 @@
             <button class="btn-share btn-download" onclick="compartilharResultado()">
               <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartilhar
             </button>
-            <button class="btn-share btn-twitter" onclick="compartilharTwitter()">
-              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i> Twitter/X
-            </button>
           </div>
         </section>
 
         <!-- Gráfico de Evolução do Patrimônio -->
-        <section class="card chart-card" aria-label="Evolução do patrimônio">
+        <section id="sec-grafico" class="card chart-card" aria-label="Evolução do patrimônio">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-chart-line" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Evolução do Patrimônio</span>
@@ -171,7 +186,7 @@
         </section>
 
         <!-- Afiliados -->
-        <section class="card affiliates-section" aria-label="Cursos de investimento">
+        <section id="sec-afiliados" class="card affiliates-section" aria-label="Cursos de investimento">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-graduation-cap" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Aprenda a investir e viva de renda</span>
@@ -219,23 +234,23 @@
         </section>
 
         <!-- Captura de Email -->
-        <section class="card email-section" aria-label="Receba dicas de investimento">
+        <section id="sec-email" class="card email-section" aria-label="Receba novidades">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Dicas gratuitas de investimento</span>
+            <span class="card-title">Fique por dentro das novidades</span>
           </div>
-          <p class="email-subtitle">Receba estratégias para alcançar sua renda passiva mais rápido.</p>
+          <p class="email-subtitle">Novidades do site direto no seu email. Sem spam.</p>
           <form id="emailForm" class="email-form" novalidate>
             <div class="email-row">
               <input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required />
-              <button type="submit" id="emailBtn" class="btn-primary email-btn">Receber dicas</button>
+              <button type="submit" id="emailBtn" class="btn-primary email-btn">Quero novidades</button>
             </div>
             <p id="emailMsg" class="email-msg" aria-live="polite"></p>
           </form>
         </section>
 
         <!-- Apoie o site -->
-        <section class="card" aria-label="Apoie o site">
+        <section id="sec-apoio" class="card" aria-label="Apoie o site">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-coins" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
             <span class="card-title">Ajude a manter o site</span>
@@ -255,6 +270,51 @@
               </a>
               <p class="support-note">Baixe o App da Calculadora grátis na Playstore.</p>
             </div>
+            <div>
+              <a href="https://apps.apple.com/us/app/calculadora-renda-passiva/id6762054224" target="_blank" rel="noopener" class="btn-dark">
+                <i class="fa-brands fa-apple btn-dark-icon" aria-hidden="true"></i>
+                <span>Grátis na App Store</span>
+              </a>
+              <p class="support-note">Baixe o App da Calculadora grátis na App Store.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Outras Ferramentas -->
+        <section id="sec-ferramentas" class="card" aria-label="Outras ferramentas">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Outras ferramentas</span>
+          </div>
+          <div class="tools-grid">
+            <a href="https://charconverter.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-font tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Conversor de Caracteres</strong>
+                <small>Converta textos, remova acentos e caracteres especiais.</small>
+              </div>
+            </a>
+            <a href="https://calcularemprestimo.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-money-bill-wave tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadora de Empréstimo</strong>
+                <small>Calcule parcelas, prazo ou taxa nas tabelas PRICE ou SAC.</small>
+              </div>
+            </a>
+            <a href="https://calcularaposentadoria.com" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-umbrella-beach tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadora de Aposentadoria</strong>
+                <small>Planeje sua aposentadoria estimando o valor necessário.</small>
+              </div>
+            </a>
+            <a href="https://calculadorasfinanceiras.com.br" target="_blank" rel="noopener" class="tool-card">
+              <i class="fa-solid fa-calculator tool-card-icon" aria-hidden="true"></i>
+              <div>
+                <strong>Calculadoras Financeiras</strong>
+                <small>Todas as nossas ferramentas gratuitas em um só lugar.</small>
+              </div>
+            </a>
           </div>
         </section>
 
