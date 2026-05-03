@@ -346,89 +346,161 @@ function gerarCard() {
   const canvas = document.getElementById('cardCompartilhar');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = 400, H = 400;
+  const W = 1080, H = 1350;
   canvas.width = W;
   canvas.height = H;
+  const PX = 72;
 
   // Fundo
-  const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
   bgGrad.addColorStop(0, '#030711');
-  bgGrad.addColorStop(1, '#1d193e');
+  bgGrad.addColorStop(1, '#130d2e');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, W, H);
 
-  // Barra superior
-  const barGrad = ctx.createLinearGradient(0, 0, W, 0);
-  barGrad.addColorStop(0, '#7d38f0');
-  barGrad.addColorStop(1, '#e847eb');
-  ctx.fillStyle = barGrad;
-  ctx.fillRect(0, 0, W, 8);
-
-  // URL do site
-  ctx.fillStyle = '#64748b';
-  ctx.font = '400 13px Inter, system-ui, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('calcularrendapassiva.com', W / 2, 38);
-
-  // Determina o campo calculado e valores a exibir
-  const idx = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
-  const infos = [
-    { label: 'MEU PRAZO', value: sessionStorage.getItem('prazo') || '---', prefix: '', suffix: '' },
-    { label: 'VALOR INICIAL NECESSÁRIO', value: sessionStorage.getItem('valorInicialResult') || '---', prefix: 'R$ ', suffix: '' },
-    { label: 'APORTE MENSAL NECESSÁRIO', value: sessionStorage.getItem('valorRecorrenteResult') || '---', prefix: 'R$ ', suffix: '' },
-    { label: 'TAXA NECESSÁRIA', value: sessionStorage.getItem('taxa') || '---', prefix: '', suffix: '% a.m.' },
-    { label: 'MINHA RENDA PASSIVA', value: sessionStorage.getItem('rendaPassivaResult') || '---', prefix: 'R$ ', suffix: '/mês' },
-  ];
-  const info = infos[idx >= 0 && idx < 5 ? idx : 4];
-  const mainValue = `${info.prefix}${info.value}${info.suffix}`;
-
-  // Glow central
-  const glowGrad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, 150);
-  glowGrad.addColorStop(0, 'rgba(125,56,240,0.18)');
-  glowGrad.addColorStop(1, 'rgba(125,56,240,0)');
-  ctx.fillStyle = glowGrad;
+  // Glow superior
+  const g1 = ctx.createRadialGradient(W/2, 300, 0, W/2, 300, 420);
+  g1.addColorStop(0, 'rgba(125,56,240,0.18)');
+  g1.addColorStop(1, 'rgba(125,56,240,0)');
+  ctx.fillStyle = g1;
   ctx.fillRect(0, 0, W, H);
 
-  // Label do campo calculado
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '600 13px Inter, system-ui, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(info.label, W / 2, H / 2 - 48);
+  // Glow inferior
+  const g2 = ctx.createRadialGradient(W/2, H-200, 0, W/2, H-200, 380);
+  g2.addColorStop(0, 'rgba(232,71,235,0.12)');
+  g2.addColorStop(1, 'rgba(232,71,235,0)');
+  ctx.fillStyle = g2;
+  ctx.fillRect(0, H-580, W, H);
 
-  // Valor principal (com gradiente)
-  let fontSize = 46;
-  ctx.font = `800 ${fontSize}px Inter, system-ui, sans-serif`;
-  while (ctx.measureText(mainValue).width > W - 40 && fontSize > 22) {
-    fontSize -= 2;
-    ctx.font = `800 ${fontSize}px Inter, system-ui, sans-serif`;
+  // Gradiente principal (barras + URL)
+  const mainGrad = ctx.createLinearGradient(0, 0, W, 0);
+  mainGrad.addColorStop(0, '#7d38f0');
+  mainGrad.addColorStop(1, '#e847eb');
+
+  // Barra topo
+  ctx.fillStyle = mainGrad;
+  ctx.fillRect(0, 0, W, 14);
+
+  // Branding
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#7d38f0';
+  ctx.font = '700 22px Inter, system-ui, sans-serif';
+  ctx.fillText('Calculadora de Renda Passiva', W/2, 62);
+
+  // Helper divisor
+  function div(y) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(PX, y); ctx.lineTo(W-PX, y); ctx.stroke();
   }
-  const txtGrad = ctx.createLinearGradient(40, 0, W - 40, 0);
+  div(92);
+
+  // Dados do resultado
+  const idx    = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
+  const prazo  = sessionStorage.getItem('prazo') || '---';
+  const renda  = sessionStorage.getItem('rendaPassivaResult') || '---';
+  const inic   = sessionStorage.getItem('valorInicialResult') || '---';
+  const recorr = sessionStorage.getItem('valorRecorrenteResult') || '---';
+  const taxa   = sessionStorage.getItem('taxa') || '---';
+  const taxaA  = sessionStorage.getItem('taxaAnual') || '---';
+  const acum   = sessionStorage.getItem('valorAcumulado') || '---';
+  const invest = sessionStorage.getItem('valorInvestido') || '---';
+  const rendim = sessionStorage.getItem('rendimentos') || '---';
+
+  // Headlines personalizados por campo calculado
+  const defs = [
+    { pre: ['Vou alcançar minha', 'independência financeira em'],        big: prazo,             post: [] },
+    { pre: ['Preciso de apenas'],                                         big: `R$ ${inic}`,      post: ['de valor inicial para viver de renda passiva'] },
+    { pre: ['Investindo apenas'],                                         big: `R$ ${recorr}/mês`, post: ['já terei renda passiva!'] },
+    { pre: ['Com apenas'],                                                big: `${taxa}% a.m.`,   post: ['de retorno mensal alcanço', 'minha independência financeira!'] },
+    { pre: ['Minha renda passiva será de'],                              big: `R$ ${renda}/mês`, post: [] },
+  ];
+  const def = defs[idx >= 0 && idx < 5 ? idx : 4];
+
+  // Gradiente do valor principal
+  const txtGrad = ctx.createLinearGradient(PX, 0, W-PX, 0);
   txtGrad.addColorStop(0, '#c084fc');
   txtGrad.addColorStop(1, '#f0abfc');
-  ctx.fillStyle = txtGrad;
-  ctx.fillText(mainValue, W / 2, H / 2 + 12);
 
-  // Linha divisória
-  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(60, H / 2 + 38);
-  ctx.lineTo(W - 60, H / 2 + 38);
-  ctx.stroke();
+  let y = 148;
 
-  // Tagline
-  ctx.fillStyle = '#64748b';
-  ctx.font = '400 13px Inter, system-ui, sans-serif';
-  ctx.fillText('Calcule a sua independência financeira', W / 2, H / 2 + 68);
-
-  // Barra inferior
-  ctx.fillStyle = barGrad;
-  ctx.fillRect(0, H - 8, W, 8);
-
-  // Nome do site
+  // Linhas de pré-headline
+  ctx.textAlign = 'center';
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '700 13px Inter, system-ui, sans-serif';
-  ctx.fillText('Calculadora de Renda Passiva', W / 2, H - 20);
+  ctx.font = '400 28px Inter, system-ui, sans-serif';
+  for (const line of def.pre) { ctx.fillText(line, W/2, y); y += 44; }
+  y += 60;
+
+  // Valor principal grande
+  let fs = 86;
+  ctx.font = `800 ${fs}px Inter, system-ui, sans-serif`;
+  while (ctx.measureText(def.big).width > W - PX*2 && fs > 38) {
+    fs -= 2;
+    ctx.font = `800 ${fs}px Inter, system-ui, sans-serif`;
+  }
+  ctx.fillStyle = txtGrad;
+  ctx.fillText(def.big, W/2, y);
+  y += 48;
+
+  // Linhas de pós-headline
+  if (def.post.length) {
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '400 26px Inter, system-ui, sans-serif';
+    for (const line of def.post) { ctx.fillText(line, W/2, y); y += 40; }
+  }
+
+  y += 56; div(y); y += 46;
+
+  // Label da tabela
+  ctx.fillStyle = '#475569';
+  ctx.font = '600 17px Inter, system-ui, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('RESUMO DO CÁLCULO', PX, y);
+  y += 18;
+
+  // Tabela de resultados (9 linhas)
+  const rows = [
+    ['Prazo',           prazo],
+    ['Valor Inicial',   `R$ ${inic}`],
+    ['Aporte Mensal',   `R$ ${recorr}`],
+    ['Total Investido', `R$ ${invest}`],
+    ['Rendimentos',     `R$ ${rendim}`],
+    ['Valor Acumulado', `R$ ${acum}`],
+    ['Taxa Mensal',     `${taxa}% a.m.`],
+    ['Taxa Anual',      `${taxaA}% a.a.`],
+    ['Renda Passiva',   `R$ ${renda}/mês`],
+  ];
+  for (const [label, val] of rows) {
+    y += 62;
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '400 21px Inter, system-ui, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(label, PX, y);
+    ctx.fillStyle = '#f8fafc';
+    ctx.font = '600 21px Inter, system-ui, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(val, W-PX, y);
+  }
+
+  y += 56; div(y); y += 64;
+
+  // CTA
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '400 26px Inter, system-ui, sans-serif';
+  ctx.fillText('Calcule você também em:', W/2, y);
+  y += 62;
+  ctx.font = '700 38px Inter, system-ui, sans-serif';
+  ctx.fillStyle = mainGrad;
+  ctx.fillText('calcularrendapassiva.com', W/2, y);
+  y += 52;
+  ctx.fillStyle = '#475569';
+  ctx.font = '400 19px Inter, system-ui, sans-serif';
+  ctx.fillText('Calcule sua independência financeira · Grátis', W/2, y);
+
+  // Barra base
+  ctx.fillStyle = mainGrad;
+  ctx.fillRect(0, H-14, W, 14);
 }
 
 function compartilharWhatsApp() {
@@ -467,6 +539,26 @@ function compartilharWhatsApp() {
 
   const msg = `${frase}\n\n${resultados}\n\nCalcule a sua: https://calcularrendapassiva.com`;
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function compartilharTwitter() {
+  const idx    = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
+  const prazo  = sessionStorage.getItem('prazo') || '---';
+  const renda  = sessionStorage.getItem('rendaPassivaResult') || '---';
+  const inic   = sessionStorage.getItem('valorInicialResult') || '---';
+  const recorr = sessionStorage.getItem('valorRecorrenteResult') || '---';
+  const taxa   = sessionStorage.getItem('taxa') || '---';
+
+  const tweets = [
+    `Em ${prazo} terei R$ ${renda}/mês de renda passiva! 🎯 Calculei com juros compostos. Calcule a sua →`,
+    `Preciso de apenas R$ ${inic} de inicial para ter R$ ${renda}/mês de renda passiva! 🎯 Calcule a sua →`,
+    `Aportando R$ ${recorr}/mês terei R$ ${renda}/mês de renda passiva! 🎯 Calcule a sua →`,
+    `Com ${taxa}% a.m. alcanço minha independência financeira de R$ ${renda}/mês! 🎯 Calcule a sua →`,
+    `Minha renda passiva será de R$ ${renda}/mês! 🎯 Calculei com juros compostos. Calcule a sua →`,
+  ];
+  const text = tweets[idx >= 0 && idx < 5 ? idx : 4];
+  const url = 'https://calcularrendapassiva.com';
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
 async function compartilharResultado() {
