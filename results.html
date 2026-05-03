@@ -1,358 +1,299 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Calculadora de Renda Passiva | Resultados</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Resultados | Calculadora de Renda Passiva</title>
+  <meta name="description" content="Veja os resultados da sua simulação de renda passiva. Patrimônio acumulado, rendimentos e renda passiva mensal calculados com juros compostos." />
+  <meta name="robots" content="noindex, follow" />
 
-    <!-- Google AdSense -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793"
-        crossorigin="anonymous"></script> -->
+  <link rel="canonical" href="https://calcularrendapassiva.com" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#7d38f0" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V1JD0D4KM1');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793" crossorigin="anonymous"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
 
-    <button id="backToTop">
-        <i class="fa-solid fa-circle-arrow-up fa-2xl" style="color: #eb47eb;font-size: 32px;"></i>
-    </button>
+  <button id="backToTop" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-circle-arrow-up" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i>
+  </button>
 
-    <header class="container-fluid header shadow-lg">
-        <section class="text-center">
-            <i class="fa-solid fa-calculator" style="color: #f8fafc;font-size: 64px;margin-bottom: 16px;"></i>
-            <h1 class="title">Calculadora de Renda Passiva</h1>
-            <div class="version-area text-center">
+  <header class="site-header">
+    <i class="fa-solid fa-calculator header-icon" aria-hidden="true"></i>
+    <h1 class="site-title">Calculadora de Renda Passiva</h1>
+    <p class="site-subtitle">Descubra quanto investir para viver de renda.</p>
+  </header>
+
+  <div class="wrapper">
+    <main class="content">
+      <div class="calculadora-container">
+
+        <!-- Resultados com flip card já virado -->
+        <section class="flip-card flip-card-flipped" aria-label="Resultados da calculadora">
+          <div class="flip-card-inner">
+
+            <!-- Frente (oculta) -->
+            <div class="flip-card-front">
+              <form id="rendaForm">
+                <p class="input-hint">Preencha Prazo em meses ou anos</p>
+                <div class="form-row">
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" id="periodo" placeholder=" " maxlength="3" autocomplete="off" />
+                    <label for="periodo">Prazo (meses)</label>
+                  </div>
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" id="periodoAnual" placeholder=" " maxlength="2" autocomplete="off" />
+                    <label for="periodoAnual">Prazo (anos)</label>
+                  </div>
+                </div>
+                <p class="input-hint">Preencha Taxa mensal ou anual (%)</p>
+                <div class="form-row">
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" class="percent" id="txPeriodo" placeholder=" " maxlength="6" autocomplete="off" />
+                    <label for="txPeriodo">Taxa mensal (%)</label>
+                  </div>
+                  <div class="input-float">
+                    <input type="search" inputmode="numeric" class="percent" id="txPeriodoAnual" placeholder=" " maxlength="7" autocomplete="off" />
+                    <label for="txPeriodoAnual">Taxa anual (%)</label>
+                  </div>
+                </div>
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
+                  <label for="valorInicial">Valor inicial (R$)</label>
+                </div>
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="valorRecorrente" placeholder=" " autocomplete="off" />
+                  <label for="valorRecorrente">Valor recorrente mensal (R$)</label>
+                </div>
+                <div class="input-float">
+                  <input type="search" inputmode="numeric" class="value" id="rendaPassiva" placeholder=" " autocomplete="off" />
+                  <label for="rendaPassiva">Renda passiva desejada (R$)</label>
+                </div>
+                <button type="button" class="btn-primary" id="calcularBtn">Calcular</button>
+              </form>
             </div>
-            <p class="subtitle">Descubra quanto investir para viver de renda.</p>
+
+            <!-- Verso: resultados -->
+            <div class="flip-card-back">
+              <div class="result-header">
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div class="card-icon"><i class="fa-solid fa-square-poll-vertical" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+                  <span class="card-title">Resultados</span>
+                </div>
+                <div class="result-actions">
+                  <button class="btn-icon" id="copiarBtn" title="Copiar resultados" aria-label="Copiar resultados">
+                    <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                  </button>
+                  <a href="/articles/entendendo-os-resultados.html" title="Entendendo os resultados" aria-label="Entendendo os resultados">
+                    <i class="fa-solid fa-circle-question" style="color:#eb47eb;font-size:24px;" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="result-list" role="list">
+                <div class="result-item" id="resultPrazo" role="listitem"></div>
+                <div class="result-item" id="resultValorInicial" role="listitem"></div>
+                <div class="result-item" id="resultValorRecorrente" role="listitem"></div>
+                <div class="result-item" id="resultValorInvestido" role="listitem"></div>
+                <div class="result-item" id="resultRendimentos" role="listitem"></div>
+                <div class="result-item" id="resultValorAcumulado" role="listitem"></div>
+                <div class="result-item" id="resultTaxa" role="listitem"></div>
+                <div class="result-item" id="resultTaxaAnual" role="listitem"></div>
+                <div class="result-item" id="resultRendaPassiva" role="listitem"></div>
+              </div>
+
+              <button type="button" class="btn-primary" id="voltarBtn" style="margin-top:1rem;">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Recalcular
+              </button>
+            </div>
+          </div>
         </section>
-    </header>
 
-    <div class="wrapper">
+        <!-- Card Compartilhável -->
+        <section class="card share-card-section" aria-label="Compartilhe seu resultado">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-share-nodes" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Compartilhe seu resultado</span>
+          </div>
+          <div class="share-preview">
+            <canvas id="cardCompartilhar" aria-label="Card com seu resultado de renda passiva"></canvas>
+          </div>
+          <div class="share-buttons">
+            <button class="btn-share btn-whatsapp" onclick="compartilharWhatsApp()">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Compartilhar no WhatsApp
+            </button>
+            <button class="btn-share btn-download" onclick="baixarCard()">
+              <i class="fa-solid fa-download" aria-hidden="true"></i> Baixar imagem
+            </button>
+          </div>
+        </section>
 
-        <main class="content">
-            <div class="container calculadora-container">
+        <!-- Gráfico de Evolução do Patrimônio -->
+        <section class="card chart-card" aria-label="Evolução do patrimônio">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-chart-line" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Evolução do Patrimônio</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="graficoPatrimonio" aria-label="Gráfico de evolução do patrimônio acumulado"></canvas>
+          </div>
+        </section>
 
+        <!-- Afiliados -->
+        <section class="card affiliates-section" aria-label="Comece a investir">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-rocket" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Pronto para começar a investir?</span>
+          </div>
+          <p class="affiliates-subtitle">Abra sua conta gratuita e comece hoje mesmo</p>
 
+          <div class="affiliates-grid">
 
-                <section class="flip-card flip-card-flipped mb-4">
-
-                    <div class="flip-card-inner">
-                        <!-- Formulário (frente) -->
-                        <div class="flip-card-front card-default">
-                            <div class="text-end">
-                                <a title="Como usar a Calculadora de renda passiva"
-                                    href="/articles/como-usar-calculadora-renda-passiva.html">
-                                    <i class="fa-solid fa-circle-question" style="color: #eb47eb;font-size: 24px;"></i>
-                                </a>
-                            </div>
-                            <form id="rendaForm">
-                                <p class="input-label">Preencha Prazo em meses ou anos</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="search" inputmode="numeric" class="form-control" id="periodo"
-                                                placeholder="Prazo (meses)" maxlength="3">
-                                            <label for="periodo">Prazo (meses)</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="search" inputmode="numeric" class="form-control"
-                                                id="periodoAnual" placeholder="Prazo (anos)" maxlength="2">
-                                            <label for="periodoAnual">Prazo (anos)</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p class="input-label">Preencha Taxa mensal ou anual (%)</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="search" inputmode="numeric" class="form-control percent"
-                                                id="txPeriodo" placeholder="Taxa Mensal (%)" maxlength="5">
-                                            <label for="txPeriodo">Taxa mensal (%)</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="search" inputmode="numeric" class="form-control percent"
-                                                id="txPeriodoAnual" placeholder="Taxa anual (%)" maxlength="5">
-                                            <label for="txPeriodoAnual">Taxa anual (%)</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between">
-                                    <p class="input-label">Preencha os valores</p>
-                                    <i title="Limpar e reiniciar" class="fa-solid fa-rotate-left"
-                                        style="color: #eb47eb;font-size: 24px;cursor: pointer;" id="btn-reset"></i>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="search" inputmode="numeric" class="form-control value"
-                                        id="valorInicial" placeholder="Valor Inicial">
-                                    <label for="valorInicial">Valor inicial</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="search" inputmode="numeric" class="form-control value"
-                                        id="valorRecorrente" placeholder="Valor Recorrente Mensal">
-                                    <label for="valorRecorrente">Valor recorrente mensal</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="search" inputmode="numeric" class="form-control value"
-                                        id="rendaPassiva" placeholder="Renda Passiva">
-                                    <label for="rendaPassiva">Renda passiva</label>
-                                </div>
-
-                                <button type="button" class="btn-default shadow-md" id="calcularBtn">
-                                    Calcular <i class="fa-solid fa-arrow-right"></i>
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- Resultados (verso) -->
-                        <div class="flip-card-back card-default">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center py-2">
-                                    <div class="card-icon">
-                                        <i class="fa-solid fa-square-poll-vertical"
-                                            style="color: #eb47eb;font-size: 32px;"></i>
-                                    </div>
-                                    <span class="text-card-icon" style="color: #f8fafc;">Resultados</span>
-                                </div>
-                                <div class="p-2" id="copiarBtn">
-                                    <i title="Copiar resultados" class="fa-solid fa-copy"
-                                        style="color: #eb47eb;font-size: 24px;cursor: pointer;" id="btn-reset"></i>
-                                </div>
-                                <div class="text-end">
-                                    <a title="Entendendo os resultados" href="/articles/entendendo-os-resultados.html">
-                                        <i class="fa-solid fa-circle-question"
-                                            style="color: #eb47eb;font-size: 24px;"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="result-section input-label">
-                                <p id="resultPrazo"></p>
-                                <p id="resultValorInicial"></p>
-                                <p id="resultValorRecorrente"></p>
-                                <p id="resultValorInvestido"></p>
-                                <p id="resultRendimentos"></p>
-                                <p id="resultValorAcumulado"></p>
-                                <p id="resultTaxa"></p>
-                                <p id="resultTaxaAnual"></p>
-                                <p id="resultRendaPassiva"></p>
-
-                                <button type="button" class="btn-default shadow-md mt-3" id="voltarBtn">
-                                    <i class="fa-solid fa-arrow-left"></i> Recalcular
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-
-
-                <!-- Botões extras -->
-                <section class="botoes-extras card-default mb-4">
-                    <div class="row gap-3">
-
-                        <div class="d-flex align-items-center py-2">
-                            <div class="card-icon">
-                                <i class="fa-solid fa-coins" style="color: #eb47eb;font-size: 32px;"></i>
-                            </div>
-                            <span class="text-card-icon" style="color: #f8fafc;">Ajude a manter o site</span>
-                        </div>
-
-                        <div class="col-sm">
-                            <a href="https://link.mercadopago.com.br/carlosdev" target="_blank"
-                                class="btn btn-lg btn-cafe d-block border border-dark border-3">
-                                <div class="row align-items-center">
-                                    <div class="col-2"><i class="fa-solid fa-hand-holding-dollar fa-lg"></i>
-                                    </div>
-                                    <div class="col-10 text-start" style="color: #f8fafccc;">Doação</div>
-                                </div>
-                            </a>
-                            <ul>
-                                <li style="color: #f8fafccc;">Ajude-nos e contribua com qualquer valor.</li>
-                            </ul>
-                        </div>
-                        <div class="col-sm">
-                            <a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share"
-                                target="_blank" class="btn btn-lg btn-playstore d-block border border-dark border-3">
-                                <div class="row align-items-center">
-                                    <div class="col-2"><i class="fa-brands fa-google-play" style="font-size: 28px;"></i>
-                                    </div>
-                                    <div class="col-10 text-start" style="color: #f8fafccc;">Grátis na PlayStore</div>
-                                </div>
-                            </a>
-                            <ul>
-                                <li style="color: #f8fafccc;">Baixe o App da Calculadora grátis na Playstore.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-
-
-                <!-- Conheça também -->
-                <section class="card-default mb-4">
-                    <div class="d-flex align-items-center py-2">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-screwdriver-wrench" style="color: #eb47eb;font-size: 32px;"></i>
-                        </div>
-                        <span class="text-card-icon" style="color: #f8fafc;">Outras ferramentas</span>
-                    </div>
-
-                    <div class="d-flex flex-column flex-sm-row justify-content-center">
-                        <div>
-                            <ul>
-                                <a href="https://calcularrendapassiva.com.br/loja/" target="_blank"
-                                    class="text-decoration-none text-secondary-emphasis">
-                                    <li class="position-relative p-2 rounded" style="color: #f8fafccc;">
-                                        <strong class="position-relative">Loja Renda Passiva</strong>
-                                        <br>
-                                        Ferramentas para alcançar sua Renda Passiva
-                                        <br>
-                                        <small>Cursos & Livros</small>
-                                    </li>
-                                </a>
-                                <a href="https://calcularemprestimo.com" target="_blank"
-                                    class="text-decoration-none text-secondary-emphasis">
-                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
-                                        <strong class="position-relative">Calculadora de Empréstimo</strong>
-                                        <br>
-                                        <small>Calcule o empréstimo, a parcela, o prazo ou a taxa, na tabela PRICE ou
-                                            SAC..</small>
-                                    </li>
-                                </a>
-                                <a href="https://calcularaposentadoria.com" target="_blank"
-                                    class="text-decoration-none text-secondary-emphasis">
-                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
-                                        <strong class="position-relative">Calculadora de Aposentadoria</strong>
-                                        <br>
-                                        <small>Planeje seu futuro financeiro, estimando o valor necessário para alcançar
-                                            sua
-                                            aposentadoria ideal ou o tempo necessário para atingir suas metas.</small>
-                                    </li>
-                                </a>
-                                <a href="https://calculadorasfinanceiras.com.br" target="_blank"
-                                    class="text-decoration-none text-secondary-emphasis">
-                                    <li class="position-relative p-2 rounded mt-3" style="color: #f8fafccc;">
-                                        <strong class="position-relative">Calculadoras Financeiras</strong>
-                                        <br>
-                                        <small>Conheça todas as nossas ferramentas gratuitas.</small>
-                                    </li>
-                                </a>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-
-
-                <!-- Blog -->
-                <section id="blog" class="card-default mb-4">
-                    <div id="blog-title" class="d-flex align-items-center py-2">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-newspaper" style="color: #eb47eb;font-size: 32px;"></i>
-                        </div>
-                        <span class="text-card-icon" style="color: #f8fafc;">Artigos</span>
-                    </div>
-
-                    <article class="card shadow rounded my-3 bg-transparent"
-                        id="comoUtilizarACalculadoraDeRendaPassiva">
-                        <a href="/articles/entendendo-os-resultados.html" class="text-decoration-none text-light">
-                            <li class="position-relative p-2 rounded mt-3 list-unstyled">
-                                <div class="row g-2">
-                                    <div class="col-md-4">
-                                        <img src="/articles/images/entendendo-resultados.jpg" class="img-fluid rounded"
-                                            alt="Imagem ilustrativa da calculadora de renda passiva" />
-                                    </div>
-                                    <div class="col-md-8" style="color: #f8fafccc;">
-                                        <strong class="position-relative d-block">Entendendo os Resultados</strong>
-                                        <small class="d-block mt-1">
-                                            Aprenda a interpretar o valor investido, rendimentos, valor acumulado e o
-                                            impacto de cada variável na sua renda passiva final.
-                                        </small>
-                                    </div>
-                                </div>
-                            </li>
-                        </a>
-                    </article>
-
-                    <article id="blog-articles" class="card shadow rounded my-3 bg-transparent"
-                        id="comoUtilizarACalculadoraDeRendaPassiva">
-                        <a href="/articles/o-que-e-renda-passiva.html" class="text-decoration-none text-light">
-                            <li class="position-relative p-2 rounded mt-3 list-unstyled">
-                                <div class="row g-2">
-                                    <div class="col-md-4">
-                                        <img src="/articles/images/o-que-e-renda-passiva.jpg" class="img-fluid rounded"
-                                            alt="Imagem sobre renda passiva" />
-                                    </div>
-                                    <div class="col-md-8" style="color: #f8fafccc;">
-                                        <strong class="position-relative d-block">O que é Renda Passiva?</strong>
-                                        <small class="d-block mt-1">
-                                            Entenda o conceito de renda passiva, como ela funciona, e quais são as
-                                            principais
-                                            formas de gerar uma fonte de renda automática.
-                                        </small>
-                                    </div>
-                                </div>
-                            </li>
-                        </a>
-                    </article>
-                </section>
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Parceiro</span>
+              <div class="affiliate-logo affiliate-logo-xp">XP</div>
+              <p class="affiliate-name">XP Investimentos</p>
+              <p class="affiliate-benefit">Maior plataforma de investimentos do Brasil</p>
+              <a href="https://indica.xpi.com.br" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Abrir conta grátis <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
             </div>
-        </main>
 
-
-
-        <!-- Footer -->
-        <footer style="color: #94a3b8;font-family: 'Inter', sans-serif;">
-            <p class="mb-1">&copy; 2025 Calcular Renda Passiva. Todos os direitos reservados.</p>
-            <a href="termos-de-uso-e-politicas-de-privacidade.html" target="_blank"
-                style="color: #94a3b8;font-family: 'Inter', sans-serif;">Termos de Uso e Políticas de
-                Privacidade</a>
-            <p class="mt-1">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank"
-                    style="color: #94a3b8;">Carlos
-                    Dev</a></p>
-            <div class="social-icons d-flex gap-3 justify-content-center mb-3">
-                <a target="_blank" href="https://www.youtube.com/@carlosjornadadev"><i class="fab fa-youtube"
-                        style="font-size: 26px;"></i></a>
-                <a target="_blank" href="https://github.com/cwrsiqueira"><i class="fab fa-github"
-                        style="font-size: 26px;"></i></a>
-                <a target="_blank" href="https://www.linkedin.com/in/carloswagner1975/"><i class="fab fa-linkedin"
-                        style="font-size: 26px;"></i></a>
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Parceiro</span>
+              <div class="affiliate-logo affiliate-logo-nu">NU</div>
+              <p class="affiliate-name">NuInvest</p>
+              <p class="affiliate-benefit">Invista sem taxa de corretagem em ações</p>
+              <a href="#" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Abrir conta grátis <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
             </div>
-        </footer>
-    </div>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Vercel Script tag -->
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <!-- Jquery -->
-    <script src="jquery.mask.min.js"></script>
-    <!-- My script js -->
-    <script src="script.js"></script>
+            <div class="affiliate-card">
+              <span class="affiliate-badge">Parceiro</span>
+              <div class="affiliate-logo affiliate-logo-kinvo">K</div>
+              <p class="affiliate-name">Kinvo</p>
+              <p class="affiliate-benefit">Controle todos seus investimentos em um só lugar</p>
+              <a href="#" target="_blank" rel="noopener sponsored" class="btn-affiliate">
+                Conhecer grátis <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+
+          </div>
+
+          <p class="affiliate-disclaimer">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            Links de parceiros — sem custo para você
+          </p>
+        </section>
+
+        <!-- Apoie o site -->
+        <section class="card" aria-label="Apoie o site">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-coins" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Ajude a manter o site</span>
+          </div>
+          <div class="support-grid">
+            <div>
+              <a href="https://link.mercadopago.com.br/carlosdev" target="_blank" rel="noopener" class="btn-dark">
+                <i class="fa-solid fa-hand-holding-dollar btn-dark-icon" aria-hidden="true"></i>
+                <span>Doação</span>
+              </a>
+              <p class="support-note">Ajude-nos e contribua com qualquer valor.</p>
+            </div>
+            <div>
+              <a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share" target="_blank" rel="noopener" class="btn-dark">
+                <i class="fa-brands fa-google-play btn-dark-icon" aria-hidden="true"></i>
+                <span>Grátis na PlayStore</span>
+              </a>
+              <p class="support-note">Baixe o App da Calculadora grátis na Playstore.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Artigos -->
+        <section class="card" id="blog" aria-label="Artigos">
+          <div class="card-header">
+            <div class="card-icon"><i class="fa-solid fa-newspaper" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
+            <span class="card-title">Artigos</span>
+          </div>
+
+          <article>
+            <a href="/articles/entendendo-os-resultados.html" class="article-card">
+              <img src="/articles/images/entendendo-resultados.jpg" class="article-img"
+                alt="Entendendo os resultados da calculadora de renda passiva"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>Entendendo os Resultados</strong>
+                <small>Aprenda a interpretar o valor investido, rendimentos, valor acumulado e o impacto de cada variável na sua renda passiva final.</small>
+              </div>
+            </a>
+          </article>
+
+          <article>
+            <a href="/articles/o-que-e-renda-passiva.html" class="article-card">
+              <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
+                alt="Imagem sobre renda passiva"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>O que é Renda Passiva?</strong>
+                <small>Entenda o conceito de renda passiva, como ela funciona, e quais são as principais formas de gerar uma fonte de renda automática.</small>
+              </div>
+            </a>
+          </article>
+        </section>
+
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Calcular Renda Passiva. Todos os direitos reservados.</p>
+      <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Termos de Uso e Políticas de Privacidade</a>
+      <p style="margin-top:0.25rem;">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+        <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/carloswagner1975/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Vercel Insights -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Flock Analytics -->
+  <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script>
+
+  <!-- Calculadora -->
+  <script defer src="/js/calculadora.js"></script>
 </body>
-
 </html>
