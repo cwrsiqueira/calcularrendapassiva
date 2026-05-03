@@ -1,0 +1,101 @@
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Calculadora de Renda Passiva Grátis | Simulador de Independência Financeira</title>
+    <meta name="description" content="Calculadora de renda passiva gratuita. Simule quanto investir para viver de renda. Simulador com cálculo de patrimônio, aportes mensais e renda passiva mensal." />
+    <meta name="author" content="Calculadora de Renda Passiva" />
+    <meta name="keywords" content="calculadora de renda passiva, simulador de renda passiva, renda passiva calculadora, calcular renda passiva, simulador renda passiva, renda passiva mensal, independência financeira, viver de renda" />
+    
+    <link rel="canonical" href="https://calcularrendapassiva.com" />
+    <link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com" />
+    <link rel="alternate" hreflang="en" href="https://calcularrendapassiva.com/en" />
+    <link rel="alternate" hreflang="x-default" href="https://calcularrendapassiva.com" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Calculadora de Renda Passiva Grátis | Simulador Online" />
+    <meta property="og:description" content="Calculadora de renda passiva gratuita. Simule quanto investir para viver de renda com cálculos de patrimônio e aportes mensais." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calcularrendapassiva.com" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Calculadora de Renda Passiva" />
+    <meta property="og:image" content="https://calcularrendapassiva.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calculadora de Renda Passiva Grátis | Simulador Online" />
+    <meta name="twitter:description" content="Calculadora de renda passiva gratuita. Simule quanto investir para viver de renda passiva mensal." />
+    <meta name="twitter:image" content="https://calcularrendapassiva.com/og-image.png" />
+
+    <!-- Favicon - multiple formats for maximum compatibility -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#2563EB" />
+    
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Schema Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Calculadora de Renda Passiva",
+      "url": "https://calcularrendapassiva.com",
+      "logo": "https://calcularrendapassiva.com/favicon.png",
+      "description": "Calculadora de renda passiva gratuita e simulador de independência financeira.",
+      "sameAs": []
+    }
+    </script>
+
+    <!-- Schema WebSite with SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Calculadora de Renda Passiva",
+      "url": "https://calcularrendapassiva.com",
+      "description": "Calculadora de renda passiva gratuita. Simulador de independência financeira com cálculo de patrimônio e aportes.",
+      "inLanguage": "pt-BR",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Calculadora de Renda Passiva"
+      }
+    }
+    </script>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V1JD0D4KM1');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793"
+     crossorigin="anonymous"></script>
+    <script type="module" crossorigin src="/assets/index-D-KjZgbD.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BTYqG5ZG.css">
+  <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script></head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
