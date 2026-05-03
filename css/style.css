@@ -503,9 +503,9 @@ footer p { margin-bottom: 0.25rem; }
   color: #fff;
   margin-top: 0.5rem;
 }
-.affiliate-logo-xp  { background: #FF6600; }
-.affiliate-logo-nu  { background: #820AD1; }
-.affiliate-logo-kinvo { background: #00b4d8; }
+.affiliate-logo-irm     { background: #1a7a3c; }
+.affiliate-logo-ebook   { background: #d97706; font-size: 1.3rem; }
+.affiliate-logo-planilha { background: #217346; font-size: 1.3rem; }
 
 .affiliate-name {
   font-weight: 700;
