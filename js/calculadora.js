@@ -285,15 +285,16 @@ function setResult(id, label, value, prefix, suffix) {
   el.innerHTML = `<span>${label}</span><span>${val}</span>`;
 }
 
+const CUR = LANG === 'en' ? '$ ' : 'R$ ';
 setResult('resultPrazo', L.prazo, sessionStorage.getItem('prazo'));
-setResult('resultValorInicial', L.vi, sessionStorage.getItem('valorInicialResult'), 'R$ ');
-setResult('resultValorRecorrente', L.vr, sessionStorage.getItem('valorRecorrenteResult'), 'R$ ');
-setResult('resultValorInvestido', L.invest, sessionStorage.getItem('valorInvestido'), 'R$ ');
-setResult('resultRendimentos', L.rend, sessionStorage.getItem('rendimentos'), 'R$ ');
-setResult('resultValorAcumulado', L.acum, sessionStorage.getItem('valorAcumulado'), 'R$ ');
+setResult('resultValorInicial', L.vi, sessionStorage.getItem('valorInicialResult'), CUR);
+setResult('resultValorRecorrente', L.vr, sessionStorage.getItem('valorRecorrenteResult'), CUR);
+setResult('resultValorInvestido', L.invest, sessionStorage.getItem('valorInvestido'), CUR);
+setResult('resultRendimentos', L.rend, sessionStorage.getItem('rendimentos'), CUR);
+setResult('resultValorAcumulado', L.acum, sessionStorage.getItem('valorAcumulado'), CUR);
 setResult('resultTaxa', L.taxa, sessionStorage.getItem('taxa'), '', '%');
 setResult('resultTaxaAnual', L.taxaA, sessionStorage.getItem('taxaAnual'), '', '%');
-setResult('resultRendaPassiva', L.renda, sessionStorage.getItem('rendaPassivaResult'), 'R$ ');
+setResult('resultRendaPassiva', L.renda, sessionStorage.getItem('rendaPassivaResult'), CUR);
 
 // Destaca o campo que foi calculado
 const campoMap = ['resultPrazo', 'resultValorInicial', 'resultValorRecorrente', 'resultTaxa', 'resultRendaPassiva'];
@@ -310,9 +311,12 @@ function renderizarGrafico() {
   const pontos = JSON.parse(raw);
   if (pontos.length < 2) return;
 
+  const cur = LANG === 'en' ? '$' : 'R$';
+  const loc = LANG === 'en' ? 'en-US' : 'pt-BR';
+
   const labels = pontos.map(p => {
     const anos = Math.floor(p.m / 12);
-    return anos === 0 ? `${p.m}m` : `${anos}a`;
+    return anos === 0 ? `${p.m}m` : LANG === 'en' ? `${anos}y` : `${anos}a`;
   });
 
   new Chart(canvas.getContext('2d'), {
@@ -321,14 +325,14 @@ function renderizarGrafico() {
       labels,
       datasets: [
         {
-          label: 'Patrimônio Acumulado',
+          label: LANG === 'en' ? 'Accumulated Wealth' : 'Patrimônio Acumulado',
           data: pontos.map(p => p.acum),
           borderColor: '#e847eb',
           backgroundColor: 'rgba(232,71,235,0.12)',
           fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2,
         },
         {
-          label: 'Total Investido',
+          label: LANG === 'en' ? 'Total Invested' : 'Total Investido',
           data: pontos.map(p => p.invest),
           borderColor: '#7d38f0',
           backgroundColor: 'rgba(125,56,240,0.06)',
@@ -344,7 +348,7 @@ function renderizarGrafico() {
         legend: { labels: { color: '#f8fafc', font: { family: 'Inter', size: 12 }, boxWidth: 12 } },
         tooltip: {
           callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: R$ ${ctx.raw.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            label: ctx => ` ${ctx.dataset.label}: ${cur} ${ctx.raw.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
           },
           backgroundColor: '#1d193e', titleColor: '#f8fafc', bodyColor: '#94a3b8',
           borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
@@ -355,7 +359,7 @@ function renderizarGrafico() {
         y: {
           ticks: {
             color: '#94a3b8', font: { size: 11 },
-            callback: v => v >= 1e6 ? `R$ ${(v/1e6).toFixed(1)}M` : v >= 1000 ? `R$ ${(v/1000).toFixed(0)}k` : `R$ ${v.toFixed(0)}`
+            callback: v => v >= 1e6 ? `${cur} ${(v/1e6).toFixed(1)}M` : v >= 1000 ? `${cur} ${(v/1000).toFixed(0)}k` : `${cur} ${v.toFixed(0)}`
           },
           grid: { color: 'rgba(255,255,255,0.05)' }
         }
@@ -557,11 +561,11 @@ function compartilharWhatsApp() {
   const acumulado = sessionStorage.getItem('valorAcumulado') || '---';
 
   const frases = LANG === 'en' ? [
-    `I found out that in *${prazo}* I'll have *R$ ${renda}/month* in passive income! 🎯`,
-    `I only need *R$ ${inicial}* as initial investment to have *R$ ${renda}/month* in passive income! 🎯`,
-    `Investing *R$ ${recorr}/month* I'll have *R$ ${renda}/month* in passive income! 🎯`,
-    `With *${taxa}% monthly return* I'll reach *R$ ${renda}/month* in passive income! 🎯`,
-    `My monthly passive income will be *R$ ${renda}* in *${prazo}*! 🎯`,
+    `I found out that in *${prazo}* I'll have *$ ${renda}/month* in passive income! 🎯`,
+    `I only need *$ ${inicial}* as initial investment to have *$ ${renda}/month* in passive income! 🎯`,
+    `Investing *$ ${recorr}/month* I'll have *$ ${renda}/month* in passive income! 🎯`,
+    `With *${taxa}% monthly return* I'll reach *$ ${renda}/month* in passive income! 🎯`,
+    `My monthly passive income will be *$ ${renda}* in *${prazo}*! 🎯`,
   ] : [
     `Descobri que em *${prazo}* terei renda passiva de *R$ ${renda}/mês*! 🎯`,
     `Descobri que preciso de *R$ ${inicial}* de valor inicial para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
@@ -574,14 +578,14 @@ function compartilharWhatsApp() {
 
   const resultados = LANG === 'en' ? [
     `Period: ${prazo}`,
-    `Initial Amount: R$ ${inicial}`,
-    `Monthly Contribution: R$ ${recorr}`,
-    `Total Invested: R$ ${investido}`,
-    `Returns: R$ ${rendim}`,
-    `Accumulated Value: R$ ${acumulado}`,
+    `Initial Amount: $ ${inicial}`,
+    `Monthly Contribution: $ ${recorr}`,
+    `Total Invested: $ ${investido}`,
+    `Returns: $ ${rendim}`,
+    `Accumulated Value: $ ${acumulado}`,
     `Monthly Rate: ${taxa}%`,
     `Annual Rate: ${taxaAnual}%`,
-    `Passive Income: R$ ${renda}/mo`,
+    `Passive Income: $ ${renda}/mo`,
   ].join('\n') : [
     `Prazo: ${prazo}`,
     `Valor Inicial: R$ ${inicial}`,
@@ -612,11 +616,11 @@ async function compartilharResultado() {
   const taxa    = sessionStorage.getItem('taxa') || '---';
 
   const frases = LANG === 'en' ? [
-    `In ${prazo} I'll have R$ ${renda}/month in passive income! 🎯`,
-    `I only need R$ ${inicial} as initial investment to have R$ ${renda}/month in passive income! 🎯`,
-    `Investing R$ ${recorr}/month I'll have R$ ${renda}/month in passive income! 🎯`,
-    `With ${taxa}% monthly return I'll reach R$ ${renda}/month in passive income! 🎯`,
-    `My monthly passive income will be R$ ${renda}! 🎯`,
+    `In ${prazo} I'll have $ ${renda}/month in passive income! 🎯`,
+    `I only need $ ${inicial} as initial investment to have $ ${renda}/month in passive income! 🎯`,
+    `Investing $ ${recorr}/month I'll have $ ${renda}/month in passive income! 🎯`,
+    `With ${taxa}% monthly return I'll reach $ ${renda}/month in passive income! 🎯`,
+    `My monthly passive income will be $ ${renda}! 🎯`,
   ] : [
     `Descobri que em ${prazo} terei renda passiva de R$ ${renda}/mês! 🎯`,
     `Descobri que preciso de R$ ${inicial} de valor inicial para ter renda passiva de R$ ${renda}/mês! 🎯`,
@@ -656,6 +660,22 @@ async function compartilharResultado() {
 // Gera o card após as fontes carregarem para garantir renderização correta
 if (document.getElementById('cardCompartilhar')) {
   document.fonts.ready.then(gerarCard);
+
+  // Lightbox: clique no canvas abre versão em tamanho real
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  const lbImg = document.createElement('img');
+  lbImg.alt = 'Resultado em tamanho real';
+  overlay.appendChild(lbImg);
+  document.body.appendChild(overlay);
+
+  document.getElementById('cardCompartilhar').addEventListener('click', function () {
+    lbImg.src = this.toDataURL('image/png');
+    overlay.classList.add('active');
+  });
+  overlay.addEventListener('click', function () {
+    overlay.classList.remove('active');
+  });
 }
 
 

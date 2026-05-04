@@ -3,14 +3,16 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Método não permitido' });
   }
 
-  const { email } = req.body || {};
+  const { email, lang } = req.body || {};
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Email inválido' });
   }
 
   const apiKey = process.env.BREVO_API_KEY;
-  const listId = parseInt(process.env.BREVO_LIST_ID || '11', 10);
+  const listId = lang === 'en'
+    ? parseInt(process.env.BREVO_LIST_ID_EN || '12', 10)
+    : parseInt(process.env.BREVO_LIST_ID || '11', 10);
 
   if (!apiKey) {
     return res.status(500).json({ error: 'Configuração do servidor incompleta' });
