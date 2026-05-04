@@ -52,7 +52,24 @@ input { font-family: var(--font); }
   padding: 48px 1rem;
   text-align: center;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
+.lang-switch {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.lang-switch i { color: rgba(255,255,255,0.65); font-size: 0.7rem; }
+.lang-active { color: #fff; }
+.lang-sep { color: rgba(255,255,255,0.35); font-weight: 400; }
+.lang-link { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.15s; }
+.lang-link:hover { color: #fff; }
 .header-icon { font-size: 64px; margin-bottom: 16px; color: var(--text); }
 .site-title {
   font-weight: 800;
@@ -576,6 +593,130 @@ footer p { margin-bottom: 0.25rem; }
   align-items: center;
   gap: 0.35rem;
 }
+
+/* ===== ARTICLE PAGES ===== */
+.article-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--footer-text);
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.15s;
+}
+.article-back:hover { color: var(--accent); }
+.article-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.article-meta {
+  color: var(--footer-text);
+  font-size: 0.82rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.article-content h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.5rem;
+  color: var(--text);
+}
+.article-content h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.4rem;
+  color: var(--text);
+}
+.article-content p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+.article-content ul, .article-content ol {
+  color: var(--text-muted);
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+.article-content li { margin-bottom: 0.3rem; }
+.article-content strong { color: var(--text); }
+.article-content code {
+  font-family: monospace;
+  background: rgba(255,255,255,0.07);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--text);
+}
+.table-wrapper { overflow-x: auto; margin: 1rem 0; border-radius: var(--radius); }
+.article-content table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.article-content th {
+  background: rgba(125,56,240,0.15);
+  color: var(--text);
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.article-content td {
+  padding: 0.45rem 0.75rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.article-content tr:last-child td { border-bottom: none; }
+.article-callout {
+  background: rgba(125,56,240,0.1);
+  border: 1px solid rgba(125,56,240,0.25);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.article-callout a {
+  background: linear-gradient(to left, var(--accent), var(--primary));
+  color: #fff;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.article-callout a:hover { opacity: 0.88; }
+.article-cta {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.article-cta p { color: var(--text-muted); margin-bottom: 1rem; }
+.btn-article {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to left, var(--accent), var(--primary));
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-article:hover { opacity: 0.88; }
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 576px) {

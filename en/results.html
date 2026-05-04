@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Resultados | Calculadora de Renda Passiva</title>
-  <meta name="description" content="Veja os resultados da sua simulação de renda passiva. Patrimônio acumulado, rendimentos e renda passiva mensal calculados com juros compostos." />
+  <title>Results | Passive Income Calculator</title>
+  <meta name="description" content="View your passive income simulation results. Accumulated wealth, returns, and monthly passive income calculated with compound interest." />
   <meta name="robots" content="noindex, follow" />
 
-  <link rel="canonical" href="https://calcularrendapassiva.com" />
+  <link rel="canonical" href="https://calcularrendapassiva.com/en/" />
 
-  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <meta name="theme-color" content="#7d38f0" />
 
-  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -28,115 +25,108 @@
     gtag('config', 'G-V1JD0D4KM1');
   </script>
 
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793" crossorigin="anonymous"></script>
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-  <!-- CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
-  <button id="backToTop" aria-label="Voltar ao topo">
+  <button id="backToTop" aria-label="Back to top">
     <i class="fa-solid fa-circle-arrow-up" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i>
   </button>
 
   <header class="site-header">
     <div class="lang-switch">
       <i class="fa-solid fa-globe" aria-hidden="true"></i>
-      <span class="lang-active">PT</span>
+      <a href="/results.html" class="lang-link">PT</a>
       <span class="lang-sep">|</span>
-      <a href="/en/results.html" class="lang-link">EN</a>
+      <span class="lang-active">EN</span>
     </div>
     <i class="fa-solid fa-calculator header-icon" aria-hidden="true"></i>
-    <h1 class="site-title">Calculadora de Renda Passiva</h1>
-    <p class="site-subtitle">Descubra quanto investir para viver de renda.</p>
+    <h1 class="site-title">Passive Income Calculator</h1>
+    <p class="site-subtitle">Discover how much to invest to live off passive income.</p>
   </header>
 
   <div class="wrapper">
     <main class="content">
       <div class="calculadora-container">
 
-        <!-- Resultados com flip card já virado -->
-        <section class="flip-card flip-card-flipped" aria-label="Resultados da calculadora">
+        <!-- Results flip card (starts flipped) -->
+        <section class="flip-card flip-card-flipped" aria-label="Passive income calculation results">
           <div class="flip-card-inner">
 
-            <!-- Frente (oculta) -->
+            <!-- Front (hidden) — form in EN -->
             <div class="flip-card-front">
               <form id="rendaForm">
-                <p class="input-hint">Preencha Prazo em meses ou anos</p>
+                <p class="input-hint">Fill in Period in months or years</p>
                 <div class="form-row">
                   <div class="input-float">
                     <input type="search" inputmode="numeric" id="periodo" placeholder=" " maxlength="3" autocomplete="off" />
-                    <label for="periodo">Prazo (meses)</label>
+                    <label for="periodo">Period (months)</label>
                   </div>
                   <div class="input-float">
                     <input type="search" inputmode="numeric" id="periodoAnual" placeholder=" " maxlength="2" autocomplete="off" />
-                    <label for="periodoAnual">Prazo (anos)</label>
+                    <label for="periodoAnual">Period (years)</label>
                   </div>
                 </div>
-                <p class="input-hint">Preencha Taxa mensal ou anual (%)</p>
+                <p class="input-hint">Fill in Monthly or Annual Rate (%)</p>
                 <div class="form-row">
                   <div class="input-float">
                     <input type="search" inputmode="numeric" class="percent" id="txPeriodo" placeholder=" " maxlength="6" autocomplete="off" />
-                    <label for="txPeriodo">Taxa mensal (%)</label>
+                    <label for="txPeriodo">Monthly rate (%)</label>
                   </div>
                   <div class="input-float">
                     <input type="search" inputmode="numeric" class="percent" id="txPeriodoAnual" placeholder=" " maxlength="7" autocomplete="off" />
-                    <label for="txPeriodoAnual">Taxa anual (%)</label>
+                    <label for="txPeriodoAnual">Annual rate (%)</label>
                   </div>
                 </div>
                 <div class="input-float">
                   <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
-                  <label for="valorInicial">Valor inicial (R$)</label>
+                  <label for="valorInicial">Initial amount</label>
                 </div>
                 <div class="input-float">
                   <input type="search" inputmode="numeric" class="value" id="valorRecorrente" placeholder=" " autocomplete="off" />
-                  <label for="valorRecorrente">Valor recorrente mensal (R$)</label>
+                  <label for="valorRecorrente">Monthly contribution</label>
                 </div>
                 <div class="input-float">
                   <input type="search" inputmode="numeric" class="value" id="rendaPassiva" placeholder=" " autocomplete="off" />
-                  <label for="rendaPassiva">Renda passiva desejada (R$)</label>
+                  <label for="rendaPassiva">Desired passive income</label>
                 </div>
-                <button type="button" class="btn-primary" id="calcularBtn">Calcular</button>
+                <button type="button" class="btn-primary" id="calcularBtn">Calculate <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
               </form>
             </div>
 
-            <!-- Verso: resultados -->
+            <!-- Back: results -->
             <div class="flip-card-back">
               <div class="result-header">
                 <div style="display:flex;align-items:center;gap:0.75rem;">
                   <div class="card-icon"><i class="fa-solid fa-square-poll-vertical" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-                  <span class="card-title">Resultados</span>
+                  <span class="card-title">Results</span>
                 </div>
                 <div class="result-actions">
-                  <a href="#sec-compartilhar" class="btn-nav" title="Compartilhar resultado" aria-label="Compartilhar resultado">
+                  <a href="#sec-compartilhar" class="btn-nav" title="Share result" aria-label="Share result">
                     <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
                   </a>
-                  <a href="#sec-grafico" class="btn-nav" title="Gráfico de evolução" aria-label="Gráfico de evolução">
+                  <a href="#sec-grafico" class="btn-nav" title="Wealth growth chart" aria-label="Wealth growth chart">
                     <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
                   </a>
-                  <a href="#sec-afiliados" class="btn-nav" title="Cursos recomendados" aria-label="Cursos recomendados">
+                  <a href="#sec-afiliados" class="btn-nav" title="Recommended courses" aria-label="Recommended courses">
                     <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
                   </a>
-                  <a href="#sec-email" class="btn-nav" title="Novidades por email" aria-label="Novidades por email">
+                  <a href="#sec-email" class="btn-nav" title="Get updates" aria-label="Get updates">
                     <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                   </a>
-                  <a href="#sec-apoio" class="btn-nav" title="Apoie o site" aria-label="Apoie o site">
+                  <a href="#sec-apoio" class="btn-nav" title="Support the site" aria-label="Support the site">
                     <i class="fa-solid fa-coins" aria-hidden="true"></i>
                   </a>
-                  <a href="#sec-ferramentas" class="btn-nav" title="Outras ferramentas" aria-label="Outras ferramentas">
+                  <a href="#sec-ferramentas" class="btn-nav" title="Other tools" aria-label="Other tools">
                     <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
                   </a>
-                  <a href="#blog" class="btn-nav" title="Artigos" aria-label="Artigos">
+                  <a href="#blog" class="btn-nav" title="Articles" aria-label="Articles">
                     <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
                   </a>
-                  <a href="/articles/entendendo-os-resultados.html" class="btn-icon" title="Entendendo os resultados" aria-label="Entendendo os resultados">
+                  <a href="/en/articles/how-to-use-passive-income-calculator.html" class="btn-icon" title="Understanding your results" aria-label="Understanding your results">
                     <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -155,202 +145,184 @@
               </div>
 
               <button type="button" class="btn-primary" id="voltarBtn" style="margin-top:1rem;">
-                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Recalcular
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Recalculate
               </button>
             </div>
           </div>
         </section>
 
-        <!-- Card Compartilhável -->
-        <section id="sec-compartilhar" class="card share-card-section" aria-label="Compartilhe seu resultado">
+        <!-- Share Card -->
+        <section id="sec-compartilhar" class="card share-card-section" aria-label="Share your result">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-share-nodes" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Compartilhe seu resultado</span>
+            <span class="card-title">Share your result</span>
           </div>
           <div class="share-preview">
-            <canvas id="cardCompartilhar" aria-label="Card com seu resultado de renda passiva"></canvas>
+            <canvas id="cardCompartilhar" aria-label="Card with your passive income result"></canvas>
           </div>
           <div class="share-buttons">
             <button class="btn-share btn-whatsapp" onclick="compartilharWhatsApp()">
               <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
             </button>
             <button class="btn-share btn-download" onclick="compartilharResultado()">
-              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartilhar
+              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
             </button>
           </div>
         </section>
 
-        <!-- Gráfico de Evolução do Patrimônio -->
-        <section id="sec-grafico" class="card chart-card" aria-label="Evolução do patrimônio">
+        <!-- Wealth Growth Chart -->
+        <section id="sec-grafico" class="card chart-card" aria-label="Wealth growth">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-chart-line" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Evolução do Patrimônio</span>
+            <span class="card-title">Wealth Growth</span>
           </div>
           <div class="chart-container">
-            <canvas id="graficoPatrimonio" aria-label="Gráfico de evolução do patrimônio acumulado"></canvas>
+            <canvas id="graficoPatrimonio" aria-label="Wealth accumulation chart"></canvas>
           </div>
         </section>
 
-        <!-- Afiliados -->
-        <section id="sec-afiliados" class="card affiliates-section" aria-label="Cursos de investimento">
+        <!-- Courses / Affiliates -->
+        <section id="sec-afiliados" class="card affiliates-section" aria-label="Investment courses">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-graduation-cap" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Aprenda a investir e viva de renda</span>
+            <span class="card-title">Learn to invest and live off passive income</span>
           </div>
-          <p class="affiliates-subtitle">Cursos selecionados para te ajudar a alcançar sua renda passiva</p>
-
+          <p class="affiliates-subtitle">Recommended courses to help you reach your passive income goal</p>
           <div class="affiliates-grid">
-
             <div class="affiliate-card">
-              <span class="affiliate-badge">Recomendado</span>
+              <span class="affiliate-badge">Recommended</span>
               <div class="affiliate-logo affiliate-logo-irm">IRM</div>
-              <p class="affiliate-name">Método IRM do Tesouro Direto</p>
-              <p class="affiliate-benefit">Invista no Tesouro Direto com estratégia e alcance a independência financeira</p>
+              <p class="affiliate-name">Método IRM — Treasury Direct</p>
+              <p class="affiliate-benefit">Invest strategically in Treasury bonds and reach financial independence</p>
               <a href="https://go.hotmart.com/F105671164L?dp=1" target="_blank" rel="noopener sponsored" class="btn-affiliate">
-                Quero aprender <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                Learn more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
               </a>
             </div>
-
             <div class="affiliate-card">
-              <span class="affiliate-badge">Recomendado</span>
+              <span class="affiliate-badge">Recommended</span>
               <div class="affiliate-logo affiliate-logo-ebook"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
-              <p class="affiliate-name">Investimentos para um Futuro Tranquilo</p>
-              <p class="affiliate-benefit">Ebook prático para proteger seu dinheiro e viver de renda passiva</p>
+              <p class="affiliate-name">Investments for a Peaceful Future</p>
+              <p class="affiliate-benefit">Practical ebook to protect your money and live off passive income</p>
               <a href="https://go.hotmart.com/J82329175Y" target="_blank" rel="noopener sponsored" class="btn-affiliate">
-                Quero o ebook <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                Get the ebook <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
               </a>
             </div>
-
             <div class="affiliate-card">
-              <span class="affiliate-badge">Recomendado</span>
+              <span class="affiliate-badge">Recommended</span>
               <div class="affiliate-logo affiliate-logo-planilha"><i class="fa-solid fa-table" aria-hidden="true"></i></div>
-              <p class="affiliate-name">Planilha de Investimentos</p>
-              <p class="affiliate-benefit">Controle e simule seus investimentos com uma planilha completa</p>
+              <p class="affiliate-name">Investment Spreadsheet</p>
+              <p class="affiliate-benefit">Track and simulate your investments with a complete spreadsheet</p>
               <a href="https://go.hotmart.com/P83025749U" target="_blank" rel="noopener sponsored" class="btn-affiliate">
-                Quero a planilha <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                Get the spreadsheet <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
               </a>
             </div>
-
           </div>
-
           <p class="affiliate-disclaimer">
             <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            Links de afiliado — sem custo adicional para você
+            Affiliate links — no extra cost to you
           </p>
         </section>
 
-        <!-- Captura de Email -->
-        <section id="sec-email" class="card email-section" aria-label="Receba novidades">
+        <!-- Email Capture -->
+        <section id="sec-email" class="card email-section" aria-label="Get updates">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Fique por dentro das novidades</span>
+            <span class="card-title">Stay up to date</span>
           </div>
-          <p class="email-subtitle">Novidades do site direto no seu email. Sem spam.</p>
+          <p class="email-subtitle">Site updates straight to your inbox. No spam.</p>
           <form id="emailForm" class="email-form" novalidate>
             <div class="email-row">
-              <input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required />
-              <button type="submit" id="emailBtn" class="btn-primary email-btn">Quero novidades</button>
+              <input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" required />
+              <button type="submit" id="emailBtn" class="btn-primary email-btn">Subscribe</button>
             </div>
             <p id="emailMsg" class="email-msg" aria-live="polite"></p>
           </form>
         </section>
 
-        <!-- Apoie o site -->
-        <section id="sec-apoio" class="card" aria-label="Apoie o site">
+        <!-- Support -->
+        <section id="sec-apoio" class="card" aria-label="Support the site">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-coins" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Ajude a manter o site</span>
+            <span class="card-title">Help keep this site running</span>
           </div>
           <div class="support-grid">
             <div>
               <a href="https://link.mercadopago.com.br/carlosdev" target="_blank" rel="noopener" class="btn-dark">
                 <i class="fa-solid fa-hand-holding-dollar btn-dark-icon" aria-hidden="true"></i>
-                <span>Doação</span>
+                <span>Donate</span>
               </a>
-              <p class="support-note">Ajude-nos e contribua com qualquer valor.</p>
+              <p class="support-note">Support us with any amount you'd like.</p>
             </div>
             <div>
               <a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share" target="_blank" rel="noopener" class="btn-dark">
                 <i class="fa-brands fa-google-play btn-dark-icon" aria-hidden="true"></i>
-                <span>Grátis na PlayStore</span>
+                <span>Free on Play Store</span>
               </a>
-              <p class="support-note">Baixe o App da Calculadora grátis na Playstore.</p>
+              <p class="support-note">Download the Calculator App for free on the Play Store.</p>
             </div>
             <div>
               <a href="https://apps.apple.com/us/app/calculadora-renda-passiva/id6762054224" target="_blank" rel="noopener" class="btn-dark">
                 <i class="fa-brands fa-apple btn-dark-icon" aria-hidden="true"></i>
-                <span>Grátis na App Store</span>
+                <span>Free on App Store</span>
               </a>
-              <p class="support-note">Baixe o App da Calculadora grátis na App Store.</p>
+              <p class="support-note">Download the Calculator App for free on the App Store.</p>
             </div>
           </div>
         </section>
 
-        <!-- Outras Ferramentas -->
-        <section id="sec-ferramentas" class="card" aria-label="Outras ferramentas">
+        <!-- Other Tools -->
+        <section id="sec-ferramentas" class="card" aria-label="Other tools">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Outras ferramentas</span>
+            <span class="card-title">Other tools</span>
           </div>
           <div class="tools-grid">
             <a href="https://charconverter.com" target="_blank" rel="noopener" class="tool-card">
               <i class="fa-solid fa-font tool-card-icon" aria-hidden="true"></i>
-              <div>
-                <strong>Conversor de Caracteres</strong>
-                <small>Converta textos, remova acentos e caracteres especiais.</small>
-              </div>
+              <div><strong>Character Converter</strong><small>Convert text, remove accents and special characters.</small></div>
             </a>
             <a href="https://calcularemprestimo.com" target="_blank" rel="noopener" class="tool-card">
               <i class="fa-solid fa-money-bill-wave tool-card-icon" aria-hidden="true"></i>
-              <div>
-                <strong>Calculadora de Empréstimo</strong>
-                <small>Calcule parcelas, prazo ou taxa nas tabelas PRICE ou SAC.</small>
-              </div>
+              <div><strong>Loan Calculator</strong><small>Calculate installments, period, or rate in PRICE or SAC tables.</small></div>
             </a>
             <a href="https://calcularaposentadoria.com" target="_blank" rel="noopener" class="tool-card">
               <i class="fa-solid fa-umbrella-beach tool-card-icon" aria-hidden="true"></i>
-              <div>
-                <strong>Calculadora de Aposentadoria</strong>
-                <small>Planeje sua aposentadoria estimando o valor necessário.</small>
-              </div>
+              <div><strong>Retirement Calculator</strong><small>Plan your retirement by estimating the amount you'll need.</small></div>
             </a>
             <a href="https://calculadorasfinanceiras.com.br" target="_blank" rel="noopener" class="tool-card">
               <i class="fa-solid fa-calculator tool-card-icon" aria-hidden="true"></i>
-              <div>
-                <strong>Calculadoras Financeiras</strong>
-                <small>Todas as nossas ferramentas gratuitas em um só lugar.</small>
-              </div>
+              <div><strong>Financial Calculators</strong><small>All our free financial tools in one place.</small></div>
             </a>
           </div>
         </section>
 
-        <!-- Artigos -->
-        <section class="card" id="blog" aria-label="Artigos">
+        <!-- Articles -->
+        <section class="card" id="blog" aria-label="Articles">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-newspaper" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Artigos</span>
+            <span class="card-title">Articles</span>
           </div>
 
           <article>
-            <a href="/articles/entendendo-os-resultados.html" class="article-card">
-              <img src="/articles/images/entendendo-resultados.jpg" class="article-img"
-                alt="Entendendo os resultados da calculadora de renda passiva"
+            <a href="/en/articles/how-to-use-passive-income-calculator.html" class="article-card">
+              <img src="/articles/images/como-usar-renda-passiva.jpg" class="article-img"
+                alt="How to use the passive income calculator"
                 width="120" height="80" loading="lazy" />
               <div class="article-body">
-                <strong>Entendendo os Resultados</strong>
-                <small>Aprenda a interpretar o valor investido, rendimentos, valor acumulado e o impacto de cada variável na sua renda passiva final.</small>
+                <strong>How to Use the Passive Income Calculator</strong>
+                <small>Step-by-step guide to filling in each field and simulating your path to financial independence.</small>
               </div>
             </a>
           </article>
 
           <article>
-            <a href="/articles/o-que-e-renda-passiva.html" class="article-card">
+            <a href="/en/articles/what-is-passive-income.html" class="article-card">
               <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
-                alt="Imagem sobre renda passiva"
+                alt="What is passive income"
                 width="120" height="80" loading="lazy" />
               <div class="article-body">
-                <strong>O que é Renda Passiva?</strong>
-                <small>Entenda o conceito de renda passiva, como ela funciona, e quais são as principais formas de gerar uma fonte de renda automática.</small>
+                <strong>What is Passive Income?</strong>
+                <small>Understand the concept of passive income, how it works, and the main ways to generate an automatic income stream.</small>
               </div>
             </a>
           </article>
@@ -360,9 +332,9 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 Calcular Renda Passiva. Todos os direitos reservados.</p>
-      <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Termos de Uso e Políticas de Privacidade</a>
-      <p style="margin-top:0.25rem;">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <p>&copy; 2025 Passive Income Calculator. All rights reserved.</p>
+      <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Terms of Use &amp; Privacy Policy</a>
+      <p style="margin-top:0.25rem;">Developed with ❤️ by <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
       <div class="social-icons">
         <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
         <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
@@ -371,16 +343,10 @@
     </footer>
   </div>
 
-  <!-- Vercel Insights -->
-  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
   <script defer src="/_vercel/insights/script.js"></script>
-
-  <!-- Flock Analytics -->
   <script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script>
-
-  <!-- Calculadora -->
   <script defer src="/js/calculadora.js"></script>
-  <!-- Email -->
   <script defer src="/js/email.js"></script>
 </body>
 </html>

@@ -36,4 +36,68 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-500-mil-reais-por-mes.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-investir-para-renda-de-2-mil.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/best-dividend-etfs.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-retire.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/401k-vs-roth-ira.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/sp500-historical-returns.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-to-build-passive-income.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/what-is-passive-income.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calcularrendapassiva.com/en/articles/what-is-passive-income.html"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com/articles/o-que-e-renda-passiva.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-to-use-passive-income-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calcularrendapassiva.com/en/articles/how-to-use-passive-income-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com/articles/como-usar-calculadora-renda-passiva.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

@@ -1,3 +1,21 @@
+/* ===== INTERNACIONALIZAÇÃO ===== */
+const LANG = window.location.pathname.startsWith('/en') ? 'en' : 'pt';
+const L = LANG === 'en' ? {
+  prazo: 'Period:', vi: 'Initial Amount:', vr: 'Monthly Contribution:',
+  invest: 'Total Invested:', rend: 'Returns:', acum: 'Accumulated Value:',
+  taxa: 'Monthly Rate:', taxaA: 'Annual Rate:', renda: 'Monthly Passive Income:',
+  alertOneBlank: 'Leave exactly one field blank for calculation.',
+  alertInvalid: 'Invalid values entered. Please check and try again.',
+  resultPage: '/en/results.html', homePage: '/en/',
+} : {
+  prazo: 'Prazo:', vi: 'Valor Inicial:', vr: 'Valor Recorrente Mensal:',
+  invest: 'Valor Investido:', rend: 'Rendimentos:', acum: 'Valor Acumulado:',
+  taxa: 'Taxa Mensal:', taxaA: 'Taxa Anual:', renda: 'Renda Passiva Mensal:',
+  alertOneBlank: 'Deixe apenas um campo em branco para cálculo.',
+  alertInvalid: 'Valores informados levam a resultados inválidos. Verifique os dados e tente novamente.',
+  resultPage: '/results.html', homePage: '/',
+};
+
 /* ===== MÁSCARAS (vanilla JS) ===== */
 
 function applyMoneyMask(input) {
@@ -79,6 +97,13 @@ function formatarValor(valor, sistema = true) {
 
 function calcularAnosEMeses(n) {
   const anos = Math.floor(n / 12), meses = n % 12;
+  if (LANG === 'en') {
+    const a = anos === 1 ? '1 year' : `${anos} years`;
+    const m = meses === 1 ? '1 month' : `${meses} months`;
+    if (anos === 0) return m;
+    if (meses === 0) return `${n} months (or ${a})`;
+    return `${n} months (or ${a} and ${m})`;
+  }
   const a = anos === 1 ? '1 ano' : `${anos} anos`;
   const m = meses === 1 ? '1 mês' : `${meses} meses`;
   if (anos === 0) return m;
@@ -131,7 +156,7 @@ function calcularRendaPassiva() {
   });
 
   if (totalVazios !== 1) {
-    alert('Deixe apenas um campo em branco para cálculo.');
+    alert(L.alertOneBlank);
     return;
   }
 
@@ -217,7 +242,7 @@ function calcularRendaPassiva() {
   }
 
   if ([investido, rendimentos, acumulado, renda].some(v => v === Infinity || isNaN(v))) {
-    alert('Valores informados levam a resultados inválidos. Verifique os dados e tente novamente.');
+    alert(L.alertInvalid);
     return;
   }
 
@@ -233,13 +258,13 @@ function calcularRendaPassiva() {
   sessionStorage.setItem('valorAcumulado', acumulado ? formatarValor(acumulado, false) : 'N/A');
 
   document.querySelector('.flip-card')?.classList.add('flip-card-flipped');
-  setTimeout(() => { window.location.href = '/results.html'; }, 500);
+  setTimeout(() => { window.location.href = L.resultPage; }, 500);
 }
 
 function voltarFormulario(e) {
   e.preventDefault();
   document.querySelector('.flip-card')?.classList.remove('flip-card-flipped');
-  setTimeout(() => { window.location.href = '/'; }, 500);
+  setTimeout(() => { window.location.href = L.homePage; }, 500);
 }
 
 document.getElementById('calcularBtn')?.addEventListener('click', calcularRendaPassiva);
@@ -248,7 +273,7 @@ document.getElementById('voltarBtn')?.addEventListener('click', voltarFormulario
 /* ===== RESULTADOS ===== */
 const currentPage = window.location.pathname.split('/').pop();
 if (currentPage === 'results.html' && !sessionStorage.getItem('rendaPassivaResult')) {
-  window.location.href = '/';
+  window.location.href = L.homePage;
 }
 
 function setResult(id, label, value, prefix, suffix) {
@@ -260,15 +285,15 @@ function setResult(id, label, value, prefix, suffix) {
   el.innerHTML = `<span>${label}</span><span>${val}</span>`;
 }
 
-setResult('resultPrazo', 'Prazo:', sessionStorage.getItem('prazo'));
-setResult('resultValorInicial', 'Valor Inicial:', sessionStorage.getItem('valorInicialResult'), 'R$ ');
-setResult('resultValorRecorrente', 'Valor Recorrente Mensal:', sessionStorage.getItem('valorRecorrenteResult'), 'R$ ');
-setResult('resultValorInvestido', 'Valor Investido:', sessionStorage.getItem('valorInvestido'), 'R$ ');
-setResult('resultRendimentos', 'Rendimentos:', sessionStorage.getItem('rendimentos'), 'R$ ');
-setResult('resultValorAcumulado', 'Valor Acumulado:', sessionStorage.getItem('valorAcumulado'), 'R$ ');
-setResult('resultTaxa', 'Taxa Mensal:', sessionStorage.getItem('taxa'), '', '%');
-setResult('resultTaxaAnual', 'Taxa Anual:', sessionStorage.getItem('taxaAnual'), '', '%');
-setResult('resultRendaPassiva', 'Renda Passiva Mensal:', sessionStorage.getItem('rendaPassivaResult'), 'R$ ');
+setResult('resultPrazo', L.prazo, sessionStorage.getItem('prazo'));
+setResult('resultValorInicial', L.vi, sessionStorage.getItem('valorInicialResult'), 'R$ ');
+setResult('resultValorRecorrente', L.vr, sessionStorage.getItem('valorRecorrenteResult'), 'R$ ');
+setResult('resultValorInvestido', L.invest, sessionStorage.getItem('valorInvestido'), 'R$ ');
+setResult('resultRendimentos', L.rend, sessionStorage.getItem('rendimentos'), 'R$ ');
+setResult('resultValorAcumulado', L.acum, sessionStorage.getItem('valorAcumulado'), 'R$ ');
+setResult('resultTaxa', L.taxa, sessionStorage.getItem('taxa'), '', '%');
+setResult('resultTaxaAnual', L.taxaA, sessionStorage.getItem('taxaAnual'), '', '%');
+setResult('resultRendaPassiva', L.renda, sessionStorage.getItem('rendaPassivaResult'), 'R$ ');
 
 // Destaca o campo que foi calculado
 const campoMap = ['resultPrazo', 'resultValorInicial', 'resultValorRecorrente', 'resultTaxa', 'resultRendaPassiva'];
@@ -385,7 +410,7 @@ function gerarCard() {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#7d38f0';
   ctx.font = '700 22px Inter, system-ui, sans-serif';
-  ctx.fillText('Calculadora de Renda Passiva', W/2, 62);
+  ctx.fillText(LANG === 'en' ? 'Passive Income Calculator' : 'Calculadora de Renda Passiva', W/2, 62);
 
   // Helper divisor
   function div(y) {
@@ -408,7 +433,13 @@ function gerarCard() {
   const rendim = sessionStorage.getItem('rendimentos') || '---';
 
   // Headlines personalizados por campo calculado
-  const defs = [
+  const defs = LANG === 'en' ? [
+    { pre: ['I will reach my', 'financial independence in'],             big: prazo,             post: [] },
+    { pre: ['I only need'],                                              big: `R$ ${inic}`,      post: ['as initial investment to live off passive income'] },
+    { pre: ['Investing only'],                                           big: `R$ ${recorr}/mo`, post: ['I will already have passive income!'] },
+    { pre: ['With only'],                                                big: `${taxa}% p.m.`,   post: ['monthly return I reach', 'my financial independence!'] },
+    { pre: ['My monthly passive income will be'],                        big: `R$ ${renda}/mo`,  post: [] },
+  ] : [
     { pre: ['Vou alcançar minha', 'independência financeira em'],        big: prazo,             post: [] },
     { pre: ['Preciso de apenas'],                                         big: `R$ ${inic}`,      post: ['de valor inicial para viver de renda passiva'] },
     { pre: ['Investindo apenas'],                                         big: `R$ ${recorr}/mês`, post: ['já terei renda passiva!'] },
@@ -455,11 +486,21 @@ function gerarCard() {
   ctx.fillStyle = '#475569';
   ctx.font = '600 17px Inter, system-ui, sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('RESUMO DO CÁLCULO', PX, y);
+  ctx.fillText(LANG === 'en' ? 'CALCULATION SUMMARY' : 'RESUMO DO CÁLCULO', PX, y);
   y += 18;
 
   // Tabela de resultados (9 linhas)
-  const rows = [
+  const rows = LANG === 'en' ? [
+    ['Period',              prazo],
+    ['Initial Amount',      `R$ ${inic}`],
+    ['Monthly Contribution',`R$ ${recorr}`],
+    ['Total Invested',      `R$ ${invest}`],
+    ['Returns',             `R$ ${rendim}`],
+    ['Accumulated Value',   `R$ ${acum}`],
+    ['Monthly Rate',        `${taxa}% p.m.`],
+    ['Annual Rate',         `${taxaA}% p.a.`],
+    ['Passive Income',      `R$ ${renda}/mo`],
+  ] : [
     ['Prazo',           prazo],
     ['Valor Inicial',   `R$ ${inic}`],
     ['Aporte Mensal',   `R$ ${recorr}`],
@@ -488,15 +529,15 @@ function gerarCard() {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#94a3b8';
   ctx.font = '400 26px Inter, system-ui, sans-serif';
-  ctx.fillText('Calcule você também em:', W/2, y);
+  ctx.fillText(LANG === 'en' ? 'Calculate yours too at:' : 'Calcule você também em:', W/2, y);
   y += 62;
   ctx.font = '700 38px Inter, system-ui, sans-serif';
   ctx.fillStyle = mainGrad;
-  ctx.fillText('calcularrendapassiva.com', W/2, y);
+  ctx.fillText(LANG === 'en' ? 'calculatepassiveincome.com' : 'calcularrendapassiva.com', W/2, y);
   y += 52;
   ctx.fillStyle = '#475569';
   ctx.font = '400 19px Inter, system-ui, sans-serif';
-  ctx.fillText('Calcule sua independência financeira · Grátis', W/2, y);
+  ctx.fillText(LANG === 'en' ? 'Calculate your financial independence · Free' : 'Calcule sua independência financeira · Grátis', W/2, y);
 
   // Barra base
   ctx.fillStyle = mainGrad;
@@ -515,7 +556,13 @@ function compartilharWhatsApp() {
   const rendim    = sessionStorage.getItem('rendimentos') || '---';
   const acumulado = sessionStorage.getItem('valorAcumulado') || '---';
 
-  const frases = [
+  const frases = LANG === 'en' ? [
+    `I found out that in *${prazo}* I'll have *R$ ${renda}/month* in passive income! 🎯`,
+    `I only need *R$ ${inicial}* as initial investment to have *R$ ${renda}/month* in passive income! 🎯`,
+    `Investing *R$ ${recorr}/month* I'll have *R$ ${renda}/month* in passive income! 🎯`,
+    `With *${taxa}% monthly return* I'll reach *R$ ${renda}/month* in passive income! 🎯`,
+    `My monthly passive income will be *R$ ${renda}* in *${prazo}*! 🎯`,
+  ] : [
     `Descobri que em *${prazo}* terei renda passiva de *R$ ${renda}/mês*! 🎯`,
     `Descobri que preciso de *R$ ${inicial}* de valor inicial para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
     `Descobri que preciso aportar *R$ ${recorr}/mês* para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
@@ -525,7 +572,17 @@ function compartilharWhatsApp() {
 
   const frase = frases[idx >= 0 && idx < 5 ? idx : 4];
 
-  const resultados = [
+  const resultados = LANG === 'en' ? [
+    `Period: ${prazo}`,
+    `Initial Amount: R$ ${inicial}`,
+    `Monthly Contribution: R$ ${recorr}`,
+    `Total Invested: R$ ${investido}`,
+    `Returns: R$ ${rendim}`,
+    `Accumulated Value: R$ ${acumulado}`,
+    `Monthly Rate: ${taxa}%`,
+    `Annual Rate: ${taxaAnual}%`,
+    `Passive Income: R$ ${renda}/mo`,
+  ].join('\n') : [
     `Prazo: ${prazo}`,
     `Valor Inicial: R$ ${inicial}`,
     `Valor Recorrente: R$ ${recorr}`,
@@ -537,7 +594,8 @@ function compartilharWhatsApp() {
     `Renda Passiva: R$ ${renda}`,
   ].join('\n');
 
-  const msg = `${frase}\n\n${resultados}\n\nCalcule a sua: https://calcularrendapassiva.com`;
+  const ctaWa = LANG === 'en' ? 'Calculate yours: https://calculatepassiveincome.com' : 'Calcule a sua: https://calcularrendapassiva.com';
+  const msg = `${frase}\n\n${resultados}\n\n${ctaWa}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
@@ -553,7 +611,13 @@ async function compartilharResultado() {
   const recorr  = sessionStorage.getItem('valorRecorrenteResult') || '---';
   const taxa    = sessionStorage.getItem('taxa') || '---';
 
-  const frases = [
+  const frases = LANG === 'en' ? [
+    `In ${prazo} I'll have R$ ${renda}/month in passive income! 🎯`,
+    `I only need R$ ${inicial} as initial investment to have R$ ${renda}/month in passive income! 🎯`,
+    `Investing R$ ${recorr}/month I'll have R$ ${renda}/month in passive income! 🎯`,
+    `With ${taxa}% monthly return I'll reach R$ ${renda}/month in passive income! 🎯`,
+    `My monthly passive income will be R$ ${renda}! 🎯`,
+  ] : [
     `Descobri que em ${prazo} terei renda passiva de R$ ${renda}/mês! 🎯`,
     `Descobri que preciso de R$ ${inicial} de valor inicial para ter renda passiva de R$ ${renda}/mês! 🎯`,
     `Descobri que preciso aportar R$ ${recorr}/mês para ter renda passiva de R$ ${renda}/mês! 🎯`,
@@ -561,7 +625,7 @@ async function compartilharResultado() {
     `Descobri que minha renda passiva será de R$ ${renda}/mês em ${prazo}! 🎯`,
   ];
   const texto = frases[idx >= 0 && idx < 5 ? idx : 4];
-  const url = 'https://calcularrendapassiva.com';
+  const url = LANG === 'en' ? 'https://calculatepassiveincome.com' : 'https://calcularrendapassiva.com';
 
   if (navigator.share) {
     try {
