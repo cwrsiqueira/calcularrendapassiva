@@ -20,6 +20,8 @@
 
   <url>
     <loc>https://calcularrendapassiva.com/articles/como-usar-calculadora-renda-passiva.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com/articles/como-usar-calculadora-renda-passiva.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://calcularrendapassiva.com/en/articles/how-to-use-passive-income-calculator.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -32,6 +34,8 @@
 
   <url>
     <loc>https://calcularrendapassiva.com/articles/o-que-e-renda-passiva.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://calcularrendapassiva.com/articles/o-que-e-renda-passiva.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://calcularrendapassiva.com/en/articles/what-is-passive-income.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
