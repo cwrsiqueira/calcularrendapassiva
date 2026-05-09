@@ -439,10 +439,10 @@ function gerarCard() {
   // Headlines personalizados por campo calculado
   const defs = LANG === 'en' ? [
     { pre: ['I will reach my', 'financial independence in'],             big: prazo,             post: [] },
-    { pre: ['I only need'],                                              big: `R$ ${inic}`,      post: ['as initial investment to live off passive income'] },
-    { pre: ['Investing only'],                                           big: `R$ ${recorr}/mo`, post: ['I will already have passive income!'] },
+    { pre: ['I only need'],                                              big: `$ ${inic}`,       post: ['as initial investment to live off passive income'] },
+    { pre: ['Investing only'],                                           big: `$ ${recorr}/mo`,  post: ['I will already have passive income!'] },
     { pre: ['With only'],                                                big: `${taxa}% p.m.`,   post: ['monthly return I reach', 'my financial independence!'] },
-    { pre: ['My monthly passive income will be'],                        big: `R$ ${renda}/mo`,  post: [] },
+    { pre: ['My monthly passive income will be'],                        big: `$ ${renda}/mo`,   post: [] },
   ] : [
     { pre: ['Vou alcançar minha', 'independência financeira em'],        big: prazo,             post: [] },
     { pre: ['Preciso de apenas'],                                         big: `R$ ${inic}`,      post: ['de valor inicial para viver de renda passiva'] },
@@ -496,14 +496,14 @@ function gerarCard() {
   // Tabela de resultados (9 linhas)
   const rows = LANG === 'en' ? [
     ['Period',              prazo],
-    ['Initial Amount',      `R$ ${inic}`],
-    ['Monthly Contribution',`R$ ${recorr}`],
-    ['Total Invested',      `R$ ${invest}`],
-    ['Returns',             `R$ ${rendim}`],
-    ['Accumulated Value',   `R$ ${acum}`],
+    ['Initial Amount',      `$ ${inic}`],
+    ['Monthly Contribution',`$ ${recorr}`],
+    ['Total Invested',      `$ ${invest}`],
+    ['Returns',             `$ ${rendim}`],
+    ['Accumulated Value',   `$ ${acum}`],
     ['Monthly Rate',        `${taxa}% p.m.`],
     ['Annual Rate',         `${taxaA}% p.a.`],
-    ['Passive Income',      `R$ ${renda}/mo`],
+    ['Passive Income',      `$ ${renda}/mo`],
   ] : [
     ['Prazo',           prazo],
     ['Valor Inicial',   `R$ ${inic}`],
