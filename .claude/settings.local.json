@@ -4,7 +4,16 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(powershell -Command ' *)"
+      "Bash(powershell -Command ' *)",
+      "Bash(mkdir -p c:/projetos/calcularaposentadoria/css c:/projetos/calcularaposentadoria/js c:/projetos/calcularaposentadoria/api)",
+      "Bash(cp c:/projetos/calcularrendapassiva/css/style.css c:/projetos/calcularaposentadoria/css/)",
+      "Bash(cp c:/projetos/calcularrendapassiva/js/header-card.js c:/projetos/calcularaposentadoria/js/)",
+      "Bash(cp c:/projetos/calcularrendapassiva/js/email.js c:/projetos/calcularaposentadoria/js/)",
+      "Bash(cp c:/projetos/calcularrendapassiva/api/subscribe.js c:/projetos/calcularaposentadoria/api/)",
+      "Read(//c/projetos/calcularaposentadoria/**)",
+      "Read(//c/projetos/calcularaposentadoria/css/**)",
+      "Read(//c/projetos/calcularaposentadoria/js/**)",
+      "Read(//c/projetos/calcularaposentadoria/api/**)"
     ]
   }
 }
