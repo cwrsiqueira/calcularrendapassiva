@@ -5,6 +5,11 @@
       "has": [{ "type": "host", "value": "www.calcularrendapassiva.com" }],
       "destination": "https://calcularrendapassiva.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.svg",
+      "permanent": true
     }
   ],
   "headers": [
