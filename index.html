@@ -68,6 +68,56 @@
   }
   </script>
 
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O que é renda passiva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Renda passiva é o dinheiro que você recebe sem precisar trabalhar ativamente para isso. No Brasil, as principais fontes são: dividendos de ações, rendimentos de FIIs (Fundos de Investimento Imobiliário), juros de renda fixa (CDB, Tesouro Direto, LCI/LCA) e rendimentos de propriedades."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanto preciso investir para ter R$ 5.000 de renda passiva por mês?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para ter R$ 5.000 por mês de renda passiva, você precisa de aproximadamente R$ 468.000 em LCI/LCA (90% CDI, isento de IR) ou R$ 546.000 em FIIs (yield de 11% a.a.). Na poupança, seriam necessários cerca de R$ 852.000. O investimento escolhido muda muito o patrimônio necessário."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual o melhor investimento para renda passiva no Brasil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para renda passiva no Brasil em 2026, os melhores investimentos são: LCI/LCA (isento de IR, rende ~90% do CDI), Fundos Imobiliários (FIIs, dividendos mensais isentos de IR com yield médio de 11% a.a.) e Tesouro Selic (liquidez diária, 100% do CDI). A melhor estratégia combina os três."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como funciona a calculadora de renda passiva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A calculadora de renda passiva simula o crescimento do seu patrimônio ao longo do tempo usando juros compostos. Você informa o prazo, a taxa de retorno, o valor inicial, o aporte mensal e a renda passiva desejada. Deixe um campo em branco e a calculadora descobre automaticamente o valor que falta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanto rende R$ 500 mil investidos por mês?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "R$ 500 mil investidos rendem entre R$ 2.936/mês (poupança) e R$ 5.060/mês (LCI/LCA 90% CDI, isento de IR). Em CDB 100% CDI com IR de 20%, o rendimento líquido é de aproximadamente R$ 4.464/mês. Em FIIs com yield de 11% a.a., cerca de R$ 4.583/mês isentos."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
   <script>
@@ -187,6 +237,15 @@
               <p>Aguarde, calculando...</p>
             </div>
           </div>
+        </section>
+
+        <!-- Texto SEO -->
+        <section class="card seo-text" aria-label="Sobre a calculadora de renda passiva">
+          <h2>Calculadora de Renda Passiva Grátis</h2>
+          <p>Nossa <strong>calculadora de renda passiva</strong> simula quanto você precisa investir para viver de renda no Brasil. Usando juros compostos, ela calcula o crescimento do seu patrimônio mês a mês — levando em conta o valor inicial, o aporte mensal e a taxa de retorno do investimento escolhido.</p>
+          <p>Deixe um campo em branco e a calculadora descobre automaticamente: quanto tempo falta, quanto você precisa aportar por mês, qual patrimônio acumular ou qual taxa de retorno atingir para chegar à sua meta de renda passiva mensal.</p>
+          <h2>Os Melhores Investimentos para Renda Passiva em 2026</h2>
+          <p>No Brasil, as principais fontes de renda passiva são os <strong>Fundos de Investimento Imobiliário (FIIs)</strong>, que pagam dividendos mensais isentos de IR com yield médio de 11% ao ano; as <strong>LCI e LCA</strong>, isentas de IR para pessoa física e com rendimento de até 90% do CDI; o <strong>Tesouro Selic</strong>, com liquidez diária e 100% do CDI; e as <strong>ações de dividendos</strong>, com potencial de valorização a longo prazo. Simule cada cenário e descubra qual se encaixa melhor no seu objetivo.</p>
         </section>
 
         <!-- Afiliados -->
@@ -324,7 +383,7 @@
           </div>
 
           <article>
-            <a href="/artigos/quanto-rende-500-mil-reais-por-mes.html" class="article-featured">
+            <a href="/artigos/quanto-rende-500-mil-reais-por-mes" class="article-featured">
               <img src="/articles/images/o-que-e-renda-passiva.jpg"
                 alt="Quanto rende 500 mil reais por mês"
                 width="600" height="160" loading="lazy" />
@@ -370,7 +429,7 @@
           </article>
 
           <article>
-            <a href="/artigos/quanto-investir-para-renda-de-2-mil.html" class="article-card">
+            <a href="/artigos/quanto-investir-para-renda-de-2-mil" class="article-card">
               <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
                 alt="Quanto investir para renda de 2 mil"
                 width="120" height="80" loading="lazy" />
@@ -380,13 +439,49 @@
               </div>
             </a>
           </article>
+
+          <article>
+            <a href="/artigos/ganhar-5-mil-por-mes" class="article-card">
+              <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
+                alt="Quanto investir para ganhar 5 mil por mês"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>Quanto Investir para Ganhar R$ 5.000/mês de Renda Passiva</strong>
+                <small>Patrimônio necessário para ter R$ 5 mil/mês em LCI/LCA, FIIs, CDB e poupança — com prazo e aportes.</small>
+              </div>
+            </a>
+          </article>
+
+          <article>
+            <a href="/artigos/quanto-rende-200-mil-reais-por-mes" class="article-card">
+              <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
+                alt="Quanto rende 200 mil reais por mês"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>Quanto Rende R$ 200 Mil por Mês?</strong>
+                <small>Simulação completa em poupança, CDB, LCI/LCA e FIIs — com valores reais de 2026.</small>
+              </div>
+            </a>
+          </article>
+
+          <article>
+            <a href="/artigos/quanto-rende-1-milhao-investido" class="article-card">
+              <img src="/articles/images/o-que-e-renda-passiva.jpg" class="article-img"
+                alt="Quanto rende 1 milhão investido"
+                width="120" height="80" loading="lazy" />
+              <div class="article-body">
+                <strong>Quanto Rende 1 Milhão Investido por Mês?</strong>
+                <small>Com R$ 1 milhão, você pode gerar até R$ 10.688/mês em LCI/LCA. Veja todos os cenários.</small>
+              </div>
+            </a>
+          </article>
         </section>
 
       </div>
     </main>
 
     <footer>
-      <p>&copy; 2025 Calcular Renda Passiva. Todos os direitos reservados.</p>
+      <p>&copy; 2026 Calcular Renda Passiva. Todos os direitos reservados.</p>
       <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Termos de Uso e Políticas de Privacidade</a>
       <p style="margin-top:0.25rem;">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
       <div class="social-icons">
