@@ -13,7 +13,11 @@
       "Read(//c/projetos/calcularaposentadoria/**)",
       "Read(//c/projetos/calcularaposentadoria/css/**)",
       "Read(//c/projetos/calcularaposentadoria/js/**)",
-      "Read(//c/projetos/calcularaposentadoria/api/**)"
+      "Read(//c/projetos/calcularaposentadoria/api/**)",
+      "Bash(Get-ChildItem -Path \"c:\\\\projetos\\\\calcularrendapassiva\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\projetos\\\\calcularrendapassiva\\\\scripts\")"
     ]
   }
 }

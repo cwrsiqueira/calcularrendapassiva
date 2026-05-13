@@ -951,7 +951,7 @@ footer p { margin-bottom: 0.25rem; }
     flex-wrap: nowrap;
     justify-content: flex-end;
     flex: 0 1 auto;
-    max-width: min(100%, 22rem);
+    max-width: 100%;
   }
   .card-header .card-title { margin-left: 1rem; flex: 0 1 auto; }
 }
