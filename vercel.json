@@ -12,6 +12,116 @@
       "source": "/favicon.ico",
       "destination": "/favicon.svg",
       "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/index.html",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/renda-fixa-ou-renda-variavel",
+      "destination": "/artigos/quanto-rende-500-mil-reais-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/tesouro-direto-para-renda-passiva",
+      "destination": "/artigos/quanto-rende-500-mil-reais-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/investir-1000-por-mes",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/cdb-ou-tesouro-direto",
+      "destination": "/artigos/quanto-rende-500-mil-reais-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/regra-dos-4-por-cento-na-renda-passiva",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/aposentadoria-com-renda-passiva",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/melhores-investimentos-para-renda-passiva",
+      "destination": "/artigos/quanto-rende-500-mil-reais-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/quanto-preciso-investir-para-receber-renda-passiva",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/quanto-guardar-por-mes-para-aposentar",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/como-comecar-a-investir-do-zero",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/o-que-e-renda-passiva-e-como-calcular",
+      "destination": "/articles/o-que-e-renda-passiva",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/como-viver-de-renda-passiva",
+      "destination": "/artigos/ganhar-5-mil-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/artigos/fiis-vs-dividendos",
+      "destination": "/artigos/quanto-rende-500-mil-reais-por-mes",
+      "permanent": true
+    },
+    {
+      "source": "/en/about",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/contact",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/privacy",
+      "destination": "/en/terms.html",
+      "permanent": true
+    },
+    {
+      "source": "/contato",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sobre",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/politica-de-privacidade",
+      "destination": "/termos-de-uso-e-politicas-de-privacidade.html",
+      "permanent": true
+    },
+    {
+      "source": "/termos-de-uso",
+      "destination": "/termos-de-uso-e-politicas-de-privacidade.html",
+      "permanent": true
     }
   ],
   "headers": [
