@@ -565,8 +565,8 @@ function gerarCard() {
     ['Total Invested',      `$ ${invest}`],
     ['Returns',             `$ ${rendim}`],
     ['Accumulated Value',   `$ ${acum}`],
-    ['Monthly Rate',        `${taxa}% p.m.`],
-    ['Annual Rate',         `${taxaA}% p.a.`],
+    ['Monthly Rate',        `${taxa}%/mo`],
+    ['Annual Rate',         `${taxaA}%/yr`],
     ['Passive Income',      `$ ${renda}/mo`],
   ] : [
     ['Prazo',           prazo],

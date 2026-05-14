@@ -100,7 +100,7 @@
       articleCard('/en/articles/how-much-to-retire',                    'fa-umbrella-beach', '#f59e0b', 'How Much Do You Need to Retire?',               'The 4% rule, Social Security, and real-world retirement numbers for every income level.') +
       articleCard('/en/articles/401k-vs-roth-ira',                      'fa-scale-balanced', '#3b82f6', '401(k) vs Roth IRA: Which Is Better?',          'Tax treatment, contribution limits, and employer matching compared.') +
       articleCard('/en/articles/how-to-build-passive-income',           'fa-seedling',       '#10b981', 'How to Build Passive Income from Scratch',       'Step-by-step from your first $100 invested to $5,000/month in recurring income.') +
-      articleCard('/en/articles/sp500-historical-returns',              'fa-chart-simple',   '#7d38f0', 'S&amp;P 500 Historical Returns Explained',       '100 years of data and why time in the market beats timing the market.') +
+      articleCard('/en/articles/sp500-historical-returns',              'fa-chart-bar',      '#7d38f0', 'S&amp;P 500 Historical Returns Explained',       '100 years of data and why time in the market beats timing the market.') +
       articleCard('/en/articles/what-is-passive-income',                'fa-book-open',      '#f59e0b', 'What is Passive Income?',                        'The concept and main ways to generate an automatic income stream.') +
       articleCard('/en/articles/how-to-use-passive-income-calculator',  'fa-circle-question','#3b82f6', 'How to Use the Passive Income Calculator',       'Step-by-step guide to simulating your path to financial independence.') +
       '</section>';
