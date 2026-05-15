@@ -975,6 +975,16 @@ footer p { margin-bottom: 0.25rem; }
   .support-grid { flex-direction: row; }
 }
 
+/* ===== RESULT DISCLAIMER ===== */
+.result-disclaimer {
+  font-size: 0.72rem;
+  color: rgba(248, 250, 252, 0.45);
+  line-height: 1.5;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
 /* ===== SEO TEXT BLOCK ===== */
 .seo-text h2 {
   font-size: 1rem;
