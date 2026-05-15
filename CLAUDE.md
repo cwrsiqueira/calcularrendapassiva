@@ -204,18 +204,18 @@ Decisão: escalar ou pivotar
 
 ## 6. Checklist da máquina de vendas — 28 etapas em 5 fases
 
-### Fase 1 — Base técnica e SEO (Semana 1) 🔴 COMEÇAR AQUI
+### Fase 1 — Base técnica e SEO (Semana 1) ✅ CONCLUÍDA
 
-- [ ] **1.1** Auditar Google Search Console — encontrar URLs do Lovable ainda indexadas,
+- [x] **1.1** Auditar Google Search Console — encontrar URLs do Lovable ainda indexadas,
        erros de rastreamento, páginas duplicadas, redirecionamentos quebrados
-- [ ] **1.2** Verificar e corrigir sitemap.xml — listar todos os artigos e a home,
+- [x] **1.2** Verificar e corrigir sitemap.xml — listar todos os artigos e a home,
        submeter no Search Console, remover URLs antigas
-- [ ] **1.3** Adicionar Schema markup na home — WebApplication + FAQPage (JSON-LD)
-- [ ] **1.4** Adicionar Schema nos artigos — Article + BreadcrumbList em cada artigo
-- [ ] **1.5** Adicionar texto de suporte SEO na home — 3–4 parágrafos abaixo da calculadora
-- [ ] **1.6** Criar internal links entre artigos — cada artigo linka para 2+ outros + calculadora
-- [ ] **1.7** Corrigir ASO App Store — idioma PT-BR, iPhone, título (30 chars), keywords (100 chars)
-- [ ] **1.8** Otimizar metadados Google Play — título completo (30 chars), short description (80 chars)
+- [x] **1.3** Adicionar Schema markup na home — WebApplication + FAQPage (JSON-LD)
+- [x] **1.4** Adicionar Schema nos artigos — Article + BreadcrumbList em cada artigo
+- [x] **1.5** Adicionar texto de suporte SEO na home — 3–4 parágrafos abaixo da calculadora
+- [x] **1.6** Criar internal links entre artigos — cada artigo linka para 2+ outros + calculadora
+- [x] **1.7** Corrigir ASO App Store — idioma PT-BR, iPhone, título (30 chars), keywords (100 chars)
+- [x] **1.8** Otimizar metadados Google Play — título completo (30 chars), short description (80 chars)
 
 **Entregáveis da Fase 1:**
 - `index.html` refatorado (sem AdSense, com schema, com texto SEO, com formulário de captura)
@@ -223,21 +223,22 @@ Decisão: escalar ou pivotar
 - `sitemap.xml` atualizado
 - Metadados ASO prontos para copiar nas lojas
 
-### Fase 2 — Captura de leads e funil (Semana 2) 🟡
+### Fase 2 — Captura de leads e funil (Semana 2) ✅ CONCLUÍDA
 
-- [ ] **2.1** Definir e criar a isca digital (lead magnet)
-       → Sugestão: "Planilha: Quanto preciso investir para atingir minha meta de renda passiva"
-       → Alternativa: "Guia: Os 3 melhores investimentos para renda passiva no Brasil 2026"
-- [ ] **2.2** Integrar formulário de captura no site — Brevo ou MailerLite (gratuitos até 500 contatos)
-       → Posição: acima do fold + após resultado da calculadora
-- [ ] **2.3** Criar sequência de 5 emails de nutrição:
-       - Email 1: boas-vindas + entrega do lead magnet
-       - Email 2: erro comum em investimentos
-       - Email 3: como usar a calculadora avançado
-       - Email 4: case real de independência financeira
-       - Email 5: oferta do app PRO
+- [x] **2.1** Isca digital: Planilha Google Sheets PT + EN (verificadas, links /view sem login)
+       → PT: "Planilha: Quanto Preciso Investir para Viver de Renda [2026]"
+       → EN: "How Much Do I Need to Invest to Live Off My Passive Investments [2026]"
+- [x] **2.2** Formulário de captura integrado com Brevo — seção "Planilha grátis de renda passiva"
+       antes dos afiliados; listas 11 (PT) e 12 (EN); api/subscribe.js roteia por idioma
+- [x] **2.3** 10 emails criados em docs/ (5 PT + 5 EN):
+       - Email 1: boas-vindas + entrega da planilha via link Google Sheets
+       - Email 2: erro comum (poupança vs LCI/LCA / savings vs HYSA)
+       - Email 3: 3 dicas avançadas da calculadora
+       - Email 4: simulação real (R$2k→R$4.466/mês | $1k→$1.553/mo)
+       - Email 5 PT: oferta app PRO R$19,90 (pagamento único)
+       - Email 5 EN: app em português — CTA para web calculator EN
 - [ ] **2.4** Instalar pixel do Meta — eventos: PageView, Lead, DownloadApp
-- [ ] **2.5** Configurar Google Analytics 4 — eventos: clique calculadora, resultado gerado,
+- [ ] **2.5** Configurar GA4 — eventos: clique calculadora, resultado gerado,
        clique Play Store, clique App Store
 
 ### Fase 3 — Conteúdo SEO (Semanas 2–3) 🟡

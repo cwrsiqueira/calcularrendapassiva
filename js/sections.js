@@ -26,18 +26,30 @@
   }
 
   function emailPT() {
-    return '<section id="sec-email" class="card email-section" aria-label="Receba novidades">' +
-      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Fique por dentro das novidades</span></div>' +
-      '<p class="email-subtitle">Novidades do site direto no seu email. Sem spam.</p>' +
-      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Quero novidades</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
+    return '<section id="sec-email" class="card email-section" aria-label="Planilha gratuita">' +
+      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-table" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Planilha grátis de renda passiva</span></div>' +
+      '<p class="email-subtitle">Quanto você precisa investir para cada meta mensal — em poupança, CDB, LCI/LCA, FII e ações. Enviado no seu email.</p>' +
+      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Quero a planilha</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
       '</section>';
   }
 
   function emailEN() {
-    return '<section id="sec-email" class="card email-section" aria-label="Get updates">' +
-      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-envelope" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Stay up to date</span></div>' +
-      '<p class="email-subtitle">Site updates straight to your inbox. No spam.</p>' +
-      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Subscribe</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
+    return '<section id="sec-email" class="card email-section" aria-label="Free spreadsheet">' +
+      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-table" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Free passive income spreadsheet</span></div>' +
+      '<p class="email-subtitle">How much you need invested for $500 to $10,000/month — across savings, HYSA, JEPI, SCHD and dividend stocks. Sent to your inbox.</p>' +
+      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Get my spreadsheet</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
+      '</section>';
+  }
+
+  function appPT() {
+    return '<section id="sec-app" class="card" aria-label="App da Calculadora">' +
+      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-mobile-screen" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Simule onde e quando quiser</span></div>' +
+      '<p class="email-subtitle">O app gratuito traz todas as simulações do site para o seu celular. Sem login. Sem cadastro.</p>' +
+      '<div class="support-grid">' +
+        '<div><a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share" target="_blank" rel="noopener" class="btn-dark"><i class="fa-brands fa-google-play btn-dark-icon" aria-hidden="true"></i><span>Google Play</span></a><p class="support-note">Android — gratuito</p></div>' +
+        '<div><a href="https://apps.apple.com/us/app/calculadora-renda-passiva/id6762054224" target="_blank" rel="noopener" class="btn-dark"><i class="fa-brands fa-apple btn-dark-icon" aria-hidden="true"></i><span>App Store</span></a><p class="support-note">iPhone — gratuito</p></div>' +
+      '</div>' +
+      '<p class="affiliate-disclaimer"><i class="fa-solid fa-crown" aria-hidden="true"></i> Versão PRO disponível: zero anúncios + histórico ilimitado — pagamento único, sem assinatura</p>' +
       '</section>';
   }
 
@@ -46,8 +58,6 @@
       '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-coins" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Ajude a manter o site</span></div>' +
       '<div class="support-grid">' +
         '<div><a href="https://donate.stripe.com/8x25kE16O5GEb1Y3Kkcwg04" target="_blank" rel="noopener" class="btn-dark"><i class="fa-solid fa-hand-holding-dollar btn-dark-icon" aria-hidden="true"></i><span>Doação</span></a><p class="support-note">Sua contribuição ajuda a manter o site gratuito.</p></div>' +
-        '<div><a href="https://play.google.com/store/apps/details?id=com.cwrsiqueira.crp_app&pcampaignid=web_share" target="_blank" rel="noopener" class="btn-dark"><i class="fa-brands fa-google-play btn-dark-icon" aria-hidden="true"></i><span>Grátis na PlayStore</span></a><p class="support-note">Baixe o App da Calculadora grátis na Playstore.</p></div>' +
-        '<div><a href="https://apps.apple.com/us/app/calculadora-renda-passiva/id6762054224" target="_blank" rel="noopener" class="btn-dark"><i class="fa-brands fa-apple btn-dark-icon" aria-hidden="true"></i><span>Grátis na App Store</span></a><p class="support-note">Baixe o App da Calculadora grátis na App Store.</p></div>' +
       '</div></section>';
   }
 
@@ -108,7 +118,7 @@
 
   const html = EN
     ? emailEN() + apoioEN() + articlesEN()
-    : affiliatesPT() + emailPT() + apoioPT() + toolsPT() + articlesPT();
+    : emailPT() + affiliatesPT() + appPT() + apoioPT() + toolsPT() + articlesPT();
 
   document.currentScript.insertAdjacentHTML('afterend', html);
 })();
