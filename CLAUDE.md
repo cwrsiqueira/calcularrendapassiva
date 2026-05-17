@@ -175,7 +175,7 @@ Decisão: escalar ou pivotar
 #### Site
 | Canal | Decisão |
 |---|---|
-| AdSense | **REMOVER** — $7/ano, prejudica SEO e conversão |
+| AdSense | **MANTER discreto** — 1 por página/artigo, slot 8539778688, apenas para dados de tráfego no painel |
 | Afiliados Hotmart | **MANTER E AMPLIAR** — muito mais rentável com o mesmo tráfego |
 | Captura de email | **CRIAR** — isca digital + sequência de 5 emails |
 | CTA para o app | **DESTACAR** na home, acima e abaixo da calculadora |
@@ -323,7 +323,7 @@ Passos:
 
 1. **Nunca pular fases** — a ordem do checklist é deliberada e cada fase alimenta a próxima
 2. **Sempre HTML/CSS/JS puro** no site — sem React, sem framework CSR
-3. **AdSense está removido** — não sugerir reinstalar em nenhuma hipótese
+3. **AdSense discreto** — 1 por página (slot 8539778688), mantido para dados de tráfego; não multiplicar
 4. **Preço do PRO é R$19,90** (decisão tomada) — não questionar
 5. **Decisão de escalar ou pivotar só após 60 dias** com máquina completa rodando
 6. **Produto principal:** Calculadora Renda Passiva — Calc IMC é o próximo na fila
