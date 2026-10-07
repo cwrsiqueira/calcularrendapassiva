@@ -476,7 +476,6 @@ input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
 .email-input { width: 100%; }
 .email-btn { width: 100%; white-space: normal; }
 .email-input {
-  flex: 1 1 200px;
   padding: 0.75rem 1rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
