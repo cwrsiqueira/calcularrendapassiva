@@ -175,7 +175,7 @@ Decisão: escalar ou pivotar
 #### Site
 | Canal | Decisão |
 |---|---|
-| AdSense | **MANTER discreto** — 1 por página/artigo, slot 8539778688, apenas para dados de tráfego no painel |
+| AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688), Footer CRP antes da última seção (7851150331), laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
 | Afiliados Hotmart | **MANTER E AMPLIAR** — muito mais rentável com o mesmo tráfego |
 | Captura de email | **CRIAR** — isca digital + sequência de 5 emails |
 | CTA para o app | **DESTACAR** na home, acima e abaixo da calculadora |
@@ -323,7 +323,7 @@ Passos:
 
 1. **Nunca pular fases** — a ordem do checklist é deliberada e cada fase alimenta a próxima
 2. **Sempre HTML/CSS/JS puro** no site — sem React, sem framework CSR
-3. **AdSense discreto** — 1 por página (slot 8539778688), mantido para dados de tráfego; não multiplicar
+3. **AdSense** — exatamente 4 blocos por página (topo, Footer CRP, laterais LE/LD via `js/ads.js`); laterais nunca em telas < 1100px para não cobrir o conteúdo; não adicionar além desses
 4. **Preço do PRO é R$19,90** (decisão tomada) — não questionar
 5. **Decisão de escalar ou pivotar só após 60 dias** com máquina completa rodando
 6. **Produto principal:** Calculadora Renda Passiva — Calc IMC é o próximo na fila

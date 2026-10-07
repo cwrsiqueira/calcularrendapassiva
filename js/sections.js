@@ -12,19 +12,6 @@
       '</a></article>';
   }
 
-  function affiliatesPT() {
-    return '<section id="sec-afiliados" class="card affiliates-section" aria-label="Cursos de investimento">' +
-      '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-graduation-cap" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Aprenda a investir e viva de renda</span></div>' +
-      '<p class="affiliates-subtitle">Cursos selecionados para te ajudar a alcançar sua renda passiva</p>' +
-      '<div class="affiliates-grid">' +
-        '<div class="affiliate-card"><span class="affiliate-badge">Recomendado</span><div class="affiliate-logo affiliate-logo-irm">IRM</div><p class="affiliate-name">Método IRM do Tesouro Direto</p><p class="affiliate-benefit">Invista no Tesouro Direto com estratégia e alcance a independência financeira</p><a href="https://go.hotmart.com/F105671164L?dp=1" target="_blank" rel="noopener sponsored" class="btn-affiliate">Quero aprender <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>' +
-        '<div class="affiliate-card"><span class="affiliate-badge">Recomendado</span><div class="affiliate-logo affiliate-logo-ebook"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div><p class="affiliate-name">Investimentos para um Futuro Tranquilo</p><p class="affiliate-benefit">Ebook prático para proteger seu dinheiro e viver de renda passiva</p><a href="https://go.hotmart.com/J82329175Y" target="_blank" rel="noopener sponsored" class="btn-affiliate">Quero o ebook <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>' +
-        '<div class="affiliate-card"><span class="affiliate-badge">Recomendado</span><div class="affiliate-logo affiliate-logo-planilha"><i class="fa-solid fa-table" aria-hidden="true"></i></div><p class="affiliate-name">Planilha de Investimentos</p><p class="affiliate-benefit">Controle e simule seus investimentos com uma planilha completa</p><a href="https://go.hotmart.com/P83025749U" target="_blank" rel="noopener sponsored" class="btn-affiliate">Quero a planilha <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>' +
-      '</div>' +
-      '<p class="affiliate-disclaimer"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Links de afiliado — sem custo adicional para você</p>' +
-      '</section>';
-  }
-
   function emailPT() {
     return '<section id="sec-email" class="card email-section" aria-label="Planilha gratuita">' +
       '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-table" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Planilha grátis de renda passiva</span></div>' +
@@ -116,9 +103,23 @@
       '</section>';
   }
 
+  const AD_CLIENT = 'ca-pub-5865817649832793';
+
+  function adUnit(slot) {
+    return '<ins class="adsbygoogle" style="display:block" data-ad-client="' + AD_CLIENT + '" data-ad-slot="' + slot + '" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+  }
+
+  function pushAd() {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }
+
+  // Footer CRP — antes da última seção (Artigos)
+  const footerAd = '<div class="ad-footer">' + adUnit('7851150331') + '</div>';
+
   const html = EN
-    ? emailEN() + apoioEN() + articlesEN()
-    : emailPT() + affiliatesPT() + appPT() + apoioPT() + toolsPT() + articlesPT();
+    ? emailEN() + apoioEN() + footerAd + articlesEN()
+    : emailPT() + appPT() + apoioPT() + toolsPT() + footerAd + articlesPT();
 
   document.currentScript.insertAdjacentHTML('afterend', html);
+  pushAd();
 })();

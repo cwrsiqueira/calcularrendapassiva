@@ -1021,3 +1021,21 @@ footer p { margin-bottom: 0.25rem; }
   color: #fff;
   margin-bottom: 0.75rem;
 }
+
+/* ===== ANÚNCIOS ===== */
+.ad-footer { margin-block: 1.5rem; }
+
+.ad-rail {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  min-height: 600px;
+  z-index: 10;
+}
+.ad-rail-left  { left: 1rem; }
+.ad-rail-right { right: 1rem; }
+
+@media (max-width: 1099px) {
+  .ad-rail { display: none; }
+}
