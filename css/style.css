@@ -1023,7 +1023,8 @@ footer p { margin-bottom: 0.25rem; }
 }
 
 /* ===== ANÚNCIOS ===== */
-.ad-footer { margin-block: 1.5rem; }
+.ad-top { text-align: center; }
+.ad-footer { margin-block: 1.5rem; text-align: center; }
 
 .ad-rail {
   position: fixed;

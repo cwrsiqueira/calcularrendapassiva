@@ -175,7 +175,7 @@ Decisão: escalar ou pivotar
 #### Site
 | Canal | Decisão |
 |---|---|
-| AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688), Footer CRP antes da última seção (7851150331), laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
+| AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688) e Footer CRP antes da última seção (7851150331), ambos fixos 328×90 centralizados; laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
 | Afiliados Hotmart | **MANTER E AMPLIAR** — muito mais rentável com o mesmo tráfego |
 | Captura de email | **CRIAR** — isca digital + sequência de 5 emails |
 | CTA para o app | **DESTACAR** na home, acima e abaixo da calculadora |

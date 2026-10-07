@@ -105,16 +105,12 @@
 
   const AD_CLIENT = 'ca-pub-5865817649832793';
 
-  function adUnit(slot) {
-    return '<ins class="adsbygoogle" style="display:block" data-ad-client="' + AD_CLIENT + '" data-ad-slot="' + slot + '" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-  }
-
   function pushAd() {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   // Footer CRP — antes da última seção (Artigos)
-  const footerAd = '<div class="ad-footer">' + adUnit('7851150331') + '</div>';
+  const footerAd = '<div class="ad-footer"><ins class="adsbygoogle" style="display:inline-block;width:328px;height:90px" data-ad-client="' + AD_CLIENT + '" data-ad-slot="7851150331"></ins></div>';
 
   const html = EN
     ? emailEN() + apoioEN() + footerAd + articlesEN()
