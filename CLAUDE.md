@@ -293,29 +293,29 @@ Decisão: escalar ou pivotar
 
 ---
 
-## 8. Próxima sessão — por onde começar
+## 8. Próxima sessão — por onde começar (atualizado 15/10/2026)
 
-**A primeira ação é a auditoria do Google Search Console.**
+Último deploy: commit `903df71` (15/10/2026) — artigos Lovable restaurados, 49 páginas
+programáticas, hub `/artigos`, anúncios responsivos. Foco atual: **Plano AdSense (seção 10)**.
 
-Passos:
-1. Acessar https://search.google.com/search-console
-2. Selecionar propriedade calcularrendapassiva.com
-3. Ir em "Cobertura" → anotar quantas URLs estão indexadas e quais têm erro
-4. Ir em "URL removidas" → verificar se há páginas do Lovable ainda ativas
-5. Ir em "Links" → ver quais páginas têm mais backlinks (preservar essas URLs)
-6. Compartilhar os dados com o Claude para análise
+**Ações do Carlos (fora do código):**
+1. Search Console → reenviar `sitemap.xml` e pedir indexação de `/artigos` + artigos restaurados
+2. Lovable → despublicar `calcularrendapassiva.lovable.app` (conteúdo duplicado)
+3. Exportar e trazer: Search Console (Desempenho → consultas e páginas, 3 meses) e AdSense
+   (relatório por página) — servem para priorizar as próximas páginas
 
-**Em paralelo, preparar para enviar:**
-- Arquivo `index.html` do site atual
-- Arquivos HTML dos artigos do blog
-- Qualquer arquivo de configuração relevante (robots.txt, .htaccess)
+**Próximas tarefas de código para o Claude (nesta ordem):**
+1. ~~Atualizar taxas dos artigos manuais~~ ✅ 15/10/2026 — 7 manuais + 5 artigos que citavam
+   Selic 14,25% (cdb-ou-tesouro, converter taxa, melhores investimentos, renda fixa ou variável,
+   tesouro direto) agora com Selic 13,75% / CDI 13,65% / poupança 0,67% a.m.
+2. Páginas programáticas EN (`/en/articles/...`) — RPM 3–5× maior que PT
+3. Com os dados do Search Console: novas páginas para consultas com impressões e sem página dedicada
+4. Checklist: 2.4 pixel Meta e 2.5 eventos GA4 (GA4 `G-V1JD0D4KM1` já instalado, faltam eventos)
 
-**Com esses arquivos em mãos, Claude entrega na mesma sessão:**
-- `index.html` refatorado completo
-- `sitemap.xml` atualizado
-- Schema JSON-LD para home e artigos
-- Template de artigo otimizado
-- Metadados ASO prontos para as lojas
+**Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` → `npm run paginas` → "pode subir".
+Os artigos escritos à mão **não** são regenerados — a cada mudança da Selic, buscar a taxa antiga
+(ex.: `grep -rn "13,75" artigos/`) e atualizar os números à mão.
+**Esperar 2–6 semanas** de reindexação antes de julgar o efeito no AdSense.
 
 ---
 
@@ -342,21 +342,26 @@ Passos:
 - **Feito em 15/10/2026:** anúncios responsivos; 22 artigos do Lovable restaurados nas URLs originais (extraídos do bundle de calcularrendapassiva.lovable.app); 49 páginas programáticas; hub `/artigos`; `fire-movement-guide` EN; canonicals EN corrigidos; 12 redirects removidos do vercel.json.
 - **Páginas programáticas:** geradas por `scripts/paginas.js` a partir de `scripts/taxas.json` (template em `scripts/template.js`). **Todo mês** (após Copom/IPCA): atualizar `taxas.json` → `npm run paginas` → subir. O script também regenera o hub `/artigos` e o bloco `GERADO` do sitemap.xml.
 - **Não gerar** as páginas manuais (50k, 100k, 200k, 500k, 1 mi, renda de 2 mil, ganhar 5 mil) — estão em `RENDE_MANUAIS`/`RENDA_MANUAIS`.
-- **Pendências:** despublicar calcularrendapassiva.lovable.app (conteúdo duplicado); dados do Search Console/AdSense/GA4 para priorizar; páginas programáticas EN; atualizar taxas dos artigos manuais (ainda Selic 14,25%).
+- **Publicado em 15/10/2026** (commit `903df71`).
+- **Pendências:** ver seção 8.
 
 ---
 
 ## 11. Contexto técnico do site
 
-- **Stack:** HTML puro + CSS + JavaScript vanilla
-- **Hospedagem:** (verificar com Carlos — provavelmente Vercel, Netlify ou similar)
-- **Domínio:** calcularrendapassiva.com
-- **robots.txt:** presente (verificar conteúdo)
-- **sitemap.xml:** presente (verificar se atualizado pós-migração)
-- **Analytics:** verificar se GA4 está instalado corretamente
+- **Stack:** HTML puro + CSS + JavaScript vanilla; Node só para build/geração
+- **Hospedagem:** Vercel — deploy automático a cada push no `master`
+  (`npm install && npm run build` → `dist/`). Publicar via skill `pode-subir`.
+- **Scripts:** `npm run build` (`scripts/build.js`, minifica para `dist/`); `npm run paginas`
+  (gera páginas programáticas, hub `/artigos` e bloco `GERADO` do sitemap)
+- **Cache:** `.js`/`.css` com `immutable` — ao alterar, subir o `?v=` nas referências dos HTML
+- **API:** `api/subscribe.js` (Brevo, listas 11 PT / 12 EN)
+- **robots.txt:** ok (bloqueia só `/results.html`, aponta o sitemap)
+- **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados pendentes (2.5)
 - **Pixel Meta:** não instalado — etapa 2.4 do checklist
 
 ---
 
 *Documento gerado em 13/05/2026 — sessão de planejamento estratégico completa.*
+*Última atualização: 15/10/2026 — sessão Plano AdSense.*
 *Atualizar este arquivo sempre que uma decisão importante for tomada ou uma etapa concluída.*
