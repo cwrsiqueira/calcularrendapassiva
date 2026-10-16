@@ -308,7 +308,10 @@ Decisão: escalar ou pivotar
 **Feito em 16/10/2026:** eventos GA4 (2.5); 34 páginas EN programáticas + hub `/en/articles`
 (`scripts/paginas-en.js`, taxas EUA no bloco `en` de `taxas.json`); 10 páginas PT novas (poupança, onde investir,
 independência financeira); template com `lang` (pt/en); redirect `/articles/best-dividend-etfs`; sitemap sem
-linhas em branco acumuladas.
+linhas em branco acumuladas. Sitemap reenviado no Search Console (138 URLs) e indexação pedida para 6 páginas
+(/artigos, /en/articles, onde-investir-200-mil, 500-mil-na-poupanca, calculadora-independencia-financeira,
+how-much-does-1-million-earn-per-month). IndexNow (Bing): chave `98b4a40f84f382c9360e38a2bf94e1be.txt` na raiz;
+reenviar após cada `npm run paginas` com POST em api.indexnow.org/indexnow (lista de URLs do sitemap).
 
 **Ações do Carlos (fora do código):**
 1. AdSense → concluir "Etapas para receber pagamentos" (dados fiscais/bancários) — o saldo está quase em US$ 100
