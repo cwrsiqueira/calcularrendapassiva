@@ -83,6 +83,10 @@
       articleCard('/articles/como-usar-calculadora-renda-passiva','fa-circle-question','#3b82f6', 'Como Usar a Calculadora de Renda Passiva',          'Aprenda como preencher os campos e simule sua independência financeira.') +
       articleCard('/articles/o-que-e-renda-passiva',             'fa-book-open',      '#f59e0b', 'O que é Renda Passiva?',                            'Entenda o conceito e as principais formas de gerar renda passiva automaticamente.') +
       articleCard('/articles/entendendo-os-resultados',          'fa-chart-bar',      '#e847eb', 'Entendendo os Resultados',                          'Interprete patrimônio acumulado, rendimentos e o impacto de cada variável.') +
+      articleCard('/artigos/como-viver-de-renda-passiva',        'fa-umbrella-beach', '#10b981', 'Como Viver de Renda Passiva',                       'Guia completo: quanto você precisa, onde investir e como chegar lá.') +
+      articleCard('/artigos/cdb-ou-tesouro-direto',              'fa-scale-balanced', '#3b82f6', 'CDB ou Tesouro Direto: Qual Rende Mais?',           'Rentabilidade, segurança, liquidez e IR lado a lado.') +
+      articleCard('/artigos/como-calcular-juros-compostos',      'fa-chart-line',     '#7d38f0', 'Como Calcular Juros Compostos',                     'Fórmula, exemplos práticos e o efeito do tempo nos seus investimentos.') +
+      '<div class="article-cta"><a href="/artigos" class="btn-article">Ver todos os artigos e simulações <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>' +
       '</section>';
   }
 
@@ -110,7 +114,7 @@
   }
 
   // Footer CRP — antes da última seção (Artigos)
-  const footerAd = '<div class="ad-footer"><ins class="adsbygoogle" style="display:inline-block;width:328px;height:90px" data-ad-client="' + AD_CLIENT + '" data-ad-slot="7851150331"></ins></div>';
+  const footerAd = '<div class="ad-footer"><ins class="adsbygoogle" style="display:block" data-ad-client="' + AD_CLIENT + '" data-ad-slot="7851150331" data-ad-format="auto" data-full-width-responsive="true"></ins></div>';
 
   const html = EN
     ? emailEN() + apoioEN() + footerAd + articlesEN()

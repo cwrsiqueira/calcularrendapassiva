@@ -1022,8 +1022,11 @@ footer p { margin-bottom: 0.25rem; }
 }
 
 /* ===== ANÚNCIOS ===== */
-.ad-top { text-align: center; }
-.ad-footer { margin-block: 1.5rem; text-align: center; }
+.ad-top { text-align: center; min-height: 50px; }
+.ad-footer { margin-block: 1.5rem; text-align: center; min-height: 100px; }
+.ad-top:has(ins[data-ad-status="unfilled"]),
+.ad-footer:has(ins[data-ad-status="unfilled"]) { min-height: 0; }
+ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 
 .ad-rail {
   position: fixed;

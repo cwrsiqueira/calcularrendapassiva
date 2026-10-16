@@ -175,7 +175,7 @@ Decisão: escalar ou pivotar
 #### Site
 | Canal | Decisão |
 |---|---|
-| AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688) e Footer CRP antes da última seção (7851150331), ambos fixos 328×90 centralizados; laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
+| AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688) e Footer CRP antes da última seção (7851150331), topo responsivo `horizontal` e Footer responsivo `auto` (o 328×90 fixo derrubava o RPM para US$0,14 — trocado em 15/10/2026); laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
 | Afiliados Hotmart | **MANTER E AMPLIAR** — muito mais rentável com o mesmo tráfego |
 | Captura de email | **CRIAR** — isca digital + sequência de 5 emails |
 | CTA para o app | **DESTACAR** na home, acima e abaixo da calculadora |
@@ -335,7 +335,18 @@ Passos:
 
 ---
 
-## 10. Contexto técnico do site
+## 10. Plano AdSense US$300/mês (iniciado 15/10/2026)
+
+- **Meta:** US$300+/mês com AdSense. PT-BR rende ~US$2–4 por mil pageviews → precisa 75k–150k PV/mês; EN (EUA) ~US$10–20 → 15k–30k PV.
+- **Causas da queda:** anúncios 328×90 fixos (tamanho fora do padrão); migração Lovable→HTML cortou ~30 artigos e 28 páginas programáticas (redirecionados para páginas sem relação = soft 404); canonical EN com `.html` (URL que redireciona).
+- **Feito em 15/10/2026:** anúncios responsivos; 22 artigos do Lovable restaurados nas URLs originais (extraídos do bundle de calcularrendapassiva.lovable.app); 49 páginas programáticas; hub `/artigos`; `fire-movement-guide` EN; canonicals EN corrigidos; 12 redirects removidos do vercel.json.
+- **Páginas programáticas:** geradas por `scripts/paginas.js` a partir de `scripts/taxas.json` (template em `scripts/template.js`). **Todo mês** (após Copom/IPCA): atualizar `taxas.json` → `npm run paginas` → subir. O script também regenera o hub `/artigos` e o bloco `GERADO` do sitemap.xml.
+- **Não gerar** as páginas manuais (50k, 100k, 200k, 500k, 1 mi, renda de 2 mil, ganhar 5 mil) — estão em `RENDE_MANUAIS`/`RENDA_MANUAIS`.
+- **Pendências:** despublicar calcularrendapassiva.lovable.app (conteúdo duplicado); dados do Search Console/AdSense/GA4 para priorizar; páginas programáticas EN; atualizar taxas dos artigos manuais (ainda Selic 14,25%).
+
+---
+
+## 11. Contexto técnico do site
 
 - **Stack:** HTML puro + CSS + JavaScript vanilla
 - **Hospedagem:** (verificar com Carlos — provavelmente Vercel, Netlify ou similar)

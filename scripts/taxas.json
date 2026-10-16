@@ -1,0 +1,14 @@
+{
+  "_comentario": "Atualize mensalmente (após cada Copom/IPCA) e rode: npm run paginas",
+  "referencia": "outubro de 2026",
+  "dataISO": "2026-10-15",
+  "selic": 13.75,
+  "cdi": 13.65,
+  "poupancaMensal": 0.67,
+  "ipca12m": 4.58,
+  "irLongoPrazo": 15,
+  "lciPercentCdi": 90,
+  "fiiDividendYield": 10,
+  "acoesDividendYield": 7,
+  "fontes": "Banco Central (Copom 16/09/2026), IBGE (IPCA set/2026), BCB série 196 (poupança)"
+}
