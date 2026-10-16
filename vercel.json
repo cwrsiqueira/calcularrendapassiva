@@ -68,6 +68,11 @@
       "source": "/termos-de-uso",
       "destination": "/termos-de-uso-e-politicas-de-privacidade.html",
       "permanent": true
+    },
+    {
+      "source": "/articles/best-dividend-etfs",
+      "destination": "/en/articles/best-dividend-etfs",
+      "permanent": true
     }
   ],
   "headers": [

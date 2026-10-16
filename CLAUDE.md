@@ -238,7 +238,8 @@ Decisão: escalar ou pivotar
        - Email 5 PT: oferta app PRO R$19,90 (pagamento único)
        - Email 5 EN: app em português — CTA para web calculator EN
 - [ ] **2.4** Instalar pixel do Meta — eventos: PageView, Lead, DownloadApp
-- [ ] **2.5** Configurar GA4 — eventos: clique calculadora, resultado gerado,
+- [x] **2.5** Configurar GA4 ✅ 16/10/2026 — `clique_calcular`, `resultado_gerado`, `clique_loja` (play_store/app_store),
+       `generate_lead`, `compartilhar`, `clique_afiliado` (em js/calculadora.js e js/email.js). Configurar GA4 — eventos: clique calculadora, resultado gerado,
        clique Play Store, clique App Store
 
 ### Fase 3 — Conteúdo SEO (Semanas 2–3) 🟡
@@ -293,26 +294,36 @@ Decisão: escalar ou pivotar
 
 ---
 
-## 8. Próxima sessão — por onde começar (atualizado 15/10/2026)
+## 8. Próxima sessão — por onde começar (atualizado 16/10/2026)
 
-Último deploy: commit `903df71` (15/10/2026) — artigos Lovable restaurados, 49 páginas
-programáticas, hub `/artigos`, anúncios responsivos. Foco atual: **Plano AdSense (seção 10)**.
+**Diagnóstico real (dados lidos em 16/10/2026):**
+- Search Console (3 meses): só **129 cliques / 4,08 mil impressões**, posição média 31,6. A home faz 97% dos
+  cliques ("calculadora renda passiva", posição ~7). Só **11 páginas indexadas** — as 100+ páginas novas ainda
+  não foram descobertas pelo Google.
+- AdSense: ~128 pageviews/dia, **RPM US$ 0,25**, ~US$ 1/mês. Saldo US$ 97,26 (mínimo de saque US$ 100) e
+  **"Etapas para receber pagamentos" pendentes** na conta. Bing gera mais receita que o Google.
+- Consultas com impressões e sem página → viraram séries novas: "quanto rende X na poupança",
+  "onde investir X", "calculadora independência financeira"; "passive income calculator" (207 impr., pos. 51).
+
+**Feito em 16/10/2026:** eventos GA4 (2.5); 34 páginas EN programáticas + hub `/en/articles`
+(`scripts/paginas-en.js`, taxas EUA no bloco `en` de `taxas.json`); 10 páginas PT novas (poupança, onde investir,
+independência financeira); template com `lang` (pt/en); redirect `/articles/best-dividend-etfs`; sitemap sem
+linhas em branco acumuladas.
 
 **Ações do Carlos (fora do código):**
-1. Search Console → reenviar `sitemap.xml` e pedir indexação de `/artigos` + artigos restaurados
-2. Lovable → despublicar `calcularrendapassiva.lovable.app` (conteúdo duplicado)
-3. Exportar e trazer: Search Console (Desempenho → consultas e páginas, 3 meses) e AdSense
-   (relatório por página) — servem para priorizar as próximas páginas
+1. AdSense → concluir "Etapas para receber pagamentos" (dados fiscais/bancários) — o saldo está quase em US$ 100
+2. Lovable → despublicar `calcularrendapassiva.lovable.app` (precisa login no lovable.dev)
+3. Bing Webmaster Tools → importar o site do Search Console (Bing já é a maior fonte de receita)
+4. Afiliados Hotmart → **não há nenhum link de afiliado no site hoje** (a seção foi removida em 2e1f9db);
+   escolher 2–3 produtos e trazer os links para recolocar
 
-**Próximas tarefas de código para o Claude (nesta ordem):**
-1. ~~Atualizar taxas dos artigos manuais~~ ✅ 15/10/2026 — 7 manuais + 5 artigos que citavam
-   Selic 14,25% (cdb-ou-tesouro, converter taxa, melhores investimentos, renda fixa ou variável,
-   tesouro direto) agora com Selic 13,75% / CDI 13,65% / poupança 0,67% a.m.
-2. Páginas programáticas EN (`/en/articles/...`) — RPM 3–5× maior que PT
-3. Com os dados do Search Console: novas páginas para consultas com impressões e sem página dedicada
-4. Checklist: 2.4 pixel Meta e 2.5 eventos GA4 (GA4 `G-V1JD0D4KM1` já instalado, faltam eventos)
+**Próximas tarefas de código para o Claude:**
+1. Acompanhar indexação (Search Console → Páginas) 2–3 semanas após o reenvio do sitemap
+2. Calculadora EN focada em "passive income calculator" (home EN na posição 51)
+3. Checklist: 2.4 pixel Meta (precisa do ID do pixel criado pelo Carlos no Meta Business)
+4. Recolocar afiliados quando os links chegarem
 
-**Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` → `npm run paginas` → "pode subir".
+**Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` (PT e bloco `en`) → `npm run paginas` → "pode subir".
 Os artigos escritos à mão **não** são regenerados — a cada mudança da Selic, buscar a taxa antiga
 (ex.: `grep -rn "13,75" artigos/`) e atualizar os números à mão.
 **Esperar 2–6 semanas** de reindexação antes de julgar o efeito no AdSense.
@@ -353,15 +364,15 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 - **Hospedagem:** Vercel — deploy automático a cada push no `master`
   (`npm install && npm run build` → `dist/`). Publicar via skill `pode-subir`.
 - **Scripts:** `npm run build` (`scripts/build.js`, minifica para `dist/`); `npm run paginas`
-  (gera páginas programáticas, hub `/artigos` e bloco `GERADO` do sitemap)
+  (gera páginas programáticas PT e EN, hubs `/artigos` e `/en/articles` e bloco `GERADO` do sitemap)
 - **Cache:** `.js`/`.css` com `immutable` — ao alterar, subir o `?v=` nas referências dos HTML
 - **API:** `api/subscribe.js` (Brevo, listas 11 PT / 12 EN)
 - **robots.txt:** ok (bloqueia só `/results.html`, aponta o sitemap)
-- **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados pendentes (2.5)
+- **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados em `js/calculadora.js` e `js/email.js`
 - **Pixel Meta:** não instalado — etapa 2.4 do checklist
 
 ---
 
 *Documento gerado em 13/05/2026 — sessão de planejamento estratégico completa.*
-*Última atualização: 15/10/2026 — sessão Plano AdSense.*
+*Última atualização: 16/10/2026 — páginas EN, eventos GA4 e diagnóstico Search Console/AdSense.*
 *Atualizar este arquivo sempre que uma decisão importante for tomada ou uma etapa concluída.*

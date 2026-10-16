@@ -10,5 +10,19 @@
   "lciPercentCdi": 90,
   "fiiDividendYield": 10,
   "acoesDividendYield": 7,
-  "fontes": "Banco Central (Copom 16/09/2026), IBGE (IPCA set/2026), BCB série 196 (poupança)"
+  "fontes": "Banco Central (Copom 16/09/2026), IBGE (IPCA set/2026), BCB série 196 (poupança)",
+  "en": {
+    "_comentario": "Taxas EUA para as páginas EN (/en/articles). Atualizar junto com as PT.",
+    "referencia": "October 2026",
+    "hysa": 4.2,
+    "cd1y": 4.4,
+    "tbill": 4.2,
+    "dividendEtf": 3.7,
+    "stockReturn": 10,
+    "realReturn": 7,
+    "inflation": 2.9,
+    "withdrawal": 4,
+    "gastoMensalMedio": 6440,
+    "fontes": "CNBC Select and NerdWallet (savings and CD rates, Oct 2026), U.S. Treasury (3-month bill), BLS Consumer Expenditure Survey (household spending)"
+  }
 }

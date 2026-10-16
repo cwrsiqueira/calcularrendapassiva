@@ -26,7 +26,27 @@ function jsonLd(obj) {
  * @param {Array}  [a.related]       [{href, title}] — bloco "Leia também"
  * @param {string} [a.cta]           texto do CTA final
  */
+const TXT = {
+  pt: {
+    html: 'pt-BR', og: 'pt_BR', home: '/', hub: '/artigos', hubSlug: 'artigos', inicio: 'Início', artigos: 'Artigos',
+    faq: 'Perguntas Frequentes', leia: 'Leia Também', voltar: 'Voltar para a Calculadora',
+    cta: 'Simule sua renda passiva com seus próprios números.', btn: 'Usar a Calculadora Grátis',
+    copy: '&copy; 2026 Calcular Renda Passiva. Todos os direitos reservados.',
+    termos: '<a href="/termos-de-uso-e-politicas-de-privacidade" target="_blank">Termos de Uso e Políticas de Privacidade</a>',
+    dev: 'Desenvolvido com ❤️ por',
+  },
+  en: {
+    html: 'en', og: 'en_US', home: '/en/', hub: '/en/articles', hubSlug: 'en/articles', inicio: 'Home', artigos: 'Articles',
+    faq: 'Frequently Asked Questions', leia: 'Related Articles', voltar: 'Back to Calculator',
+    cta: 'Run your own passive income numbers.', btn: 'Use the Free Calculator',
+    copy: '&copy; 2026 Passive Income Calculator. All rights reserved.',
+    termos: '<a href="/en/terms.html" target="_blank">Terms of Use &amp; Privacy Policy</a>',
+    dev: 'Developed with ❤️ by',
+  },
+};
+
 function renderArticle(a) {
+  const t = TXT[a.lang || 'pt'];
   const url = `${SITE}/${a.slug}`;
   let ld = jsonLd({
     '@context': 'https://schema.org',
@@ -43,9 +63,9 @@ function renderArticle(a) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE}/` },
-      { '@type': 'ListItem', position: 2, name: 'Artigos', item: `${SITE}/artigos` },
-      ...(a.slug === 'artigos' ? [] : [{ '@type': 'ListItem', position: 3, name: a.breadcrumb, item: url }]),
+      { '@type': 'ListItem', position: 1, name: t.inicio, item: `${SITE}${t.home}` },
+      { '@type': 'ListItem', position: 2, name: t.artigos, item: `${SITE}${t.hub}` },
+      ...(a.slug === t.hubSlug ? [] : [{ '@type': 'ListItem', position: 3, name: a.breadcrumb, item: url }]),
     ],
   });
   if (a.faq && a.faq.length) {
@@ -61,12 +81,12 @@ function renderArticle(a) {
   }
 
   const faqHtml = a.faq && a.faq.length
-    ? '\n            <h2>Perguntas Frequentes</h2>\n' + a.faq.map(f => `            <h3>${f.q}</h3>\n            <p>${f.a}</p>`).join('\n') + '\n'
+    ? `\n            <h2>${t.faq}</h2>\n` +a.faq.map(f => `            <h3>${f.q}</h3>\n            <p>${f.a}</p>`).join('\n') + '\n'
     : '';
 
   const relatedHtml = a.related && a.related.length
     ? `
-            <h2>Leia Também</h2>
+            <h2>${t.leia}</h2>
             <ul>
 ${a.related.map(r => `              <li><a href="${r.href}">${r.title}</a></li>`).join('\n')}
             </ul>
@@ -74,7 +94,7 @@ ${a.related.map(r => `              <li><a href="${r.href}">${r.title}</a></li>`
     : '';
 
   return `<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="${t.html}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -82,14 +102,14 @@ ${a.related.map(r => `              <li><a href="${r.href}">${r.title}</a></li>`
   <meta name="description" content="${esc(a.description)}" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="${url}" />
-  <link rel="alternate" hreflang="pt-BR" href="${url}" />
+  <link rel="alternate" hreflang="${t.html}" href="${url}" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <meta name="theme-color" content="#7d38f0" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="${esc(a.title)}" />
   <meta property="og:description" content="${esc(a.description)}" />
   <meta property="og:url" content="${url}" />
-  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:locale" content="${t.og}" />
 ${ld}  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1JD0D4KM1"></script>
@@ -105,7 +125,7 @@ ${ld}  <link rel="preconnect" href="https://fonts.googleapis.com" />
       <div class="calculadora-container">
         <script src="/js/header-card.js"></script>
         <article class="card">
-          <a href="/" class="article-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar para a Calculadora</a>
+          <a href="${t.home}" class="article-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> ${t.voltar}</a>
 
           <h1 class="article-title">${a.h1}</h1>
           <p class="article-meta">${a.meta}</p>
@@ -124,8 +144,8 @@ ${faqHtml}${relatedHtml}          </div>
           </div>
 
           <div class="article-cta">
-            <p><i class="fa-solid fa-calculator" aria-hidden="true"></i> ${a.cta || 'Simule sua renda passiva com seus próprios números.'}</p>
-            <a href="/" class="btn-article">Usar a Calculadora Grátis <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <p><i class="fa-solid fa-calculator" aria-hidden="true"></i> ${a.cta || t.cta}</p>
+            <a href="${t.home}" class="btn-article">${t.btn} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
         </article>
       </div>
@@ -133,9 +153,9 @@ ${faqHtml}${relatedHtml}          </div>
     </main>
 
     <footer>
-      <p>&copy; 2026 Calcular Renda Passiva. Todos os direitos reservados.</p>
-      <a href="/termos-de-uso-e-politicas-de-privacidade" target="_blank">Termos de Uso e Políticas de Privacidade</a>
-      <p style="margin-top:0.25rem;">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <p>${t.copy}</p>
+      ${t.termos}
+      <p style="margin-top:0.25rem;">${t.dev} <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
       <div class="social-icons">
         <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
         <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>

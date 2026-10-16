@@ -310,11 +310,199 @@ ${tabela(['Aporte', `Meta ${brl(pReal)} (${pct(anualDe(realCdb), 1)} real)`, `Re
   };
 }
 
+// ---------- página: quanto rende X na poupança ----------
+// Consultas do Search Console (out/2026): "quanto rende 500 mil na poupança", "200 mil na poupança rende quanto por mês"…
+const POUPANCA = [100e3, 200e3, 300e3, 500e3, 1e6];
+const slugPoup = v => `artigos/quanto-rende-${v >= 1e6 ? '1-milhao' : v / 1000 + '-mil'}-na-poupanca`;
+
+function paginaPoupanca(v) {
+  const L = rotulo(v);
+  const p = byId.poupanca, lci = byId.lci, cdb = byId.cdb;
+  const mes = v * p.m;
+  const perdaAno = v * (Math.pow(1 + lci.liq, 12) - Math.pow(1 + p.m, 12));
+  const meses = [1, 6, 12, 24, 60];
+  const linhas = meses.map(n => [n === 1 ? '1 mês' : n < 12 ? `${n} meses` : `${n / 12} ano${n > 12 ? 's' : ''}`,
+    brl(v * (Math.pow(1 + p.m, n) - 1)), brl(v * (Math.pow(1 + lci.liq, n) - 1)), brl(v * (Math.pow(1 + cdb.liq, n) - 1))]);
+  const realPoup = (1 + p.m) / (1 + ipcaM) - 1;
+
+  const faq = [
+    { q: `Quanto rende R$ ${L} na poupança por mês?`, a: `Com a poupança rendendo ${pct(p.m)} ao mês (${T.referencia}), R$ ${L} rendem cerca de ${brl(mes)} por mês, isentos de Imposto de Renda.` },
+    { q: `Quanto rende R$ ${L} na poupança por ano?`, a: `Em 12 meses, com os rendimentos reinvestidos, R$ ${L} rendem cerca de ${brl(v * (Math.pow(1 + p.m, 12) - 1))} na poupança.` },
+    { q: `Vale a pena deixar R$ ${L} na poupança?`, a: `Para reserva de emergência, a poupança funciona, mas rende menos que as alternativas seguras. Uma LCI/LCA de ${T.lciPercentCdi}% do CDI, também isenta de IR, renderia cerca de ${brl(perdaAno)} a mais em um ano, e o Tesouro Selic tem liquidez diária com rendimento maior.` },
+    { q: `A poupança perde para a inflação?`, a: `Com o IPCA em ${pct(T.ipca12m / 100)} em 12 meses, o ganho real da poupança é de cerca de ${pct(anualDe(realPoup))} ao ano — ${realPoup > 0 ? 'positivo, mas pequeno' : 'negativo, ou seja, o dinheiro perde poder de compra'}.` },
+  ];
+
+  const rel = POUPANCA.filter(x => x !== v).slice(0, 3).map(x => ({ href: '/' + slugPoup(x), title: `Quanto rende R$ ${rotulo(x)} na poupança` }));
+  rel.push({ href: '/' + slugRende(v), title: `Quanto rende R$ ${L} por mês em todos os investimentos` });
+  if (ONDE.includes(v)) rel.push({ href: '/' + slugOnde(v), title: `Onde investir R$ ${L}` });
+  rel.push(GUIAS.cdbTesouro);
+
+  const body = `            <p><strong>R$ ${L} na poupança rendem cerca de ${brl(mes)} por mês</strong> com as taxas de ${T.referencia} — isentos de Imposto de Renda. Em um ano, com os rendimentos reinvestidos, são ${brl(v * (Math.pow(1 + p.m, 12) - 1))}. Veja a conta, a comparação com LCI/LCA e CDB e quanto você deixa na mesa mantendo o dinheiro parado na poupança.</p>
+
+            <h2>A Conta: R$ ${L} × ${pct(p.m)} ao Mês</h2>
+            <p>Com a Selic em ${pct(T.selic / 100)} (acima de 8,5% a.a.), a poupança rende 0,5% ao mês + TR, o que hoje dá cerca de ${pct(p.m)} ao mês:</p>
+            <p><code>R$ ${nf0.format(v)} × ${pct(p.m)} = ${brl(mes)}/mês</code></p>
+            ${notaTaxas}
+
+${callout(`Simule R$ ${L} com aportes mensais e veja o resultado em anos.`)}
+
+            <h2>Poupança x LCI/LCA x CDB com R$ ${L}</h2>
+            <p>Rendimento acumulado (líquido de IR) com os juros reinvestidos:</p>
+${tabela(['Prazo', 'Poupança', `LCI/LCA ${T.lciPercentCdi}% CDI`, 'CDB 100% CDI'], linhas)}
+            <p>Só no primeiro ano, trocar a poupança por uma LCI/LCA renderia cerca de <strong>${brl(perdaAno)} a mais</strong> — com a mesma isenção de IR e a mesma garantia do FGC${v > 250000 ? ' (até R$ 250 mil por instituição: com R$ ' + L + ', divida entre bancos diferentes)' : ''}.</p>
+
+            <h2>Quando a Poupança Ainda Faz Sentido</h2>
+            <ul>
+              <li><strong>Dinheiro que você pode precisar a qualquer momento</strong> — mas o Tesouro Selic e CDBs com liquidez diária rendem mais e também podem ser resgatados no mesmo dia.</li>
+              <li><strong>Valores pequenos</strong> — para quantias como R$ ${L}, a diferença para outras opções já é grande demais para ignorar.</li>
+              <li><strong>Aniversário mensal</strong> — atenção: na poupança, quem resgata antes do aniversário perde o rendimento do mês.</li>
+            </ul>
+
+            <h2>R$ ${L} na Poupança Dá para Viver de Renda?</h2>
+            <p>${brl(mes)} por mês ${mes < 1500 ? 'funcionam como complemento de renda, não como renda principal' : mes < 5000 ? 'podem cobrir um custo de vida básico' : 'já garantem uma boa renda mensal'}. Mas, descontada a inflação (${pct(T.ipca12m / 100)}), o ganho real é de só ${brl(v * Math.max(0, realPoup))} por mês — gastar tudo o que a poupança rende faz o patrimônio encolher ano a ano. Veja o <a href="/artigos/como-viver-de-renda-passiva">guia para viver de renda passiva</a>.</p>`;
+
+  return {
+    slug: slugPoup(v),
+    title: `Quanto Rende R$ ${L} na Poupança por Mês? [${T.referencia.split(' ').pop()}]`,
+    description: `R$ ${L} na poupança rendem cerca de ${brl(mes)} por mês (${T.referencia}). Veja o rendimento em 1, 6 e 12 meses e quanto você ganharia a mais em LCI/LCA e CDB.`,
+    h1: `Quanto Rende R$ ${L} na Poupança por Mês?`,
+    breadcrumb: `${L} na Poupança`,
+    meta: metaLinha(5),
+    body, faq, related: rel,
+    cta: `Compare a poupança com outras opções para os seus R$ ${L}.`,
+  };
+}
+
+// ---------- página: onde investir X ----------
+// Consultas: "onde investir 200 mil", "investir 200 mil", "investimento de 200 mil", "como investir 200 mil"
+const ONDE = [100e3, 200e3, 500e3, 1e6];
+const slugOnde = v => `artigos/onde-investir-${v >= 1e6 ? '1-milhao' : v / 1000 + '-mil'}`;
+
+function paginaOnde(v) {
+  const L = rotulo(v);
+  const reserva = Math.min(v * 0.2, 60000);
+  const carteiras = [
+    { nome: 'Conservadora', aloc: [['Tesouro Selic / CDB liquidez diária', 0.3, byId.tesouro], [`LCI/LCA ${T.lciPercentCdi}% CDI`, 0.4, byId.lci], ['CDB 100% CDI (2+ anos)', 0.3, byId.cdb]] },
+    { nome: 'Moderada', aloc: [['Tesouro Selic / CDB liquidez diária', 0.2, byId.tesouro], [`LCI/LCA ${T.lciPercentCdi}% CDI`, 0.4, byId.lci], ['Fundos Imobiliários (FIIs)', 0.25, byId.fii], ['Ações de dividendos', 0.15, byId.acoes]] },
+    { nome: 'Renda mensal', aloc: [['Tesouro Selic / CDB liquidez diária', 0.15, byId.tesouro], [`LCI/LCA ${T.lciPercentCdi}% CDI`, 0.35, byId.lci], ['Fundos Imobiliários (FIIs)', 0.5, byId.fii]] },
+  ];
+  const resumo = carteiras.map(c => {
+    const renda = c.aloc.reduce((s, [, peso, inv]) => s + v * peso * inv.liq, 0);
+    return [c.nome, c.aloc.map(([n, peso]) => `${Math.round(peso * 100)}% ${n}`).join('<br>'), brl(renda)];
+  });
+  const opcoes = [byId.tesouro, byId.cdb, byId.lci, byId.poupanca, byId.fii, byId.acoes]
+    .map(i => [i.nome + (i.estimativa ? '*' : ''), pct(i.anual) + ' a.a.', brl(v * i.liq)]);
+
+  const faq = [
+    { q: `Onde investir R$ ${L} com segurança?`, a: `Tesouro Selic (garantia do Tesouro Nacional), CDBs e LCI/LCA de bancos sólidos (garantia do FGC até R$ 250 mil por CPF e instituição). Com as taxas de ${T.referencia}, uma LCI/LCA de ${T.lciPercentCdi}% do CDI renderia cerca de ${brl(v * byId.lci.liq)} por mês, isentos de IR.` },
+    { q: `Quanto rende R$ ${L} investidos?`, a: `Entre ${brl(v * byId.poupanca.m)} (poupança) e ${brl(v * Math.max(byId.lci.liq, byId.cdb.liq))} por mês líquidos na renda fixa. Veja a <a href="/${slugRende(v)}">simulação completa de quanto rende R$ ${L}</a>.` },
+    { q: `Devo deixar R$ ${L} na poupança?`, a: `Não é a melhor opção: a poupança rende ${brl(v * byId.poupanca.m)} por mês, enquanto a LCI/LCA, também isenta, renderia ${brl(v * byId.lci.liq)}.` },
+    ...(v > 250000 ? [{ q: `Como fica a garantia do FGC com R$ ${L}?`, a: `O FGC cobre até R$ 250 mil por CPF em cada instituição (limite global de R$ 1 milhão a cada 4 anos). Com R$ ${L}, distribua CDBs e LCI/LCA entre ${Math.ceil(v / 250000)} ou mais bancos, ou use o Tesouro Direto, que não depende do FGC.` }] : []),
+  ];
+
+  const rel = ONDE.filter(x => x !== v).slice(0, 3).map(x => ({ href: '/' + slugOnde(x), title: `Onde investir R$ ${rotulo(x)}` }));
+  rel.push({ href: '/' + slugRende(v), title: `Quanto rende R$ ${L} por mês` });
+  if (POUPANCA.includes(v)) rel.push({ href: '/' + slugPoup(v), title: `Quanto rende R$ ${L} na poupança` });
+  rel.push(GUIAS.fiis, GUIAS.cdbTesouro);
+
+  const body = `            <p>Tem <strong>R$ ${L} para investir</strong> e não sabe por onde começar? Com a Selic em ${pct(T.selic / 100)} (${T.referencia}), dá para colocar esse dinheiro para render com segurança e gerar <strong>de ${brl(v * byId.poupanca.m)} a ${brl(v * Math.max(byId.lci.liq, byId.cdb.liq))} por mês</strong> só na renda fixa. Veja as opções, três carteiras de exemplo e os cuidados antes de aplicar.</p>
+            <p><small>Conteúdo educativo, não é recomendação de investimento. Avalie seu perfil e seus objetivos — se precisar, procure um profissional certificado.</small></p>
+
+            <h2>1. Antes de Tudo: a Reserva de Emergência</h2>
+            <p>Separe de 6 a 12 meses do seu custo de vida em um investimento com <strong>liquidez diária</strong> — Tesouro Selic ou CDB que pague pelo menos 100% do CDI. Para a maioria das pessoas, algo como ${brl(reserva)} dos R$ ${L}. Esse dinheiro não é para render mais: é para você nunca precisar resgatar o resto na hora errada.</p>
+
+            <h2>2. Quanto Rende R$ ${L} em Cada Opção</h2>
+${tabela(['Investimento', 'Taxa', 'Líquido/mês'], opcoes)}
+            ${notaTaxas}
+
+${callout(`Simule R$ ${L} com o seu prazo e veja quanto acumula.`)}
+
+            <h2>3. Três Carteiras de Exemplo para R$ ${L}</h2>
+${tabela(['Perfil', 'Distribuição', 'Renda estimada/mês'], resumo)}
+            <p>A carteira <strong>conservadora</strong> fica só na renda fixa e protege o capital. A <strong>moderada</strong> adiciona FIIs e ações de dividendos para buscar valorização no longo prazo. A de <strong>renda mensal</strong> prioriza FIIs, que pagam rendimentos todo mês isentos de IR — com mais oscilação.</p>
+
+            <h2>4. Cuidados Importantes</h2>
+            <ul>
+              <li><strong>FGC:</strong> cobre até R$ 250 mil por CPF em cada instituição.${v > 250000 ? ` Com R$ ${L}, divida entre pelo menos ${Math.ceil(v / 250000)} bancos.` : ''}</li>
+              <li><strong>Imposto de Renda:</strong> CDB e Tesouro pagam de 22,5% a 15% de IR (menor quanto mais tempo); LCI, LCA, poupança e rendimentos de FIIs são isentos para pessoa física.</li>
+              <li><strong>Carência:</strong> LCI/LCA costumam ter carência de 9 a 12 meses — não use para a reserva.</li>
+              <li><strong>Desconfie de promessas:</strong> rendimento garantido muito acima do CDI é sinal de risco alto ou golpe.</li>
+            </ul>
+
+            <h2>5. E se o Objetivo é Viver de Renda?</h2>
+            <p>Para não corroer o patrimônio, gaste só o rendimento acima da inflação: com R$ ${L}, cerca de <strong>${brl(v * realCdb)} por mês</strong>. Veja <a href="/artigos/como-viver-de-renda-passiva">como viver de renda passiva</a> e a <a href="/artigos/regra-dos-4-por-cento-na-renda-passiva">regra dos 4%</a>.</p>`;
+
+  return {
+    slug: slugOnde(v),
+    title: `Onde Investir R$ ${L}? Opções Seguras e Quanto Rende [${T.referencia.split(' ').pop()}]`,
+    description: `Onde investir R$ ${L} em ${T.referencia.split(' ').pop()}: reserva de emergência, Tesouro, CDB, LCI/LCA e FIIs, três carteiras de exemplo e quanto cada uma rende por mês.`,
+    h1: `Onde Investir R$ ${L}?`,
+    breadcrumb: `Onde Investir ${L}`,
+    meta: metaLinha(7),
+    body, faq, related: rel,
+    cta: `Simule quanto seus R$ ${L} podem render.`,
+  };
+}
+
+// ---------- página: calculadora de independência financeira ----------
+// Consultas: "calculadora independencia financeira", "calculadora liberdade financeira", "calculadora viver de renda"
+function paginaIndependencia() {
+  const custos = [3e3, 5e3, 8e3, 10e3, 15e3, 20e3];
+  const linhas = custos.map(c => [brl(c), brl(c / realCdb), brl(c * 12 / 0.04)]);
+  const aportes = [1000, 2000, 3000, 5000].map(a => [brl(a) + '/mês', prazo(mesesPara(5000 / realCdb, a, realCdb)), prazo(mesesPara(5000 * 12 / 0.04, a, realConserv))]);
+
+  const faq = [
+    { q: 'Como calcular a independência financeira?', a: `Divida o custo de vida mensal pelo rendimento real mensal dos seus investimentos. Com o CDB líquido rendendo ${pct(anualDe(realCdb), 1)} ao ano acima da inflação (${T.referencia}), quem gasta R$ 5.000 por mês precisa de ${brl(5000 / realCdb)}. Pela regra dos 4%, mais conservadora, ${brl(5000 * 12 / 0.04)}.` },
+    { q: 'Qual a diferença entre independência e liberdade financeira?', a: 'Na prática, são a mesma coisa: ter patrimônio suficiente para que a renda dos investimentos pague o seu custo de vida, sem depender do salário.' },
+    { q: 'Quanto tempo leva para ficar independente financeiramente?', a: `Depende do aporte. Para viver com R$ 5.000 por mês, investindo R$ 2.000 mensais, são cerca de ${prazo(mesesPara(5000 / realCdb, 2000, realCdb))}; com R$ 5.000 mensais, ${prazo(mesesPara(5000 / realCdb, 5000, realCdb))}.` },
+  ];
+
+  const body = `            <p>A <strong>independência financeira</strong> chega quando a renda dos seus investimentos paga o seu custo de vida. O número é simples de calcular — e a <a href="/">Calculadora Renda Passiva</a> faz a conta completa, com aportes, prazo e taxa. Abaixo, a fórmula, uma tabela pronta por custo de vida e quanto tempo leva para chegar lá.</p>
+
+            <h2>A Fórmula da Independência Financeira</h2>
+            <p><code>Patrimônio necessário = custo de vida mensal ÷ rendimento real mensal</code></p>
+            <p>O "real" é importante: é o rendimento <strong>acima da inflação</strong>. Assim você gasta a renda sem que o patrimônio perca poder de compra. Com o CDB 100% do CDI líquido de IR, o rendimento real hoje é de ${pct(anualDe(realCdb), 1)} ao ano (${pct(realCdb, 3)} ao mês).</p>
+            ${notaTaxas}
+
+${callout('Faça a sua conta com seus aportes e seu prazo.')}
+
+            <h2>Quanto Preciso para Viver de Renda</h2>
+${tabela(['Custo de vida/mês', `Meta (${pct(anualDe(realCdb), 1)} real)`, 'Regra dos 4%'], linhas)}
+            <p>A coluna da <a href="/artigos/regra-dos-4-por-cento-na-renda-passiva">regra dos 4%</a> é a meta conservadora, que considera juros reais mais baixos no futuro.</p>
+
+            <h2>Quanto Tempo para Viver com R$ 5.000 por Mês</h2>
+${tabela(['Aporte', `Meta ${brl(5000 / realCdb)}`, `Regra dos 4%: ${brl(5000 * 12 / 0.04)}`], aportes)}
+
+            <h2>Como Usar a Calculadora</h2>
+            <ol>
+              <li>Em <strong>Renda Passiva Mensal</strong>, coloque o custo de vida que você quer cobrir.</li>
+              <li>Preencha o <strong>valor inicial</strong> (o que já tem investido) e o <strong>aporte mensal</strong>.</li>
+              <li>Informe a <strong>taxa</strong> — para pensar em valores de hoje, use a taxa real (${pct(anualDe(realCdb), 1)} a.a.).</li>
+              <li>Deixe o <strong>prazo</strong> em branco: a calculadora mostra em quanto tempo você chega lá.</li>
+            </ol>
+            <p>Veja também <a href="/articles/entendendo-os-resultados">como interpretar os resultados</a> e o <a href="/artigos/como-viver-de-renda-passiva">guia para viver de renda passiva</a>.</p>`;
+
+  return {
+    slug: 'artigos/calculadora-independencia-financeira',
+    title: 'Calculadora de Independência Financeira: Quanto Preciso para Viver de Renda?',
+    description: `Calcule quanto precisa para a independência financeira: fórmula, tabela por custo de vida (${T.referencia}) e quanto tempo leva com seus aportes. Calculadora grátis.`,
+    h1: 'Calculadora de Independência Financeira',
+    breadcrumb: 'Calculadora de Independência Financeira',
+    meta: metaLinha(6),
+    body, faq,
+    related: [GUIAS.viver, GUIAS.regra4, { href: '/' + slugRenda(5000), title: 'Quanto investir para ter renda de R$ 5 mil por mês' }, GUIAS.juros],
+    cta: 'Calcule agora quanto falta para a sua independência financeira.',
+  };
+}
+
 // ---------- geração ----------
 const paginas = [
   ...RENDE_GERADAS.map(paginaRende),
   ...RENDA_GERADAS.map(paginaRenda),
   ...TEMPO.map(paginaTempo),
+  ...POUPANCA.map(paginaPoupanca),
+  ...ONDE.map(paginaOnde),
+  paginaIndependencia(),
 ];
 
 for (const p of paginas) {
@@ -367,15 +555,19 @@ const hub = renderArticle({
 fs.writeFileSync(path.join(ROOT, 'artigos', 'index.html'), hub);
 console.log(`✓ hub /artigos (${artigos.length} artigos)`);
 
+// ---------- páginas EN ----------
+const en = require('./paginas-en').gerarEn(ROOT);
+console.log(`✓ ${en.total} páginas EN + hub /en/articles (${en.hub} artigos)`);
+
 // ---------- sitemap: bloco gerado ----------
 const smPath = path.join(ROOT, 'sitemap.xml');
 let sm = fs.readFileSync(smPath, 'utf8');
 const INI = '  <!-- GERADO:INICIO (scripts/paginas.js) -->', FIM = '  <!-- GERADO:FIM -->';
-sm = sm.replace(new RegExp(INI.trim().replace(/[()]/g, '\\$&') + '[\\s\\S]*?' + FIM.trim() + '\\n?'), '');
+sm = sm.replace(new RegExp('\\s*' + INI.trim().replace(/[()]/g, '\\$&') + '[\\s\\S]*?' + FIM.trim() + '\\s*'), '\n');
 const manuais = new Set([...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]));
-const artigosEn = fs.readdirSync(path.join(ROOT, 'en', 'articles')).filter(f => f.endsWith('.html')).map(f => '/en/articles/' + f.replace(/\.html$/, ''));
-const novos = ['/artigos', ...artigos.map(a => a.href), ...artigosEn].map(h => SITE + h).filter(u => !manuais.has(u));
-const bloco = INI + '\n' + novos.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${T.dataISO}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`).join('\n') + '\n' + FIM + '\n\n';
-sm = sm.replace('</urlset>', bloco + '</urlset>');
+const artigosEn = fs.readdirSync(path.join(ROOT, 'en', 'articles')).filter(f => f.endsWith('.html') && f !== 'index.html').map(f => '/en/articles/' + f.replace(/\.html$/, ''));
+const novos = ['/artigos', ...artigos.map(a => a.href), '/en/articles', ...artigosEn].map(h => SITE + h).filter(u => !manuais.has(u));
+const bloco = INI + '\n' + novos.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${T.dataISO}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`).join('\n') + '\n' + FIM + '\n';
+sm = sm.replace(/\s*<\/urlset>\s*$/, '\n\n' + bloco + '\n</urlset>\n');
 fs.writeFileSync(smPath, sm);
 console.log(`✓ sitemap.xml (+${novos.length} URLs no bloco gerado)`);

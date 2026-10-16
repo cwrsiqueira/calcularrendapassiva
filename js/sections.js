@@ -76,7 +76,7 @@
       '</a></article>' +
       articleCard('/artigos/ganhar-5-mil-por-mes',               'fa-bullseye',       '#7d38f0', 'Quanto Investir para Ganhar R$ 5.000/mês',          'Patrimônio necessário por tipo de investimento — com prazo e aportes mensais.') +
       articleCard('/artigos/quanto-rende-200-mil-reais-por-mes', 'fa-coins',          '#10b981', 'Quanto Rende R$ 200 Mil por Mês?',                  'Simulação completa em poupança, CDB, LCI/LCA e FIIs — valores reais de 2026.') +
-      articleCard('/artigos/quanto-rende-1-milhao-investido',    'fa-coins',          '#f59e0b', 'Quanto Rende 1 Milhão Investido por Mês?',           'Com R$ 1 milhão você pode gerar até R$ 10.688/mês. Veja todos os cenários.') +
+      articleCard('/artigos/quanto-rende-1-milhao-investido',    'fa-coins',          '#f59e0b', 'Quanto Rende 1 Milhão Investido por Mês?',           'Com R$ 1 milhão você pode gerar até R$ 10.238/mês. Veja todos os cenários.') +
       articleCard('/artigos/quanto-rende-100-mil-reais-por-mes', 'fa-coins',          '#10b981', 'Quanto Rende R$ 100 Mil por Mês?',                  'Rendimento mensal em poupança, CDB, LCI/LCA e FIIs — atualizado para 2026.') +
       articleCard('/artigos/quanto-rende-50-mil-reais-por-mes',  'fa-coins',          '#10b981', 'Quanto Rende R$ 50 Mil por Mês?',                   'Simulação completa e o próximo passo para quem está construindo patrimônio.') +
       articleCard('/artigos/quanto-investir-para-renda-de-2-mil','fa-bullseye',       '#7d38f0', 'Quanto Investir para R$ 2.000/mês de Renda Passiva','Simulações com Tesouro, CDB, FIIs e ações para alcançar R$ 2.000 mensais.') +
@@ -104,6 +104,10 @@
       articleCard('/en/articles/sp500-historical-returns',              'fa-chart-bar',      '#7d38f0', 'S&amp;P 500 Historical Returns Explained',       '100 years of data and why time in the market beats timing the market.') +
       articleCard('/en/articles/what-is-passive-income',                'fa-book-open',      '#f59e0b', 'What is Passive Income?',                        'The concept and main ways to generate an automatic income stream.') +
       articleCard('/en/articles/how-to-use-passive-income-calculator',  'fa-circle-question','#3b82f6', 'How to Use the Passive Income Calculator',       'Step-by-step guide to simulating your path to financial independence.') +
+      articleCard('/en/articles/how-much-does-1-million-earn-per-month','fa-coins',          '#10b981', 'How Much Does $1 Million Earn per Month?',       'Savings, CDs, T-bills, dividend ETFs and the 4% rule with current rates.') +
+      articleCard('/en/articles/how-much-to-invest-to-make-5k-a-month', 'fa-bullseye',       '#7d38f0', 'How Much to Invest to Make $5,000 a Month',      'The exact amount you need and how long it takes to get there.') +
+      articleCard('/en/articles/how-long-to-save-1-million-investing-1000-a-month','fa-hourglass-half','#f59e0b', 'How Long to Save $1 Million at $1,000 a Month', 'Timelines at 6%, 8% and 10%, and the age you become a millionaire.') +
+      '<div class="article-cta"><a href="/en/articles" class="btn-article">See all articles and simulations <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>' +
       '</section>';
   }
 

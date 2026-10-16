@@ -31,6 +31,7 @@
           ? '✓ Subscribed! You\'ll receive updates soon.'
           : '✓ Cadastrado! Você receberá as novidades em breve.';
         msg.className = 'email-msg success';
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { idioma: isEn ? 'en' : 'pt', origem: 'planilha' });
         form.querySelector('.email-row').style.display = 'none';
       } else {
         throw new Error(data.error || (isEn ? 'Error. Please try again.' : 'Erro ao cadastrar'));

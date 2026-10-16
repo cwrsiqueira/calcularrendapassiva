@@ -157,8 +157,6 @@
     <priority>0.5</priority>
   </url>
 
-  
-  
   <!-- GERADO:INICIO (scripts/paginas.js) -->
   <url>
     <loc>https://calcularrendapassiva.com/artigos</loc>
@@ -180,6 +178,12 @@
   </url>
   <url>
     <loc>https://calcularrendapassiva.com/artigos/calculadora-de-aposentadoria</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/calculadora-independencia-financeira</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -252,6 +256,30 @@
   </url>
   <url>
     <loc>https://calcularrendapassiva.com/artigos/melhores-investimentos-para-renda-passiva</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/onde-investir-1-milhao</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/onde-investir-100-mil</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/onde-investir-200-mil</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/onde-investir-500-mil</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -365,6 +393,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-1-milhao-na-poupanca</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://calcularrendapassiva.com/artigos/quanto-rende-10-mil-reais-por-mes</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -372,6 +406,12 @@
   </url>
   <url>
     <loc>https://calcularrendapassiva.com/artigos/quanto-rende-10-milhoes-por-mes</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-100-mil-na-poupanca</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -395,6 +435,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-200-mil-na-poupanca</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://calcularrendapassiva.com/artigos/quanto-rende-250-mil-reais-por-mes</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -408,6 +454,12 @@
   </url>
   <url>
     <loc>https://calcularrendapassiva.com/artigos/quanto-rende-30-mil-reais-por-mes</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-300-mil-na-poupanca</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -432,6 +484,12 @@
   </url>
   <url>
     <loc>https://calcularrendapassiva.com/artigos/quanto-rende-5-milhoes-por-mes</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/artigos/quanto-rende-500-mil-na-poupanca</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -593,7 +651,217 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://calcularrendapassiva.com/en/articles</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://calcularrendapassiva.com/en/articles/fire-movement-guide</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-100-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-1000-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-1500-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-200-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-2000-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-300-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-3000-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-500-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-long-to-save-1-million-investing-5000-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-1-5-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-1-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-10-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-100k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-2-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-200k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-250k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-3-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-300k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-400k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-5-million-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-500k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-50k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-does-750k-earn-per-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-10k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-15k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-1k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-20k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-2k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-3k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-4k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-5k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-6k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-7k-a-month</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calcularrendapassiva.com/en/articles/how-much-to-invest-to-make-8k-a-month</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

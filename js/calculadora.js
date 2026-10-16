@@ -16,6 +16,19 @@ const L = LANG === 'en' ? {
   resultPage: '/results.html', homePage: '/',
 };
 
+/* ===== Eventos GA4 ===== */
+const CAMPOS_EVENTO = ['prazo', 'valor_inicial', 'aporte_mensal', 'taxa', 'renda_passiva'];
+function evento(nome, params) {
+  if (typeof gtag === 'function') gtag('event', nome, Object.assign({ idioma: LANG }, params));
+}
+document.addEventListener('click', function (e) {
+  const a = e.target.closest && e.target.closest('a[href]');
+  if (!a) return;
+  if (a.href.includes('play.google.com')) evento('clique_loja', { loja: 'play_store' });
+  else if (a.href.includes('apps.apple.com')) evento('clique_loja', { loja: 'app_store' });
+  else if (a.href.includes('hotmart')) evento('clique_afiliado', { link: a.href });
+});
+
 /* ===== Altura do flip card (conteúdo variável + mobile) ===== */
 function debounceFlipLayout(fn, ms) {
   let t;
@@ -197,6 +210,7 @@ function gerarDadosGrafico(vi, aporte, taxa, n) {
 
 /* ===== CÁLCULO PRINCIPAL ===== */
 function calcularRendaPassiva() {
+  evento('clique_calcular');
   const periodo = document.getElementById('periodo').value;
   const txPeriodo = document.getElementById('txPeriodo').value;
   const txPeriodoAnual = document.getElementById('txPeriodoAnual').value;
@@ -321,6 +335,7 @@ function calcularRendaPassiva() {
   sessionStorage.setItem('rendaPassivaResult', renda ? formatarValor(renda, false) : 'N/A');
   sessionStorage.setItem('valorAcumulado', acumulado ? formatarValor(acumulado, false) : 'N/A');
 
+  evento('resultado_gerado', { campo_calculado: CAMPOS_EVENTO[sessionStorage.getItem('campoCalculado')] || 'outro' });
   document.querySelector('.flip-card')?.classList.add('flip-card-flipped');
   setTimeout(() => { window.location.href = L.resultPage; }, 500);
 }
@@ -613,6 +628,7 @@ function gerarCard() {
 }
 
 function compartilharWhatsApp() {
+  evento('compartilhar', { metodo: 'whatsapp' });
   const idx       = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
   const prazo     = sessionStorage.getItem('prazo') || '---';
   const renda     = sessionStorage.getItem('rendaPassivaResult') || '---';
@@ -669,6 +685,7 @@ function compartilharWhatsApp() {
 
 
 async function compartilharResultado() {
+  evento('compartilhar', { metodo: 'imagem' });
   const canvas = document.getElementById('cardCompartilhar');
   if (!canvas) return;
 
