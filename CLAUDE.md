@@ -317,14 +317,13 @@ reenviar após cada `npm run paginas` com POST em api.indexnow.org/indexnow (lis
 1. AdSense → concluir "Etapas para receber pagamentos" (dados fiscais/bancários) — o saldo está quase em US$ 100
 2. Lovable → despublicar `calcularrendapassiva.lovable.app` (precisa login no lovable.dev)
 3. Bing Webmaster Tools → importar o site do Search Console (Bing já é a maior fonte de receita)
-4. Afiliados Hotmart → **não há nenhum link de afiliado no site hoje** (a seção foi removida em 2e1f9db);
-   escolher 2–3 produtos e trazer os links para recolocar
+4. ~~Afiliados Hotmart~~ ✅ 17/10/2026 — recolocados (ver seção 11, "Afiliados")
 
 **Próximas tarefas de código para o Claude:**
 1. Acompanhar indexação (Search Console → Páginas) 2–3 semanas após o reenvio do sitemap
 2. Calculadora EN focada em "passive income calculator" (home EN na posição 51)
 3. Checklist: 2.4 pixel Meta (precisa do ID do pixel criado pelo Carlos no Meta Business)
-4. Recolocar afiliados quando os links chegarem
+4. Acompanhar no GA4 o evento `clique_afiliado` (parâmetro `produto`) e no Hotmart as vendas; trocar a ordem/produtos conforme resultado
 
 **Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` (PT e bloco `en`) → `npm run paginas` → "pode subir".
 Os artigos escritos à mão **não** são regenerados — a cada mudança da Selic, buscar a taxa antiga
@@ -341,7 +340,7 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 4. **Preço do PRO é R$19,90** (decisão tomada) — não questionar
 5. **Decisão de escalar ou pivotar só após 60 dias** com máquina completa rodando
 6. **Produto principal:** Calculadora Renda Passiva — Calc IMC é o próximo na fila
-7. **Afiliados Hotmart já existem** no site — manter e ampliar, não substituir
+7. **Afiliados Hotmart** — links só em `js/afiliados.js` (fonte única); manter e ampliar, não substituir
 8. **Brevo ou MailerLite** para email marketing (gratuitos, fáceis de integrar em HTML puro)
 9. Ao receber arquivos HTML, **sempre preservar a estrutura existente** e adicionar/corrigir
    apenas o que está no checklist
@@ -373,6 +372,11 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 - **robots.txt:** ok (bloqueia só `/results.html`, aponta o sitemap)
 - **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados em `js/calculadora.js` e `js/email.js`
 - **Pixel Meta:** não instalado — etapa 2.4 do checklist
+- **Afiliados:** `js/afiliados.js` preenche todo `[data-afiliados]` — seção na home/resultados PT
+  (`data-afiliados="secao"`) e bloco "Para Ir Além" antes do Footer CRP em todos os artigos PT (template + artigos
+  manuais). Produtos: Liberdade Financeira Sem Mistérios (W105671119E), Método IRM (F105671164L), Simulador de Renda
+  Passiva FII (P83025749U). Ordem por assunto da URL: Tesouro/CDB/poupança → IRM primeiro; FII/dividendos → planilha.
+  Para trocar um link, editar só esse arquivo e subir o `?v=` dele nos HTML (`grep -rl "afiliados.js?v="`).
 
 ---
 

@@ -122,7 +122,7 @@
 
   const html = EN
     ? emailEN() + apoioEN() + footerAd + articlesEN()
-    : emailPT() + appPT() + apoioPT() + toolsPT() + footerAd + articlesPT();
+    : emailPT() + '<div data-afiliados="secao"></div>' + appPT() + apoioPT() + toolsPT() + footerAd + articlesPT();
 
   document.currentScript.insertAdjacentHTML('afterend', html);
   pushAd();

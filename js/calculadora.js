@@ -26,7 +26,6 @@ document.addEventListener('click', function (e) {
   if (!a) return;
   if (a.href.includes('play.google.com')) evento('clique_loja', { loja: 'play_store' });
   else if (a.href.includes('apps.apple.com')) evento('clique_loja', { loja: 'app_store' });
-  else if (a.href.includes('hotmart')) evento('clique_afiliado', { link: a.href });
 });
 
 /* ===== Altura do flip card (conteúdo variável + mobile) ===== */

@@ -5,6 +5,12 @@ const SITE = 'https://calcularrendapassiva.com';
 const CSS_VERSION = '2026101501';
 const AD_CLIENT = 'ca-pub-5865817649832793';
 
+// Bloco de afiliados Hotmart (só PT) — links e textos em js/afiliados.js
+const AFILIADOS = `          <div data-afiliados></div>
+          <script src="/js/afiliados.js?v=2026101701"></script>
+
+`;
+
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function jsonLd(obj) {
@@ -137,7 +143,7 @@ ${ld}  <link rel="preconnect" href="https://fonts.googleapis.com" />
 ${a.body}
 ${faqHtml}${relatedHtml}          </div>
 
-          <!-- Footer CRP -->
+${a.lang === 'en' ? '' : AFILIADOS}          <!-- Footer CRP -->
           <div class="ad-footer">
             <ins class="adsbygoogle" style="display:block" data-ad-client="${AD_CLIENT}" data-ad-slot="7851150331" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
