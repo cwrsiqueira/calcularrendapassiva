@@ -321,7 +321,7 @@ reenviar após cada `npm run paginas` com POST em api.indexnow.org/indexnow (lis
 
 **Próximas tarefas de código para o Claude:**
 1. Acompanhar indexação (Search Console → Páginas) 2–3 semanas após o reenvio do sitemap
-2. Calculadora EN focada em "passive income calculator" (home EN na posição 51)
+2. ~~Home EN focada em "passive income calculator"~~ ✅ 17/10/2026 — title/H1/description, texto de apoio, FAQPage e links internos em `en/index.html` (antes: posição ~51)
 3. Checklist: 2.4 pixel Meta (precisa do ID do pixel criado pelo Carlos no Meta Business)
 4. Acompanhar no GA4 o evento `clique_afiliado` (parâmetro `produto`) e no Hotmart as vendas; trocar a ordem/produtos conforme resultado
 
