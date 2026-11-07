@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # CLAUDE.md — Projeto: Máquina de Vendas | Calculadora Renda Passiva
 
 > Este arquivo contém todo o contexto do planejamento estratégico desenvolvido em sessão anterior.

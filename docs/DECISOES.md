@@ -1,0 +1,35 @@
+# Decisões
+
+Registro curto do porquê das escolhas. Decisão nova no topo. Não apague as antigas: marque como substituídas. O histórico estratégico completo está no [CLAUDE.md](../CLAUDE.md) (seções 5 e 10).
+
+## 2026-11-06 — Kit de contexto para IA
+
+- **Contexto:** o projeto tinha só o `CLAUDE.md` (estratégia), sem regras comuns para outras IAs.
+- **Decisão:** `AGENTS.md` com as regras técnicas; `CLAUDE.md` continua sendo a fonte de verdade estratégica e importa o `AGENTS.md`.
+- **Status:** vigente
+
+## 2026-10-15 — Anúncios responsivos e restauração das páginas do Lovable
+
+- **Contexto:** queda de 8k para 2k visitas e RPM de US$0,14.
+- **Decisão:** blocos AdSense responsivos; 22 artigos restaurados nas URLs originais; páginas programáticas geradas de `taxas.json`.
+- **Status:** vigente
+
+## 2026-10-07 — 4 blocos de AdSense por página
+
+- **Decisão:** topo, Footer CRP e laterais LE/LD (só ≥ 1100px), via `js/ads.js`.
+- **Alternativas descartadas:** remover o AdSense (decisão de maio/2026, substituída).
+- **Status:** vigente
+
+## 2026-05-13 — Site em HTML/CSS/JS puro
+
+- **Contexto:** a versão Lovable (React, renderizada no navegador) derrubou o SEO.
+- **Decisão:** HTML puro, gerado/minificado por scripts Node.
+- **Alternativas descartadas:** React/Lovable (invisível para robôs de busca).
+- **Status:** vigente
+
+## 2026-05-13 — PRO do app a R$19,90, pagamento único
+
+- **Contexto:** uso episódico; R$12,99 sinalizava produto barato.
+- **Decisão:** pagamento único de R$19,90.
+- **Alternativas descartadas:** assinatura.
+- **Status:** vigente

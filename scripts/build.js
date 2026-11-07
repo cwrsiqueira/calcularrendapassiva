@@ -7,6 +7,9 @@ const DIST = path.join(ROOT, 'dist');
 // Private/build files — never copied to dist
 const EXCLUDED = new Set([
   'CLAUDE.md',
+  'AGENTS.md',
+  '.env.example',
+  '.cursor',
   'docs',
   '.claude',
   '.vercel',
