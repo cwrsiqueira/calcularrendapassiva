@@ -180,7 +180,7 @@ Decisão: escalar ou pivotar
 | AdSense | **MANTER** — 4 blocos por página/artigo: topo (slot 8539778688) e Footer CRP antes da última seção (7851150331), topo responsivo `horizontal` e Footer responsivo `auto` (o 328×90 fixo derrubava o RPM para US$0,14 — trocado em 15/10/2026); laterais verticais LE CRP à esquerda (2239731005) e LD CRP à direita (4865894344), estas só em telas ≥ 1100px — decisão de 07/10/2026 |
 | Afiliados Hotmart | **MANTER E AMPLIAR** — muito mais rentável com o mesmo tráfego |
 | Captura de email | **CRIAR** — isca digital + sequência de 5 emails |
-| CTA para o app | **DESTACAR** na home, acima e abaixo da calculadora |
+| CTA para o app | **DESTACAR** — desde 07/11/2026 o app fica no acesso rápido da home e em seção própria na página de resultado (junto com planilha e afiliados) |
 
 #### App
 | Item | Decisão |
@@ -327,6 +327,12 @@ reenviar após cada `npm run paginas` com POST em api.indexnow.org/indexnow (lis
 3. Checklist: 2.4 pixel Meta (precisa do ID do pixel criado pelo Carlos no Meta Business)
 4. Acompanhar no GA4 o evento `clique_afiliado` (parâmetro `produto`) e no Hotmart as vendas; trocar a ordem/produtos conforme resultado
 
+**Layout novo (07/11/2026):** tema claro no site todo; home = calculadora (virada mantida) + acesso rápido + blog +
+perguntas frequentes recolhidas (texto SEO mantido); planilha, afiliados e app na página de resultado. Calculadora por
+pergunta (aporte / prazo / quanto vou ter / quanto preciso juntar), 7 investimentos + "outra rentabilidade", IR regressivo
+e "valores de hoje" opcionais, aviso de simulação educativa. Próximo: automação mensal das taxas (GitHub Actions, publica
+sozinha com trava de faixa) — decisão de 07/11/2026.
+
 **Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` (PT e bloco `en`) → `npm run paginas` → "pode subir".
 Os artigos escritos à mão **não** são regenerados — a cada mudança da Selic, buscar a taxa antiga
 (ex.: `grep -rn "13,75" artigos/`) e atualizar os números à mão.
@@ -372,9 +378,11 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 - **Cache:** `.js`/`.css` com `immutable` — ao alterar, subir o `?v=` nas referências dos HTML
 - **API:** `api/subscribe.js` (Brevo, listas 11 PT / 12 EN) — anti-robô desde 06/11/2026: Origin = host, campo-isca `website`, 5 pedidos/10 min por IP; testes em `tests/` (`npm test`, não publicados)
 - **robots.txt:** ok (bloqueia só `/results.html`, aponta o sitemap)
-- **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados em `js/calculadora.js` e `js/email.js`
+- **Calculadora:** cálculo em `js/simulador.js` (puro, testado em `tests/simulador.test.js`); tela em `js/calculadora.js`;
+  investimentos montados por `scripts/produtos.js` a partir de `scripts/taxas.json` e gravados pelo build em `/dados/taxas.json`
+- **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados em `js/calculadora.js` (`resultado_gerado` com `modo` e `produto`) e `js/email.js`
 - **Pixel Meta:** não instalado — etapa 2.4 do checklist
-- **Afiliados:** `js/afiliados.js` preenche todo `[data-afiliados]` — seção na home/resultados PT
+- **Afiliados:** `js/afiliados.js` preenche todo `[data-afiliados]` — seção na página de resultados PT
   (`data-afiliados="secao"`) e bloco "Para Ir Além" antes do Footer CRP em todos os artigos PT (template + artigos
   manuais). Produtos: Liberdade Financeira Sem Mistérios (W105671119E), Método IRM (F105671164L), Simulador de Renda
   Passiva FII (P83025749U). Ordem por assunto da URL: Tesouro/CDB/poupança → IRM primeiro; FII/dividendos → planilha.
@@ -383,5 +391,5 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 ---
 
 *Documento gerado em 13/05/2026 — sessão de planejamento estratégico completa.*
-*Última atualização: 16/10/2026 — páginas EN, eventos GA4 e diagnóstico Search Console/AdSense.*
+*Última atualização: 07/11/2026 — layout claro e calculadora nova.*
 *Atualizar este arquivo sempre que uma decisão importante for tomada ou uma etapa concluída.*

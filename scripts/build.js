@@ -105,6 +105,14 @@ async function main() {
   if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true });
   fs.mkdirSync(DIST, { recursive: true });
   await walk(ROOT, DIST);
+
+  // Taxas públicas lidas pela calculadora (fonte: scripts/taxas.json)
+  const { dadosPublicos } = require('./produtos');
+  const taxas = JSON.parse(fs.readFileSync(path.join(__dirname, 'taxas.json'), 'utf8'));
+  ensureDir(path.join(DIST, 'dados'));
+  fs.writeFileSync(path.join(DIST, 'dados', 'taxas.json'), JSON.stringify(dadosPublicos(taxas)), 'utf8');
+  console.log('  ✓ dados/taxas.json (gerado)');
+
   console.log('\nBuild complete.');
 }
 

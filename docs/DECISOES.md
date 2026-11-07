@@ -2,6 +2,14 @@
 
 Registro curto do porquê das escolhas. Decisão nova no topo. Não apague as antigas: marque como substituídas. O histórico estratégico completo está no [CLAUDE.md](../CLAUDE.md) (seções 5 e 10).
 
+## 2026-11-07 — Layout novo e calculadora por pergunta
+
+- **Contexto:** queda de visitas e calculadora difícil de usar ("deixe um campo em branco", taxa digitada à mão).
+- **Decisão:** tema claro (fundo `#eef1f5`, sem branco puro) no site inteiro; home só com calculadora (virada mantida), acesso rápido, blog e perguntas frequentes recolhidas (texto SEO mantido na página); planilha, afiliados e app foram para a página de resultado; calculadora por pergunta ("O que você quer descobrir?") com lista de investimentos, IR regressivo e "valores de hoje" opcionais; aviso de que não é recomendação nem garantia.
+- **Alternativas descartadas:** remover o texto SEO da home (97% dos cliques vêm dela); manter os 5 campos com um em branco.
+- **Consequências:** taxas da calculadora vêm de `/dados/taxas.json` (gerado no build a partir de `scripts/taxas.json`); próxima etapa: automação mensal das taxas (GitHub Actions, publica sozinha com trava de faixa).
+- **Status:** vigente
+
 ## 2026-11-06 — Kit de contexto para IA
 
 - **Contexto:** o projeto tinha só o `CLAUDE.md` (estratégia), sem regras comuns para outras IAs.

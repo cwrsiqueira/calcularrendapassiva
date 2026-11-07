@@ -20,40 +20,48 @@ Decisões de negócio (monetização, preço do PRO, AdSense, afiliados) estão 
 
 | Entidade | Fonte da verdade | Quem cria/altera |
 | --- | --- | --- |
-| Taxas de referência (Selic, CDI, poupança, IPCA, IR, yields) | `scripts/taxas.json` | dono, todo mês após Copom/IPCA |
+| Taxas de referência (Selic, CDI, poupança, IPCA, IR, yields, Tesouro IPCA+, custódia) | `scripts/taxas.json` → build gera `/dados/taxas.json` (lido pela calculadora) | dono, todo mês após Copom/IPCA (automação planejada) |
 | Links de afiliado | `js/afiliados.js` | dono |
 | Assinantes de e-mail | Brevo, listas 11 (PT) e 12 (EN) | visitante pelo formulário; IA não mexe |
 | Preço do PRO | lojas (Google Play / App Store) | dono |
 
 ## Regras
 
-### Calculadora (`js/calculadora.js`)
+### Calculadora (cálculo em `js/simulador.js`, tela em `js/calculadora.js`) — refeita em 07/11/2026
 
-1. **[fato]** O usuário preenche 4 dos 5 campos (prazo, valor inicial, aporte mensal, taxa mensal, renda desejada) e deixa **exatamente um** em branco; a calculadora descobre o que falta. Com zero ou mais de um em branco, mostra alerta. (`js/calculadora.js:228-238`)
-2. **[fato]** Renda passiva = patrimônio acumulado × taxa mensal. O patrimônio necessário = renda ÷ taxa mensal. (`js/calculadora.js:253`, `:308`)
-   - Exemplo: renda R$5.000 com taxa 1% a.m. ⇒ patrimônio de R$500.000.
-3. **[fato]** Juros compostos mensais, com o aporte somado no **fim** de cada mês. (`js/calculadora.js:197`, `:256`)
-4. **[fato]** Taxa anual ↔ mensal por equivalência composta: mensal = (1 + anual)^(1/12) − 1. (`js/calculadora.js:147`, `:153`)
-5. **[fato]** A calculadora não desconta inflação nem imposto de renda: os valores são nominais e brutos.
-6. **[fato]** Ao descobrir a taxa, procura de 0,01% em 0,01% a.m. até a renda ser atingida. (`js/calculadora.js:284-296`)
+1. **[fato]** A pessoa escolhe **o que quer descobrir** e só vê os campos daquela pergunta:
+   - *Quanto investir por mês* (`aporte`): renda desejada + valor que já tem + prazo → aporte mensal;
+   - *Em quanto tempo* (`prazo`): renda desejada + valor que já tem + aporte → prazo;
+   - *Quanto vou ter* (`renda`): valor que já tem + aporte + prazo → patrimônio e renda;
+   - *Quanto preciso juntar* (`patrimonio`): renda desejada → patrimônio necessário.
+   A antiga regra "deixe um campo em branco" e a descoberta da taxa foram removidas (a taxa vem do investimento escolhido ou de "Outra rentabilidade").
+2. **[fato]** Renda passiva = patrimônio × taxa mensal usada. O patrimônio necessário = renda ÷ taxa mensal usada.
+   - Exemplo: renda R$5.000 com taxa 1% a.m. ⇒ patrimônio de R$500.000. Teste: `tests/simulador.test.js`.
+3. **[fato]** Juros compostos mensais, com o aporte somado no **fim** de cada mês.
+4. **[fato]** Taxa anual → mensal por equivalência composta: mensal = (1 + anual)^(1/12) − 1. Poupança usa a taxa mensal direto.
+5. **[fato]** Investimentos (PT): CDB 100% do CDI, Tesouro Selic, LCI/LCA 90% do CDI, Tesouro IPCA+, poupança, FIIs, ações de dividendos e "Outra rentabilidade". Lista montada por `scripts/produtos.js` a partir de `taxas.json`; o build grava em `/dados/taxas.json`.
+6. **[fato]** "Descontar imposto de renda" (ligado por padrão): IR regressivo na renda fixa tributada — 22,5% até 6 meses, 20% até 12, 17,5% até 24, 15% acima (no modo *Em quanto tempo*, recalcula com a alíquota do prazo encontrado; no *Quanto preciso juntar*, usa 15%). Tesouro desconta 0,20% a.a. de taxa da B3. Simplificação: o IR sai do rendimento de cada mês. EN: alíquota fixa estimada por produto (22% juros, 15% dividendos).
+7. **[fato]** "Mostrar em valores de hoje" (desligado por padrão): usa a taxa real = (1 + taxa líquida) ÷ (1 + inflação mensal) − 1, com inflação = IPCA 12 meses (EN: CPI). Aportes e renda ficam no poder de compra de hoje.
+8. **[fato]** Todo resultado e o card de compartilhar avisam: simulação educativa, taxas de referência do mês, **não é recomendação nem garantia de rentabilidade**. FIIs/ações/ETFs são marcados como estimativa média.
+9. **[fato]** Meta acima de 100 anos ou taxa real ≤ 0 ⇒ mensagem de erro no formulário (sem `alert`).
 
 ### Páginas programáticas (`scripts/paginas.js`, `scripts/taxas.json`)
 
-7. **[fato]** CDB 100% do CDI e Tesouro Selic com IR de 15% (aplicações acima de 2 anos); poupança, LCI/LCA, FIIs e ações de dividendos isentos. LCI/LCA = 90% do CDI. (`scripts/paginas.js:39-48`)
-8. **[fato]** FIIs (10% a.a.) e ações (7% a.a.) usam dividend yield médio estimado, com aviso de que não é garantia. (`scripts/taxas.json`, `scripts/paginas.js:61`)
-9. **[fato]** Cenários de acumulação usam a taxa **real** (acima do IPCA) do CDB líquido. (`scripts/paginas.js:52`)
-10. **[fato]** Taxas atualizadas todo mês após Copom/IPCA → `npm run paginas`. Artigos manuais são corrigidos à mão. (CLAUDE.md §8)
+10. **[fato]** CDB 100% do CDI e Tesouro Selic com IR de 15% (aplicações acima de 2 anos); poupança, LCI/LCA, FIIs e ações de dividendos isentos. LCI/LCA = 90% do CDI. (`scripts/paginas.js:39-48`)
+11. **[fato]** FIIs (10% a.a.) e ações (7% a.a.) usam dividend yield médio estimado, com aviso de que não é garantia. (`scripts/taxas.json`, `scripts/paginas.js:61`)
+12. **[fato]** Cenários de acumulação usam a taxa **real** (acima do IPCA) do CDB líquido. (`scripts/paginas.js:52`)
+13. **[fato]** Taxas atualizadas todo mês após Copom/IPCA → `npm run paginas`. Artigos manuais são corrigidos à mão. (CLAUDE.md §8)
 
 ### Captura de e-mail (`api/subscribe.js`, `js/email.js`)
 
-11. **[fato]** Visitante em `/en/...` vai para a lista 12 (EN); qualquer outro, para a lista 11 (PT). Quem já existe é atualizado sem erro. (`js/email.js:8`, `api/subscribe.js:13-15`)
-12. **[fato]** A isca é a planilha (PT ou EN) entregue pelo e-mail 1 da sequência de 5 do Brevo. (CLAUDE.md §6, 2.1–2.3)
+14. **[fato]** Visitante em `/en/...` vai para a lista 12 (EN); qualquer outro, para a lista 11 (PT). Quem já existe é atualizado sem erro. (`js/email.js:8`, `api/subscribe.js:13-15`)
+15. **[fato]** A isca é a planilha (PT ou EN) entregue pelo e-mail 1 da sequência de 5 do Brevo. (CLAUDE.md §6, 2.1–2.3)
 
 ### Monetização (CLAUDE.md §5)
 
-13. **[fato]** AdSense com exatamente 4 blocos por página; laterais só em telas ≥ 1100px.
-14. **[fato]** Afiliados Hotmart só em `js/afiliados.js`; ordem por assunto da URL (Tesouro/CDB/poupança → Método IRM; FII/dividendos → planilha).
-15. **[fato]** App PRO: R$19,90, pagamento único vitalício.
+16. **[fato]** AdSense com exatamente 4 blocos por página; laterais só em telas ≥ 1100px.
+17. **[fato]** Afiliados Hotmart só em `js/afiliados.js`; ordem por assunto da URL (Tesouro/CDB/poupança → Método IRM; FII/dividendos → planilha).
+18. **[fato]** App PRO: R$19,90, pagamento único vitalício.
 
 ## Invariantes (sempre verdadeiros)
 
@@ -68,4 +76,4 @@ Decisões de negócio (monetização, preço do PRO, AdSense, afiliados) estão 
 
 ## Decisões pendentes
 
-- Nenhuma. (2026-11-06: o dono decidiu que o resultado deve avisar que os valores não descontam inflação nem IR — a implementar.)
+- Nenhuma. (O aviso de 06/11/2026 foi implementado em 07/11/2026: a calculadora agora desconta IR e inflação opcionalmente e avisa no resultado.)

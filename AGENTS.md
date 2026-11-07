@@ -23,7 +23,7 @@ Não introduzir dependência nova sem justificar e pedir aprovação. Confirmar 
 ```bash
 npm install
 npm run build                                   # gera dist/ (é o que a Vercel roda)
-python -m http.server 8765 -d dist             # ver o site local (sem a API)
+npm run local                                   # ver o site local em http://localhost:8765 (links sem .html funcionam; sem a API)
 npm test                                        # testes (tests/*.test.js)
 npm run paginas                                 # regenera páginas programáticas, hubs e bloco GERADO do sitemap
 node -e "new Function(require('fs').readFileSync('js/<arquivo>.js','utf8'))"   # checa sintaxe de um JS
@@ -71,10 +71,10 @@ Antes de qualquer commit: `npm test && npm run build` + checagem de sintaxe dos 
 | --- | --- |
 | `index.html`, `results.html`, `en/` | calculadora PT, resultado, versão EN |
 | `artigos/`, `articles/`, `en/articles/` | artigos manuais + páginas programáticas |
-| `js/` | `calculadora.js` (cálculo + GA4), `sections.js`, `email.js`, `afiliados.js`, `ads.js`, `header-card.js` |
+| `js/` | `simulador.js` (cálculo puro, testado), `calculadora.js` (tela, resultado, card, GA4), `sections.js`, `email.js`, `afiliados.js`, `ads.js`, `header-card.js` |
 | `css/` | estilos |
 | `api/` | Vercel Function `subscribe.js` |
-| `scripts/` | build, geradores de páginas, `taxas.json`, `template.js` |
+| `scripts/` | build, geradores de páginas, `taxas.json`, `produtos.js` (investimentos da calculadora → `/dados/taxas.json` no build), `template.js` |
 | `tests/` | testes `node --test` (não publicados) |
 | `docs/` | docs de contexto, padrões, e-mails do funil (não publicado) |
 

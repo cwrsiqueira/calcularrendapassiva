@@ -1,769 +1,564 @@
-/* ===== INTERNACIONALIZAÇÃO ===== */
-const LANG = window.location.pathname.startsWith('/en') ? 'en' : 'pt';
-const L = LANG === 'en' ? {
-  prazo: 'Period:', vi: 'Initial Amount:', vr: 'Monthly Contribution:',
-  invest: 'Total Invested:', rend: 'Returns:', acum: 'Accumulated Value:',
-  taxa: 'Monthly Rate:', taxaA: 'Annual Rate:', renda: 'Monthly Passive Income:',
-  alertOneBlank: 'Leave exactly one field blank for calculation.',
-  alertInvalid: 'Invalid values entered. Please check and try again.',
-  resultPage: '/en/results.html', homePage: '/en/',
-} : {
-  prazo: 'Prazo:', vi: 'Valor Inicial:', vr: 'Valor Recorrente Mensal:',
-  invest: 'Valor Investido:', rend: 'Rendimentos:', acum: 'Valor Acumulado:',
-  taxa: 'Taxa Mensal:', taxaA: 'Taxa Anual:', renda: 'Renda Passiva Mensal:',
-  alertOneBlank: 'Deixe apenas um campo em branco para cálculo.',
-  alertInvalid: 'Valores informados levam a resultados inválidos. Verifique os dados e tente novamente.',
-  resultPage: '/results.html', homePage: '/',
-};
+/* ===== Calculadora de Renda Passiva — interface =====
+   Cálculo em js/simulador.js (window.Simulador). Taxas do mês em /dados/taxas.json (gerado no build). */
+(function () {
+  'use strict';
 
-/* ===== Eventos GA4 ===== */
-const CAMPOS_EVENTO = ['prazo', 'valor_inicial', 'aporte_mensal', 'taxa', 'renda_passiva'];
-function evento(nome, params) {
-  if (typeof gtag === 'function') gtag('event', nome, Object.assign({ idioma: LANG }, params));
-}
-document.addEventListener('click', function (e) {
-  const a = e.target.closest && e.target.closest('a[href]');
-  if (!a) return;
-  if (a.href.includes('play.google.com')) evento('clique_loja', { loja: 'play_store' });
-  else if (a.href.includes('apps.apple.com')) evento('clique_loja', { loja: 'app_store' });
-});
+  const LANG = window.location.pathname.startsWith('/en') ? 'en' : 'pt';
+  const EN = LANG === 'en';
+  const LOC = EN ? 'en-US' : 'pt-BR';
+  const MOEDA = EN ? 'USD' : 'BRL';
+  const SITE = EN ? 'calcularrendapassiva.com/en' : 'calcularrendapassiva.com';
+  const URL_SITE = 'https://' + SITE;
+  const HOME = EN ? '/en/' : '/';
+  const PAGINA_RESULTADO = EN ? '/en/results.html' : '/results.html';
+  const CHAVE_FORM = 'crp_form';
+  const CHAVE_RES = 'crp_resultado';
 
-/* ===== Altura do flip card (conteúdo variável + mobile) ===== */
-function debounceFlipLayout(fn, ms) {
-  let t;
-  return function () {
-    clearTimeout(t);
-    t = setTimeout(fn, ms);
-  };
-}
-
-function syncFlipCardHeight() {
-  const root = document.querySelector('.flip-card');
-  const inner = root?.querySelector('.flip-card-inner');
-  const front = root?.querySelector('.flip-card-front');
-  const back = root?.querySelector('.flip-card-back');
-  if (!root || !inner || !front || !back) return;
-
-  root.style.height = '';
-  inner.style.height = '';
-
-  root.classList.add('flip-card--measure');
-  const prevInnerTransform = inner.style.transform;
-  inner.style.transform = 'none';
-
-  front.style.display = 'block';
-  back.style.display = 'none';
-  void inner.offsetHeight;
-  const hFront = inner.getBoundingClientRect().height;
-
-  front.style.display = 'none';
-  back.style.display = 'block';
-  void inner.offsetHeight;
-  const hBack = inner.getBoundingClientRect().height;
-
-  front.style.display = '';
-  back.style.display = '';
-  inner.style.transform = prevInnerTransform;
-  root.classList.remove('flip-card--measure');
-
-  const pad = 6;
-  const h = Math.max(Math.ceil(Math.max(hFront, hBack)) + pad, 280);
-  root.style.height = `${h}px`;
-  inner.style.height = `${h}px`;
-}
-
-const debouncedSyncFlipCard = debounceFlipLayout(syncFlipCardHeight, 150);
-let flipCardLayoutInitialized = false;
-
-function initFlipCardLayout() {
-  syncFlipCardHeight();
-  if (!flipCardLayoutInitialized) {
-    flipCardLayoutInitialized = true;
-    window.addEventListener('resize', debouncedSyncFlipCard);
-    document.fonts?.ready?.then(syncFlipCardHeight);
-  }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    requestAnimationFrame(() => requestAnimationFrame(initFlipCardLayout));
-  });
-} else {
-  requestAnimationFrame(() => requestAnimationFrame(initFlipCardLayout));
-}
-
-/* ===== MÁSCARAS (vanilla JS) ===== */
-
-function applyMoneyMask(input) {
-  input.addEventListener('input', function () {
-    let val = this.value.replace(/\D/g, '');
-    if (!val) { this.value = ''; return; }
-    if (val.length > 11) val = val.slice(-11);
-    const num = parseInt(val, 10);
-    const cents = num % 100;
-    const reais = Math.floor(num / 100);
-    this.value = reais.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + cents.toString().padStart(2, '0');
-  });
-}
-
-function applyPercentMask(input) {
-  input.addEventListener('input', function () {
-    let val = this.value.replace(/\D/g, '');
-    if (!val) { this.value = ''; return; }
-    if (val.length > 4) val = val.slice(-4);
-    const num = parseInt(val, 10);
-    this.value = Math.floor(num / 100).toString() + ',' + (num % 100).toString().padStart(2, '0');
-  });
-}
-
-document.querySelectorAll('.value').forEach(applyMoneyMask);
-document.querySelectorAll('.percent').forEach(applyPercentMask);
-
-/* ===== CONVERSÃO DE PRAZO ===== */
-const periodoAnualEl = document.querySelector('#periodoAnual');
-const periodoEl = document.querySelector('#periodo');
-
-periodoAnualEl?.addEventListener('input', function () {
-  periodoEl.value = this.value === '' ? '' : Math.floor(this.value * 12);
-});
-
-periodoEl?.addEventListener('input', function () {
-  if (this.value === '') {
-    periodoAnualEl.value = '';
-    periodoAnualEl.removeAttribute('disabled');
-  } else {
-    periodoAnualEl.setAttribute('disabled', true);
-    periodoAnualEl.value = Math.floor(this.value / 12);
-  }
-});
-
-/* ===== CONVERSÃO DE TAXA (juros compostos) ===== */
-const txAnualEl = document.querySelector('#txPeriodoAnual');
-const txMensalEl = document.querySelector('#txPeriodo');
-
-txAnualEl?.addEventListener('input', function () {
-  if (this.value === '') { txMensalEl.value = ''; return; }
-  const anual = parseFloat(this.value.replace(',', '.'));
-  txMensalEl.value = ((Math.pow(1 + anual / 100, 1 / 12) - 1) * 100).toFixed(2).replace('.', ',');
-});
-
-txMensalEl?.addEventListener('input', function () {
-  if (this.value === '') { txAnualEl.value = ''; return; }
-  const mensal = parseFloat(this.value.replace(',', '.'));
-  txAnualEl.value = ((Math.pow(1 + mensal / 100, 12) - 1) * 100).toFixed(2).replace('.', ',');
-});
-
-/* ===== SESSION STORAGE — RESTAURAR CAMPOS ===== */
-['periodo', 'periodoAnual', 'txPeriodo', 'txPeriodoAnual', 'valorInicial', 'valorRecorrente', 'rendaPassiva']
-  .forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = sessionStorage.getItem(id) ?? '';
-  });
-
-document.querySelector('#btn-reset')?.addEventListener('click', function () {
-  sessionStorage.clear();
-  document.querySelector('#rendaForm')?.reset();
-});
-
-/* ===== HELPERS ===== */
-function formatarValor(valor, sistema = true) {
-  if (sistema) return valor.replace(/\./g, '').replace(',', '.');
-  return valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-
-function calcularAnosEMeses(n) {
-  const anos = Math.floor(n / 12), meses = n % 12;
-  if (LANG === 'en') {
-    const a = anos === 1 ? '1 year' : `${anos} years`;
-    const m = meses === 1 ? '1 month' : `${meses} months`;
-    if (anos === 0) return m;
-    if (meses === 0) return `${n} months (or ${a})`;
-    return `${n} months (or ${a} and ${m})`;
-  }
-  const a = anos === 1 ? '1 ano' : `${anos} anos`;
-  const m = meses === 1 ? '1 mês' : `${meses} meses`;
-  if (anos === 0) return m;
-  if (meses === 0) return `${n} meses (ou ${a})`;
-  return `${n} meses (ou ${a} e ${m})`;
-}
-
-/* ===== GERAÇÃO DE DADOS DO GRÁFICO ===== */
-function gerarDadosGrafico(vi, aporte, taxa, n) {
-  if (n <= 0) return [];
-  const step = n > 120 ? Math.ceil(n / 60) : n > 24 ? 3 : 1;
-  const pontos = [];
-  for (let m = 0; m <= n; m += step) {
-    const acum = taxa > 0
-      ? vi * Math.pow(1 + taxa / 100, m) + aporte * ((Math.pow(1 + taxa / 100, m) - 1) / (taxa / 100))
-      : vi + aporte * m;
-    pontos.push({ m, acum: Math.max(0, acum), invest: vi + aporte * m });
-  }
-  if (pontos[pontos.length - 1].m !== n) {
-    const acum = taxa > 0
-      ? vi * Math.pow(1 + taxa / 100, n) + aporte * ((Math.pow(1 + taxa / 100, n) - 1) / (taxa / 100))
-      : vi + aporte * n;
-    pontos.push({ m: n, acum: Math.max(0, acum), invest: vi + aporte * n });
-  }
-  return pontos;
-}
-
-/* ===== CÁLCULO PRINCIPAL ===== */
-function calcularRendaPassiva() {
-  evento('clique_calcular');
-  const periodo = document.getElementById('periodo').value;
-  const txPeriodo = document.getElementById('txPeriodo').value;
-  const txPeriodoAnual = document.getElementById('txPeriodoAnual').value;
-  const valorInicial = document.getElementById('valorInicial').value;
-  const valorRecorrente = document.getElementById('valorRecorrente').value;
-  const rendaPassiva = document.getElementById('rendaPassiva').value;
-
-  sessionStorage.setItem('periodo', periodo);
-  sessionStorage.setItem('periodoAnual', document.getElementById('periodoAnual').value);
-  sessionStorage.setItem('txPeriodo', txPeriodo);
-  sessionStorage.setItem('txPeriodoAnual', txPeriodoAnual);
-  sessionStorage.setItem('valorInicial', valorInicial);
-  sessionStorage.setItem('valorRecorrente', valorRecorrente);
-  sessionStorage.setItem('rendaPassiva', rendaPassiva);
-
-  const camposParaCalculo = [periodo, valorInicial, valorRecorrente, txPeriodo, rendaPassiva];
-  let totalVazios = 0;
-  let campoEmBranco = -1;
-  camposParaCalculo.forEach((item, index) => {
-    if (item === '') { totalVazios++; campoEmBranco = index; }
-  });
-
-  if (totalVazios !== 1) {
-    alert(L.alertOneBlank);
-    return;
-  }
-
-  // Salva qual campo foi calculado para destaque nos resultados
-  sessionStorage.setItem('campoCalculado', campoEmBranco);
-
-  let prazo = periodo ? parseInt(periodo) : 0;
-  let taxa = txPeriodo ? parseFloat(formatarValor(txPeriodo)) : 0;
-  let taxaAnual = txPeriodoAnual ? parseFloat(formatarValor(txPeriodoAnual)) : 0;
-  let inicial = valorInicial ? parseFloat(formatarValor(valorInicial)) : 0;
-  let recorrente = valorRecorrente ? parseFloat(formatarValor(valorRecorrente)) : 0;
-  let renda = rendaPassiva ? parseFloat(formatarValor(rendaPassiva)) : 0;
-  let investido, rendimentos, acumulado;
-
-  switch (campoEmBranco) {
-    case 0: {
-      let vlrAtual = inicial;
-      const montante = renda / (taxa / 100);
-      let loop = 0;
-      while (vlrAtual * (1 + taxa / 100) + recorrente < montante) {
-        vlrAtual = vlrAtual * (1 + taxa / 100) + recorrente;
-        loop++;
-      }
-      prazo = loop;
-      investido = inicial + recorrente * prazo;
-      rendimentos = vlrAtual - investido;
-      acumulado = vlrAtual;
-      renda = acumulado * (taxa / 100);
-      break;
-    }
-    case 1: {
-      const montante = renda / (taxa / 100);
-      const taxaAtu = Math.pow(1 + taxa / 100, prazo);
-      inicial = (montante - recorrente * ((taxaAtu - 1) / (taxa / 100))) / taxaAtu;
-      investido = inicial + recorrente * prazo;
-      rendimentos = montante - investido;
-      acumulado = montante;
-      renda = acumulado * (taxa / 100);
-      break;
-    }
-    case 2: {
-      const montante = renda / (taxa / 100);
-      const inicialAtu = inicial * Math.pow(1 + taxa / 100, prazo);
-      const taxaAtu = (Math.pow(1 + taxa / 100, prazo) - 1) / (taxa / 100);
-      recorrente = parseFloat(((montante - inicialAtu) / taxaAtu).toFixed(2));
-      investido = inicial + recorrente * prazo;
-      rendimentos = montante - investido;
-      acumulado = montante;
-      renda = acumulado * (taxa / 100);
-      break;
-    }
-    case 3: {
-      let t = 0.01;
-      let montAtu = 0;
-      let taxaAtu2 = 0;
-      while (true) {
-        const mont = inicial * Math.pow(1 + t / 100, prazo)
-          + recorrente * ((Math.pow(1 + t / 100, prazo) - 1) / (t / 100));
-        if (mont * (t / 100) >= renda) break;
-        montAtu = mont;
-        taxaAtu2 = t;
-        t += 0.01;
-      }
-      taxaAnual = (Math.pow(1 + taxaAtu2 / 100, 12) - 1) * 100;
-      taxa = taxaAtu2;
-      investido = inicial + recorrente * prazo;
-      rendimentos = montAtu - investido;
-      acumulado = montAtu;
-      renda = acumulado * (taxa / 100);
-      break;
-    }
-    case 4: {
-      let rentAtual = inicial * (1 + taxa / 100) + recorrente;
-      for (let i = 1; i < prazo; i++) {
-        rentAtual = rentAtual * (1 + taxa / 100) + recorrente;
-      }
-      investido = inicial + recorrente * prazo;
-      rendimentos = rentAtual - investido;
-      acumulado = rentAtual;
-      renda = acumulado * (taxa / 100);
-      break;
-    }
-  }
-
-  if ([investido, rendimentos, acumulado, renda].some(v => v === Infinity || isNaN(v))) {
-    alert(L.alertInvalid);
-    return;
-  }
-
-  sessionStorage.setItem('chartData', JSON.stringify(gerarDadosGrafico(inicial, recorrente, taxa, prazo)));
-  sessionStorage.setItem('prazo', prazo ? calcularAnosEMeses(prazo) : 'N/A');
-  sessionStorage.setItem('valorInicialResult', inicial ? formatarValor(inicial, false) : 'N/A');
-  sessionStorage.setItem('valorRecorrenteResult', recorrente ? formatarValor(recorrente, false) : 'N/A');
-  sessionStorage.setItem('valorInvestido', investido ? formatarValor(investido, false) : 'N/A');
-  sessionStorage.setItem('rendimentos', rendimentos ? formatarValor(rendimentos, false) : 'N/A');
-  sessionStorage.setItem('taxa', taxa ? formatarValor(taxa, false) : 'N/A');
-  sessionStorage.setItem('taxaAnual', taxaAnual ? formatarValor(taxaAnual, false) : 'N/A');
-  sessionStorage.setItem('rendaPassivaResult', renda ? formatarValor(renda, false) : 'N/A');
-  sessionStorage.setItem('valorAcumulado', acumulado ? formatarValor(acumulado, false) : 'N/A');
-
-  evento('resultado_gerado', { campo_calculado: CAMPOS_EVENTO[sessionStorage.getItem('campoCalculado')] || 'outro' });
-  document.querySelector('.flip-card')?.classList.add('flip-card-flipped');
-  setTimeout(() => { window.location.href = L.resultPage; }, 500);
-}
-
-function voltarFormulario(e) {
-  e.preventDefault();
-  document.querySelector('.flip-card')?.classList.remove('flip-card-flipped');
-  setTimeout(() => { window.location.href = L.homePage; }, 500);
-}
-
-document.getElementById('calcularBtn')?.addEventListener('click', calcularRendaPassiva);
-document.getElementById('voltarBtn')?.addEventListener('click', voltarFormulario);
-
-/* ===== RESULTADOS ===== */
-const currentPage = window.location.pathname.split('/').pop();
-if (currentPage === 'results.html' && !sessionStorage.getItem('rendaPassivaResult')) {
-  window.location.href = L.homePage;
-}
-
-function setResult(id, label, value, prefix, suffix) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const val = value && value !== 'N/A'
-    ? `${prefix || ''}${value}${suffix || ''}`
-    : '---';
-  el.innerHTML = `<span>${label}</span><span>${val}</span>`;
-}
-
-const CUR = LANG === 'en' ? '$ ' : 'R$ ';
-setResult('resultPrazo', L.prazo, sessionStorage.getItem('prazo'));
-setResult('resultValorInicial', L.vi, sessionStorage.getItem('valorInicialResult'), CUR);
-setResult('resultValorRecorrente', L.vr, sessionStorage.getItem('valorRecorrenteResult'), CUR);
-setResult('resultValorInvestido', L.invest, sessionStorage.getItem('valorInvestido'), CUR);
-setResult('resultRendimentos', L.rend, sessionStorage.getItem('rendimentos'), CUR);
-setResult('resultValorAcumulado', L.acum, sessionStorage.getItem('valorAcumulado'), CUR);
-setResult('resultTaxa', L.taxa, sessionStorage.getItem('taxa'), '', '%');
-setResult('resultTaxaAnual', L.taxaA, sessionStorage.getItem('taxaAnual'), '', '%');
-setResult('resultRendaPassiva', L.renda, sessionStorage.getItem('rendaPassivaResult'), CUR);
-
-// Destaca o campo que foi calculado
-const campoMap = ['resultPrazo', 'resultValorInicial', 'resultValorRecorrente', 'resultTaxa', 'resultRendaPassiva'];
-const campoCalculado = parseInt(sessionStorage.getItem('campoCalculado') ?? '-1');
-if (campoCalculado >= 0 && campoCalculado < campoMap.length) {
-  document.getElementById(campoMap[campoCalculado])?.classList.add('result-highlight');
-}
-
-/* ===== GRÁFICO ===== */
-function renderizarGrafico() {
-  const raw = sessionStorage.getItem('chartData');
-  const canvas = document.getElementById('graficoPatrimonio');
-  if (!raw || !canvas || typeof Chart === 'undefined') return;
-  const pontos = JSON.parse(raw);
-  if (pontos.length < 2) return;
-
-  const cur = LANG === 'en' ? '$' : 'R$';
-  const loc = LANG === 'en' ? 'en-US' : 'pt-BR';
-
-  const labels = pontos.map(p => {
-    const anos = Math.floor(p.m / 12);
-    return anos === 0 ? `${p.m}m` : LANG === 'en' ? `${anos}y` : `${anos}a`;
-  });
-
-  new Chart(canvas.getContext('2d'), {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: LANG === 'en' ? 'Accumulated Wealth' : 'Patrimônio Acumulado',
-          data: pontos.map(p => p.acum),
-          borderColor: '#e847eb',
-          backgroundColor: 'rgba(232,71,235,0.12)',
-          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2,
-        },
-        {
-          label: LANG === 'en' ? 'Total Invested' : 'Total Investido',
-          data: pontos.map(p => p.invest),
-          borderColor: '#7d38f0',
-          backgroundColor: 'rgba(125,56,240,0.06)',
-          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2,
-        }
-      ]
+  const T = EN ? {
+    personalizado: 'Custom rate',
+    semTaxas: 'Could not load this month\'s rates. Enter a custom rate.',
+    infoPersonalizado: 'Enter the expected annual return. Taxes (if on) use the long-term rate of 15%.',
+    erros: {
+      campos: 'Fill in the highlighted fields.',
+      taxa: 'At this rate, after inflation and taxes, your money doesn\'t grow. Pick another investment or turn off "today\'s money".',
+      inalcancavel: 'With these numbers the goal would take more than 100 years. Increase the monthly contribution or lower the goal.',
+      produto: 'Choose where you will invest.',
+      modo: 'Choose what you want to find out.',
     },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { labels: { color: '#f8fafc', font: { family: 'Inter', size: 12 }, boxWidth: 12 } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: ${cur} ${ctx.raw.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-          },
-          backgroundColor: '#1d193e', titleColor: '#f8fafc', bodyColor: '#94a3b8',
-          borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
-        }
+    ano: ['year', 'years'], mes: ['month', 'months'], e: 'and', mesCurto: '/mo',
+    lead: {
+      renda: p => `In ${p}, your passive income will be`,
+      aporte: (r, p) => `To earn ${r}/month in ${p}, invest`,
+      prazo: r => `You will reach ${r}/month of passive income in`,
+      patrimonio: r => `To earn ${r}/month in passive income, you need`,
+      inicialBasta: p => `Your initial amount is already enough! In ${p} it generates`,
+      jaAtingido: () => 'Your current savings already generate',
+    },
+    sub: {
+      acum: a => `with ${a} invested`,
+      investidos: p => `invested in ${p}`,
+      semAporte: 'with no monthly contributions',
+      jaAtingido: 'you have already reached your goal',
+    },
+    chips: { ir: a => `Taxes deducted (${fmtPct(a)}%)`, semIr: 'Before taxes', isento: 'Tax-free', hoje: i => `Today's money (inflation ${fmtPct(i)}%/yr)`, nominal: 'Not adjusted for inflation' },
+    linhas: { produto: 'Investment', taxa: 'Return used', prazo: 'Period', inicial: 'Initial amount', aporte: 'Monthly contribution', investido: 'Total invested', rendimentos: 'Earnings', acumulado: 'Final balance', renda: 'Monthly passive income' },
+    taxaTxt: (m, a) => `${m}% per month (${a}% per year)`,
+    liquida: 'after taxes', real: 'above inflation',
+    aviso: ref => `Educational simulation using reference rates from ${ref}. This is not investment advice or a guarantee of returns: rates change over time and real results will differ.`,
+    simplif: 'Simplified model: monthly compounding, contributions at the end of each month, taxes deducted from each month\'s earnings. Income = balance × monthly return (living off earnings only).',
+    estimativa: p => `${p}: return is an average estimate.`,
+    card: { titulo: 'Passive Income Calculator', resumo: 'SUMMARY', cta: 'Run your own simulation at', aviso: 'Educational simulation · not advice or a guarantee of returns' },
+    zap: { cta: 'Run yours:' },
+    grafico: ['Balance', 'Total invested'],
+  } : {
+    personalizado: 'Outra rentabilidade',
+    semTaxas: 'Não foi possível carregar as taxas do mês. Informe a rentabilidade.',
+    infoPersonalizado: 'Informe a rentabilidade esperada ao ano. Se descontar imposto, usa a alíquota de longo prazo (15%).',
+    erros: {
+      campos: 'Preencha os campos destacados.',
+      taxa: 'Com essa rentabilidade, descontados inflação e imposto, o dinheiro não cresce. Escolha outro investimento ou desligue "valores de hoje".',
+      inalcancavel: 'Com esses números a meta levaria mais de 100 anos. Aumente o aporte mensal ou reduza a meta.',
+      produto: 'Escolha onde vai investir.',
+      modo: 'Escolha o que quer descobrir.',
+    },
+    ano: ['ano', 'anos'], mes: ['mês', 'meses'], e: 'e', mesCurto: '/mês',
+    lead: {
+      renda: p => `Em ${p}, sua renda passiva será de`,
+      aporte: (r, p) => `Para ter ${r}/mês em ${p}, invista`,
+      prazo: r => `Você chega a ${r}/mês de renda passiva em`,
+      patrimonio: r => `Para ter ${r}/mês de renda passiva, você precisa de`,
+      inicialBasta: p => `Seu valor inicial já basta! Em ${p} ele gera`,
+      jaAtingido: () => 'Seu patrimônio atual já gera',
+    },
+    sub: {
+      acum: a => `com patrimônio de ${a}`,
+      investidos: p => `investidos em ${p}`,
+      semAporte: 'sem precisar de aportes',
+      jaAtingido: 'você já atingiu a meta',
+    },
+    chips: { ir: a => `IR descontado (${fmtPct(a)}%)`, semIr: 'Sem descontar IR', isento: 'Isento de IR', hoje: i => `Valores de hoje (inflação ${fmtPct(i)}% a.a.)`, nominal: 'Sem descontar a inflação' },
+    linhas: { produto: 'Investimento', taxa: 'Rentabilidade considerada', prazo: 'Prazo', inicial: 'Valor inicial', aporte: 'Aporte mensal', investido: 'Total investido', rendimentos: 'Rendimentos', acumulado: 'Patrimônio final', renda: 'Renda passiva mensal' },
+    taxaTxt: (m, a) => `${m}% ao mês (${a}% ao ano)`,
+    liquida: 'líquida de IR', real: 'acima da inflação',
+    aviso: ref => `Simulação educativa com taxas de referência de ${ref}. Não é recomendação de investimento nem garantia de rentabilidade: as taxas mudam com o tempo e o resultado real será diferente.`,
+    simplif: 'Modelo simplificado: juros compostos mensais, aporte no fim de cada mês e IR descontado do rendimento de cada mês. Renda = patrimônio × rentabilidade mensal (vivendo só do rendimento).',
+    estimativa: p => `${p}: rendimento é uma estimativa média.`,
+    card: { titulo: 'Calculadora de Renda Passiva', resumo: 'RESUMO DA SIMULAÇÃO', cta: 'Faça a sua simulação em', aviso: 'Simulação educativa · não é recomendação nem garantia de rentabilidade' },
+    zap: { cta: 'Faça a sua:' },
+    grafico: ['Patrimônio', 'Total investido'],
+  };
+
+  /* ===== Formatação ===== */
+  function fmtMoeda(v, casas) {
+    const c = casas != null ? casas : 2;
+    return new Intl.NumberFormat(LOC, { style: 'currency', currency: MOEDA, minimumFractionDigits: c, maximumFractionDigits: c }).format(v);
+  }
+  const fmtHero = v => fmtMoeda(v, v >= 1000 ? 0 : 2);
+  function fmtPct(v, casas) {
+    const c = casas != null ? casas : 2;
+    return Number(v).toLocaleString(LOC, { minimumFractionDigits: 0, maximumFractionDigits: c });
+  }
+  function fmtPrazo(n) {
+    const a = Math.floor(n / 12), m = n % 12;
+    const pa = a ? `${a} ${T.ano[a === 1 ? 0 : 1]}` : '';
+    const pm = m ? `${m} ${T.mes[m === 1 ? 0 : 1]}` : '';
+    return [pa, pm].filter(Boolean).join(` ${T.e} `) || `0 ${T.mes[1]}`;
+  }
+  function lerValor(txt) {
+    const so = String(txt || '').replace(/\D/g, '');
+    return so ? parseInt(so, 10) / 100 : 0;
+  }
+
+  /* ===== GA4 ===== */
+  function evento(nome, params) {
+    if (typeof gtag === 'function') gtag('event', nome, Object.assign({ idioma: LANG }, params));
+  }
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    if (a.href.includes('play.google.com')) evento('clique_loja', { loja: 'play_store' });
+    else if (a.href.includes('apps.apple.com')) evento('clique_loja', { loja: 'app_store' });
+  });
+
+  /* ===== Altura do flip card ===== */
+  function syncFlipCardHeight() {
+    const root = document.querySelector('.flip-card');
+    const inner = root && root.querySelector('.flip-card-inner');
+    const front = root && root.querySelector('.flip-card-front');
+    const back = root && root.querySelector('.flip-card-back');
+    if (!root || !inner || !front || !back) return;
+    root.style.height = '';
+    inner.style.height = '';
+    root.classList.add('flip-card--measure');
+    const prev = inner.style.transform;
+    inner.style.transform = 'none';
+    front.style.display = 'block'; back.style.display = 'none';
+    const hFront = inner.getBoundingClientRect().height;
+    front.style.display = 'none'; back.style.display = 'block';
+    const hBack = inner.getBoundingClientRect().height;
+    front.style.display = ''; back.style.display = '';
+    inner.style.transform = prev;
+    root.classList.remove('flip-card--measure');
+    const h = Math.max(Math.ceil(Math.max(hFront, hBack)) + 4, 280);
+    root.style.height = h + 'px';
+    inner.style.height = h + 'px';
+  }
+  let resizeT;
+  window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(syncFlipCardHeight, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncFlipCardHeight);
+
+  /* ===== Máscaras ===== */
+  const SEP_MIL = EN ? ',' : '.';
+  const SEP_DEC = EN ? '.' : ',';
+  function mascaraMoeda(input) {
+    input.addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '').replace(/^0+/, '');
+      if (!v) { this.value = ''; return; }
+      if (v.length > 11) v = v.slice(-11);
+      v = v.padStart(3, '0');
+      const inteiro = v.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, SEP_MIL);
+      this.value = inteiro + SEP_DEC + v.slice(-2);
+    });
+  }
+  function mascaraPct(input) {
+    input.addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '').replace(/^0+/, '');
+      if (!v) { this.value = ''; return; }
+      if (v.length > 4) v = v.slice(-4);
+      v = v.padStart(3, '0');
+      this.value = parseInt(v.slice(0, -2), 10) + SEP_DEC + v.slice(-2);
+    });
+  }
+  function mascaraInteiro(input) {
+    input.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 2); });
+  }
+
+  /* ===== Taxas do mês ===== */
+  let DADOS = null;
+  const carregarDados = fetch('/dados/taxas.json', { cache: 'no-cache' })
+    .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then(j => { DADOS = j[LANG]; return DADOS; })
+    .catch(() => null);
+
+  function produtoAtual(form) {
+    const id = form.produto.value;
+    if (id === 'personalizado') {
+      const anual = lerValor(form.taxaAnual.value);
+      return anual > 0 ? { id, nome: T.personalizado, anual, ir: EN ? 15 : 'regressivo' } : null;
+    }
+    return DADOS && DADOS.produtos.find(p => p.id === id);
+  }
+
+  /* ===== Formulário (home) ===== */
+  const form = document.getElementById('simForm');
+  if (form) iniciarFormulario(form);
+
+  function iniciarFormulario(form) {
+    form.querySelectorAll('.js-moeda').forEach(mascaraMoeda);
+    form.querySelectorAll('.js-pct').forEach(mascaraPct);
+    form.querySelectorAll('.js-inteiro').forEach(mascaraInteiro);
+    const erroEl = document.getElementById('calcErro');
+    const info = document.getElementById('produtoInfo');
+    const grupoTaxa = document.getElementById('grupoTaxa');
+    const sel = form.produto;
+
+    let salvo = {};
+    try { salvo = JSON.parse(sessionStorage.getItem(CHAVE_FORM) || '{}') || {}; } catch (_) { salvo = {}; }
+    ['renda', 'inicial', 'aporte', 'anos', 'taxaAnual'].forEach(id => { if (salvo[id]) form[id].value = salvo[id]; });
+    if (salvo.modo) { const r = form.querySelector(`input[name="modo"][value="${salvo.modo}"]`); if (r) r.checked = true; }
+    if (typeof salvo.imposto === 'boolean') form.imposto.checked = salvo.imposto;
+    if (typeof salvo.inflacao === 'boolean') form.inflacao.checked = salvo.inflacao;
+
+    function modo() { const r = form.querySelector('input[name="modo"]:checked'); return r ? r.value : ''; }
+
+    function atualizarCampos() {
+      const m = modo();
+      form.querySelectorAll('[data-modos]').forEach(el => {
+        el.hidden = !el.getAttribute('data-modos').split(' ').includes(m);
+      });
+      requestAnimationFrame(syncFlipCardHeight);
+    }
+
+    function atualizarProduto() {
+      const personalizado = sel.value === 'personalizado';
+      grupoTaxa.hidden = !personalizado;
+      const p = !personalizado && DADOS && DADOS.produtos.find(x => x.id === sel.value);
+      info.textContent = personalizado ? (DADOS ? T.infoPersonalizado : T.semTaxas) : p ? p.nota : '';
+      requestAnimationFrame(syncFlipCardHeight);
+    }
+
+    carregarDados.then(d => {
+      sel.innerHTML = '';
+      (d ? d.produtos : []).forEach(p => sel.add(new Option(p.nome, p.id)));
+      sel.add(new Option(T.personalizado, 'personalizado'));
+      const ref = document.getElementById('taxasRef');
+      if (ref && d) ref.textContent = d.referencia;
+      if (salvo.produto && [...sel.options].some(o => o.value === salvo.produto)) sel.value = salvo.produto;
+      else if (!d) sel.value = 'personalizado';
+      atualizarProduto();
+    });
+
+    form.addEventListener('change', e => {
+      if (e.target.name === 'modo') atualizarCampos();
+      if (e.target === sel) atualizarProduto();
+    });
+    atualizarCampos();
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      sessionStorage.removeItem(CHAVE_FORM);
+      ['renda', 'inicial', 'aporte', 'anos', 'taxaAnual'].forEach(id => { form[id].value = ''; });
+      form.querySelectorAll('.campo-erro').forEach(el => el.classList.remove('campo-erro'));
+      erroEl.textContent = '';
+    });
+
+    form.addEventListener('submit', e => { e.preventDefault(); calcular(); });
+
+    function calcular() {
+      evento('clique_calcular');
+      const m = modo();
+      const produto = produtoAtual(form);
+      const estado = {
+        modo: m, produto: sel.value, taxaAnual: form.taxaAnual.value,
+        renda: form.renda.value, inicial: form.inicial.value, aporte: form.aporte.value, anos: form.anos.value,
+        imposto: form.imposto.checked, inflacao: form.inflacao.checked,
+      };
+      sessionStorage.setItem(CHAVE_FORM, JSON.stringify(estado));
+
+      // Campos obrigatórios por modo
+      form.querySelectorAll('.campo-erro').forEach(el => el.classList.remove('campo-erro'));
+      const faltando = [];
+      const visivel = id => !form[id].closest('[data-modos]').hidden;
+      if (visivel('renda') && !lerValor(form.renda.value)) faltando.push('renda');
+      if (visivel('anos') && !(parseInt(form.anos.value, 10) > 0)) faltando.push('anos');
+      if (m === 'renda' || m === 'prazo') {
+        if (!lerValor(form.inicial.value) && !lerValor(form.aporte.value)) faltando.push('inicial', 'aporte');
+      }
+      if (!produto) faltando.push(sel.value === 'personalizado' ? 'taxaAnual' : 'produto');
+      if (faltando.length) {
+        faltando.forEach(id => form[id].closest('.campo, .grupo').classList.add('campo-erro'));
+        erroEl.textContent = T.erros.campos;
+        requestAnimationFrame(syncFlipCardHeight);
+        return;
+      }
+
+      const res = window.Simulador.simular({
+        modo: m, produto,
+        imposto: estado.imposto, inflacao: estado.inflacao,
+        inflacaoAnual: DADOS ? DADOS.inflacaoAnual : (EN ? 3 : 4.5),
+        inicial: lerValor(form.inicial.value), aporte: lerValor(form.aporte.value),
+        renda: lerValor(form.renda.value), meses: (parseInt(form.anos.value, 10) || 0) * 12,
+      });
+      if (res.erro) {
+        erroEl.textContent = T.erros[res.erro] || T.erros.campos;
+        requestAnimationFrame(syncFlipCardHeight);
+        return;
+      }
+      erroEl.textContent = '';
+
+      sessionStorage.setItem(CHAVE_RES, JSON.stringify({
+        lang: LANG, res, rendaDesejada: lerValor(form.renda.value),
+        produto: { id: produto.id, nome: produto.nome, ir: produto.ir, estimativa: !!produto.estimativa },
+        imposto: estado.imposto, inflacao: estado.inflacao,
+        inflacaoAnual: DADOS ? DADOS.inflacaoAnual : null,
+        referencia: DADOS ? DADOS.referencia : '',
+        fontes: DADOS ? DADOS.fontes : '',
+      }));
+      evento('resultado_gerado', { modo: m, produto: produto.id, imposto: estado.imposto, inflacao: estado.inflacao });
+      document.querySelector('.flip-card').classList.add('flip-card-flipped');
+      setTimeout(() => { window.location.href = PAGINA_RESULTADO; }, 550);
+    }
+  }
+
+  /* ===== Resultado ===== */
+  const areaResultado = document.getElementById('resultado');
+  let SIM = null;
+  if (areaResultado) {
+    try { SIM = JSON.parse(sessionStorage.getItem(CHAVE_RES) || 'null'); } catch (_) { SIM = null; }
+    if (!SIM || !SIM.res || SIM.lang !== LANG) window.location.replace(HOME);
+    else renderizarResultado(SIM);
+  }
+
+  function textos(S) {
+    const r = S.res;
+    const prazo = fmtPrazo(r.meses);
+    const desejada = fmtMoeda(S.rendaDesejada || r.renda, 0);
+    const acum = fmtMoeda(r.acumulado, 0);
+    switch (r.modo) {
+      case 'renda': return { lead: T.lead.renda(prazo), big: fmtHero(r.renda) + T.mesCurto, sub: T.sub.acum(acum) };
+      case 'aporte':
+        if (r.inicialBasta) return { lead: T.lead.inicialBasta(prazo), big: fmtHero(r.renda) + T.mesCurto, sub: T.sub.semAporte };
+        return { lead: T.lead.aporte(desejada, prazo), big: fmtHero(r.aporte) + T.mesCurto, sub: T.sub.acum(acum) };
+      case 'prazo':
+        if (r.jaAtingido) return { lead: T.lead.jaAtingido(), big: fmtHero(r.renda) + T.mesCurto, sub: T.sub.jaAtingido };
+        return { lead: T.lead.prazo(desejada), big: prazo, sub: T.sub.acum(acum) };
+      default: return { lead: T.lead.patrimonio(desejada), big: fmtHero(r.acumulado), sub: T.sub.investidos(S.produto.nome) };
+    }
+  }
+
+  function chips(S) {
+    const r = S.res;
+    const lista = [S.produto.nome];
+    if (S.produto.ir === 'isento') lista.push(T.chips.isento);
+    else lista.push(S.imposto ? T.chips.ir(r.taxa.aliquota) : T.chips.semIr);
+    lista.push(S.inflacao && S.inflacaoAnual ? T.chips.hoje(S.inflacaoAnual) : T.chips.nominal);
+    return lista;
+  }
+
+  function linhas(S) {
+    const r = S.res, L = T.linhas;
+    const m = fmtPct(r.taxa.usada * 100), a = fmtPct(r.taxaAnual * 100);
+    const sufixo = [S.imposto && r.taxa.aliquota ? T.liquida : '', S.inflacao ? T.real : ''].filter(Boolean).join(', ');
+    const out = [[L.produto, S.produto.nome], [L.taxa, T.taxaTxt(m, a) + (sufixo ? ` — ${sufixo}` : '')]];
+    if (r.modo !== 'patrimonio') {
+      out.push([L.prazo, fmtPrazo(r.meses)], [L.inicial, fmtMoeda(r.inicial)], [L.aporte, fmtMoeda(r.aporte)],
+        [L.investido, fmtMoeda(r.investido)], [L.rendimentos, fmtMoeda(r.rendimentos)]);
+    }
+    out.push([L.acumulado, fmtMoeda(r.acumulado)], [L.renda, fmtMoeda(r.renda) + T.mesCurto]);
+    return out;
+  }
+
+  function el(tag, cls, txt) { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  function renderizarResultado(S) {
+    const t = textos(S);
+    document.getElementById('resLead').textContent = t.lead;
+    document.getElementById('resBig').textContent = t.big;
+    document.getElementById('resSub').textContent = t.sub;
+    const ch = document.getElementById('resChips');
+    chips(S).forEach(c => ch.appendChild(el('li', null, c)));
+    const dl = document.getElementById('resLista');
+    linhas(S).forEach(([k, v]) => { const row = el('div', 'result-item'); row.appendChild(el('dt', null, k)); row.appendChild(el('dd', null, v)); dl.appendChild(row); });
+    const aviso = [T.aviso(S.referencia || '—'), T.simplif, S.produto.estimativa ? T.estimativa(S.produto.nome) : ''].filter(Boolean).join(' ');
+    document.getElementById('resAviso').textContent = aviso;
+    const fontes = document.getElementById('resFontes');
+    if (fontes && S.fontes) fontes.textContent = (EN ? 'Sources: ' : 'Fontes: ') + S.fontes;
+    if (!S.res.pontos || S.res.pontos.length < 2) { const g = document.getElementById('sec-grafico'); if (g) g.hidden = true; }
+    requestAnimationFrame(() => requestAnimationFrame(syncFlipCardHeight));
+    renderizarGrafico(S);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => gerarCard(S)); else gerarCard(S);
+  }
+
+  document.getElementById('voltarBtn')?.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector('.flip-card')?.classList.remove('flip-card-flipped');
+    setTimeout(() => { window.location.href = HOME; }, 550);
+  });
+
+  /* ===== Gráfico ===== */
+  function renderizarGrafico(S) {
+    const canvas = document.getElementById('graficoPatrimonio');
+    const pontos = S.res.pontos || [];
+    if (!canvas || typeof Chart === 'undefined' || pontos.length < 2) return;
+    const css = getComputedStyle(document.documentElement);
+    const cor = n => css.getPropertyValue(n).trim();
+    const sufAno = EN ? 'y' : 'a';
+    new Chart(canvas.getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: pontos.map(p => (p.m < 12 ? `${p.m}m` : `${Math.floor(p.m / 12)}${sufAno}`)),
+        datasets: [
+          { label: T.grafico[0], data: pontos.map(p => p.acum), borderColor: cor('--primary'), backgroundColor: 'rgba(106,47,214,0.10)', fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2.5 },
+          { label: T.grafico[1], data: pontos.map(p => p.invest), borderColor: cor('--text-soft'), backgroundColor: 'transparent', borderDash: [6, 4], fill: false, tension: 0.35, pointRadius: 0, borderWidth: 2 },
+        ],
       },
-      scales: {
-        x: { ticks: { color: '#94a3b8', maxTicksLimit: 8, font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: {
-          ticks: {
-            color: '#94a3b8', font: { size: 11 },
-            callback: v => v >= 1e6 ? `${cur} ${(v/1e6).toFixed(1)}M` : v >= 1000 ? `${cur} ${(v/1000).toFixed(0)}k` : `${cur} ${v.toFixed(0)}`
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: cor('--text'), font: { family: 'Inter', size: 12 }, boxWidth: 12 } },
+          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtMoeda(c.raw, 0)}` } },
+        },
+        scales: {
+          x: { ticks: { color: cor('--text-soft'), maxTicksLimit: 8, font: { size: 11 } }, grid: { color: cor('--border') } },
+          y: {
+            ticks: { color: cor('--text-soft'), font: { size: 11 }, callback: v => new Intl.NumberFormat(LOC, { style: 'currency', currency: MOEDA, notation: 'compact', maximumFractionDigits: 1 }).format(v) },
+            grid: { color: cor('--border') },
           },
-          grid: { color: 'rgba(255,255,255,0.05)' }
-        }
+        },
+      },
+    });
+  }
+
+  /* ===== Card para compartilhar (1080×1350) ===== */
+  function gerarCard(S) {
+    const canvas = document.getElementById('cardCompartilhar');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = 1080, H = 1350, PX = 80;
+    canvas.width = W; canvas.height = H;
+    const FONTE = 'Inter, system-ui, sans-serif';
+    const t = textos(S);
+
+    ctx.fillStyle = '#eef1f5'; ctx.fillRect(0, 0, W, H);
+    const grad = ctx.createLinearGradient(0, 0, W, 0);
+    grad.addColorStop(0, '#6a2fd6'); grad.addColorStop(1, '#c026d3');
+
+    // Cartão central
+    const cx = 48, cy = 48, cw = W - 96, chh = H - 96;
+    ctx.fillStyle = '#f9fafb';
+    arredondado(ctx, cx, cy, cw, chh, 36); ctx.fill();
+    ctx.strokeStyle = '#d6dce4'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.save(); arredondado(ctx, cx, cy, cw, chh, 36); ctx.clip();
+    ctx.fillStyle = grad; ctx.fillRect(cx, cy, cw, 14); ctx.restore();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#6a2fd6'; ctx.font = `700 26px ${FONTE}`;
+    ctx.fillText(T.card.titulo, W / 2, 136);
+
+    let y = 250;
+    ctx.fillStyle = '#4b5565'; ctx.font = `400 34px ${FONTE}`;
+    for (const linha of quebrar(ctx, t.lead, W - PX * 2 - 40)) { ctx.fillText(linha, W / 2, y); y += 48; }
+    y += 70;
+    let fs = 104;
+    ctx.font = `800 ${fs}px ${FONTE}`;
+    while (ctx.measureText(t.big).width > W - PX * 2 - 40 && fs > 44) { fs -= 4; ctx.font = `800 ${fs}px ${FONTE}`; }
+    ctx.fillStyle = grad; ctx.fillText(t.big, W / 2, y);
+    y += 64;
+    ctx.fillStyle = '#4b5565'; ctx.font = `400 30px ${FONTE}`;
+    ctx.fillText(t.sub, W / 2, y);
+
+    y += 80;
+    ctx.strokeStyle = '#e1e6ec'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(PX + 20, y); ctx.lineTo(W - PX - 20, y); ctx.stroke();
+    y += 60;
+    ctx.textAlign = 'left'; ctx.fillStyle = '#7a8494'; ctx.font = `600 20px ${FONTE}`;
+    ctx.fillText(T.card.resumo, PX + 20, y);
+    const rows = linhas(S).filter(([k]) => k !== T.linhas.rendimentos);
+    for (const [k, v] of rows.slice(0, 8)) {
+      y += 54;
+      ctx.textAlign = 'left'; ctx.fillStyle = '#4b5565'; ctx.font = `400 25px ${FONTE}`;
+      ctx.fillText(k, PX + 20, y);
+      ctx.textAlign = 'right'; ctx.fillStyle = '#1b2230'; ctx.font = `600 25px ${FONTE}`;
+      const val = k === T.linhas.taxa ? v.split(' (')[0] : v;
+      ctx.fillText(cortar(ctx, val, 520), W - PX - 20, y);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#7a8494'; ctx.font = `400 21px ${FONTE}`;
+    ctx.fillText(T.card.aviso + (S.referencia ? ` · ${S.referencia}` : ''), W / 2, H - 200);
+    ctx.fillStyle = '#4b5565'; ctx.font = `400 28px ${FONTE}`;
+    ctx.fillText(T.card.cta, W / 2, H - 140);
+    ctx.fillStyle = grad; ctx.font = `700 40px ${FONTE}`;
+    ctx.fillText(SITE, W / 2, H - 88);
+  }
+
+  function arredondado(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function quebrar(ctx, texto, max) {
+    const palavras = texto.split(' '), out = [];
+    let linha = '';
+    for (const p of palavras) {
+      const teste = linha ? linha + ' ' + p : p;
+      if (ctx.measureText(teste).width > max && linha) { out.push(linha); linha = p; } else linha = teste;
+    }
+    if (linha) out.push(linha);
+    return out;
+  }
+  function cortar(ctx, txt, max) {
+    let s = txt;
+    while (ctx.measureText(s).width > max && s.length > 4) s = s.slice(0, -2);
+    return s === txt ? s : s + '…';
+  }
+
+  /* ===== Compartilhar ===== */
+  function fraseCompartilhar(S) {
+    const t = textos(S);
+    return `${t.lead} ${t.big} ${t.sub}. 🎯`;
+  }
+
+  window.compartilharWhatsApp = function () {
+    if (!SIM) return;
+    evento('compartilhar', { metodo: 'whatsapp' });
+    const corpo = linhas(SIM).map(([k, v]) => `${k}: ${v}`).join('\n');
+    const msg = `${fraseCompartilhar(SIM)}\n\n${corpo}\n\n${T.card.aviso}\n${T.zap.cta} ${URL_SITE}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  };
+
+  window.compartilharResultado = async function () {
+    const canvas = document.getElementById('cardCompartilhar');
+    if (!canvas || !SIM) return;
+    evento('compartilhar', { metodo: 'imagem' });
+    const texto = fraseCompartilhar(SIM);
+    if (navigator.share) {
+      try {
+        const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+        const file = new File([blob], 'minha-renda-passiva.png', { type: 'image/png' });
+        const dados = navigator.canShare && navigator.canShare({ files: [file] })
+          ? { files: [file], text: texto, url: URL_SITE }
+          : { text: `${texto}\n\n${URL_SITE}` };
+        await navigator.share(dados);
+        return;
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;
       }
     }
-  });
-}
+    const link = document.createElement('a');
+    link.download = 'minha-renda-passiva.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
 
-renderizarGrafico();
-
-/* ===== CARD COMPARTILHÁVEL ===== */
-function gerarCard() {
-  const canvas = document.getElementById('cardCompartilhar');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = 1080, H = 1350;
-  canvas.width = W;
-  canvas.height = H;
-  const PX = 72;
-
-  // Fundo
-  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-  bgGrad.addColorStop(0, '#030711');
-  bgGrad.addColorStop(1, '#130d2e');
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, W, H);
-
-  // Glow superior
-  const g1 = ctx.createRadialGradient(W/2, 300, 0, W/2, 300, 420);
-  g1.addColorStop(0, 'rgba(125,56,240,0.18)');
-  g1.addColorStop(1, 'rgba(125,56,240,0)');
-  ctx.fillStyle = g1;
-  ctx.fillRect(0, 0, W, H);
-
-  // Glow inferior
-  const g2 = ctx.createRadialGradient(W/2, H-200, 0, W/2, H-200, 380);
-  g2.addColorStop(0, 'rgba(232,71,235,0.12)');
-  g2.addColorStop(1, 'rgba(232,71,235,0)');
-  ctx.fillStyle = g2;
-  ctx.fillRect(0, H-580, W, H);
-
-  // Gradiente principal (barras + URL)
-  const mainGrad = ctx.createLinearGradient(0, 0, W, 0);
-  mainGrad.addColorStop(0, '#7d38f0');
-  mainGrad.addColorStop(1, '#e847eb');
-
-  // Barra topo
-  ctx.fillStyle = mainGrad;
-  ctx.fillRect(0, 0, W, 14);
-
-  // Branding
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#7d38f0';
-  ctx.font = '700 22px Inter, system-ui, sans-serif';
-  ctx.fillText(LANG === 'en' ? 'Passive Income Calculator' : 'Calculadora de Renda Passiva', W/2, 62);
-
-  // Helper divisor
-  function div(y) {
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(PX, y); ctx.lineTo(W-PX, y); ctx.stroke();
-  }
-  div(92);
-
-  // Dados do resultado
-  const idx    = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
-  const prazo  = sessionStorage.getItem('prazo') || '---';
-  const renda  = sessionStorage.getItem('rendaPassivaResult') || '---';
-  const inic   = sessionStorage.getItem('valorInicialResult') || '---';
-  const recorr = sessionStorage.getItem('valorRecorrenteResult') || '---';
-  const taxa   = sessionStorage.getItem('taxa') || '---';
-  const taxaA  = sessionStorage.getItem('taxaAnual') || '---';
-  const acum   = sessionStorage.getItem('valorAcumulado') || '---';
-  const invest = sessionStorage.getItem('valorInvestido') || '---';
-  const rendim = sessionStorage.getItem('rendimentos') || '---';
-
-  // Headlines personalizados por campo calculado
-  const defs = LANG === 'en' ? [
-    { pre: ['I will reach my', 'financial independence in'],             big: prazo,             post: [] },
-    { pre: ['I only need'],                                              big: `$ ${inic}`,       post: ['as initial investment to live off passive income'] },
-    { pre: ['Investing only'],                                           big: `$ ${recorr}/mo`,  post: ['I will already have passive income!'] },
-    { pre: ['With only'],                                                big: `${taxa}% p.m.`,   post: ['monthly return I reach', 'my financial independence!'] },
-    { pre: ['My monthly passive income will be'],                        big: `$ ${renda}/mo`,   post: [] },
-  ] : [
-    { pre: ['Vou alcançar minha', 'independência financeira em'],        big: prazo,             post: [] },
-    { pre: ['Preciso de apenas'],                                         big: `R$ ${inic}`,      post: ['de valor inicial para viver de renda passiva'] },
-    { pre: ['Investindo apenas'],                                         big: `R$ ${recorr}/mês`, post: ['já terei renda passiva!'] },
-    { pre: ['Com apenas'],                                                big: `${taxa}% a.m.`,   post: ['de retorno mensal alcanço', 'minha independência financeira!'] },
-    { pre: ['Minha renda passiva será de'],                              big: `R$ ${renda}/mês`, post: [] },
-  ];
-  const def = defs[idx >= 0 && idx < 5 ? idx : 4];
-
-  // Gradiente do valor principal
-  const txtGrad = ctx.createLinearGradient(PX, 0, W-PX, 0);
-  txtGrad.addColorStop(0, '#c084fc');
-  txtGrad.addColorStop(1, '#f0abfc');
-
-  let y = 148;
-
-  // Linhas de pré-headline
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '400 28px Inter, system-ui, sans-serif';
-  for (const line of def.pre) { ctx.fillText(line, W/2, y); y += 44; }
-  y += 60;
-
-  // Valor principal grande
-  let fs = 86;
-  ctx.font = `800 ${fs}px Inter, system-ui, sans-serif`;
-  while (ctx.measureText(def.big).width > W - PX*2 && fs > 38) {
-    fs -= 2;
-    ctx.font = `800 ${fs}px Inter, system-ui, sans-serif`;
-  }
-  ctx.fillStyle = txtGrad;
-  ctx.fillText(def.big, W/2, y);
-  y += 48;
-
-  // Linhas de pós-headline
-  if (def.post.length) {
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '400 26px Inter, system-ui, sans-serif';
-    for (const line of def.post) { ctx.fillText(line, W/2, y); y += 40; }
+  // Clique no card abre em tamanho real
+  const cardCanvas = document.getElementById('cardCompartilhar');
+  if (cardCanvas) {
+    const overlay = el('div', 'lightbox-overlay');
+    const img = el('img');
+    img.alt = EN ? 'Your result card' : 'Card com seu resultado';
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+    cardCanvas.addEventListener('click', () => { img.src = cardCanvas.toDataURL('image/png'); overlay.classList.add('active'); });
+    overlay.addEventListener('click', () => overlay.classList.remove('active'));
   }
 
-  y += 56; div(y); y += 46;
-
-  // Label da tabela
-  ctx.fillStyle = '#475569';
-  ctx.font = '600 17px Inter, system-ui, sans-serif';
-  ctx.textAlign = 'left';
-  ctx.fillText(LANG === 'en' ? 'CALCULATION SUMMARY' : 'RESUMO DO CÁLCULO', PX, y);
-  y += 18;
-
-  // Tabela de resultados (9 linhas)
-  const rows = LANG === 'en' ? [
-    ['Period',              prazo],
-    ['Initial Amount',      `$ ${inic}`],
-    ['Monthly Contribution',`$ ${recorr}`],
-    ['Total Invested',      `$ ${invest}`],
-    ['Returns',             `$ ${rendim}`],
-    ['Accumulated Value',   `$ ${acum}`],
-    ['Monthly Rate',        `${taxa}%/mo`],
-    ['Annual Rate',         `${taxaA}%/yr`],
-    ['Passive Income',      `$ ${renda}/mo`],
-  ] : [
-    ['Prazo',           prazo],
-    ['Valor Inicial',   `R$ ${inic}`],
-    ['Aporte Mensal',   `R$ ${recorr}`],
-    ['Total Investido', `R$ ${invest}`],
-    ['Rendimentos',     `R$ ${rendim}`],
-    ['Valor Acumulado', `R$ ${acum}`],
-    ['Taxa Mensal',     `${taxa}% a.m.`],
-    ['Taxa Anual',      `${taxaA}% a.a.`],
-    ['Renda Passiva',   `R$ ${renda}/mês`],
-  ];
-  for (const [label, val] of rows) {
-    y += 62;
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '400 21px Inter, system-ui, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(label, PX, y);
-    ctx.fillStyle = '#f8fafc';
-    ctx.font = '600 21px Inter, system-ui, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(val, W-PX, y);
+  /* ===== Voltar ao topo ===== */
+  const topo = document.getElementById('backToTop');
+  if (topo) {
+    window.addEventListener('scroll', () => { topo.style.display = document.documentElement.scrollTop > 400 ? 'flex' : 'none'; }, { passive: true });
+    topo.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  y += 56; div(y); y += 64;
-
-  // CTA
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '400 26px Inter, system-ui, sans-serif';
-  ctx.fillText(LANG === 'en' ? 'Calculate yours too at:' : 'Calcule você também em:', W/2, y);
-  y += 62;
-  ctx.font = '700 38px Inter, system-ui, sans-serif';
-  ctx.fillStyle = mainGrad;
-  ctx.fillText(LANG === 'en' ? 'calculatepassiveincome.com' : 'calcularrendapassiva.com', W/2, y);
-  y += 52;
-  ctx.fillStyle = '#475569';
-  ctx.font = '400 19px Inter, system-ui, sans-serif';
-  ctx.fillText(LANG === 'en' ? 'Calculate your financial independence · Free' : 'Calcule sua independência financeira · Grátis', W/2, y);
-
-  // Barra base
-  ctx.fillStyle = mainGrad;
-  ctx.fillRect(0, H-14, W, 14);
-}
-
-function compartilharWhatsApp() {
-  evento('compartilhar', { metodo: 'whatsapp' });
-  const idx       = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
-  const prazo     = sessionStorage.getItem('prazo') || '---';
-  const renda     = sessionStorage.getItem('rendaPassivaResult') || '---';
-  const inicial   = sessionStorage.getItem('valorInicialResult') || '---';
-  const recorr    = sessionStorage.getItem('valorRecorrenteResult') || '---';
-  const taxa      = sessionStorage.getItem('taxa') || '---';
-  const taxaAnual = sessionStorage.getItem('taxaAnual') || '---';
-  const investido = sessionStorage.getItem('valorInvestido') || '---';
-  const rendim    = sessionStorage.getItem('rendimentos') || '---';
-  const acumulado = sessionStorage.getItem('valorAcumulado') || '---';
-
-  const frases = LANG === 'en' ? [
-    `I found out that in *${prazo}* I'll have *$ ${renda}/month* in passive income! 🎯`,
-    `I only need *$ ${inicial}* as initial investment to have *$ ${renda}/month* in passive income! 🎯`,
-    `Investing *$ ${recorr}/month* I'll have *$ ${renda}/month* in passive income! 🎯`,
-    `With *${taxa}% monthly return* I'll reach *$ ${renda}/month* in passive income! 🎯`,
-    `My monthly passive income will be *$ ${renda}* in *${prazo}*! 🎯`,
-  ] : [
-    `Descobri que em *${prazo}* terei renda passiva de *R$ ${renda}/mês*! 🎯`,
-    `Descobri que preciso de *R$ ${inicial}* de valor inicial para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
-    `Descobri que preciso aportar *R$ ${recorr}/mês* para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
-    `Descobri que preciso de *${taxa}% ao mês* para ter renda passiva de *R$ ${renda}/mês*! 🎯`,
-    `Descobri que minha renda passiva será de *R$ ${renda}/mês* em *${prazo}*! 🎯`,
-  ];
-
-  const frase = frases[idx >= 0 && idx < 5 ? idx : 4];
-
-  const resultados = LANG === 'en' ? [
-    `Period: ${prazo}`,
-    `Initial Amount: $ ${inicial}`,
-    `Monthly Contribution: $ ${recorr}`,
-    `Total Invested: $ ${investido}`,
-    `Returns: $ ${rendim}`,
-    `Accumulated Value: $ ${acumulado}`,
-    `Monthly Rate: ${taxa}%`,
-    `Annual Rate: ${taxaAnual}%`,
-    `Passive Income: $ ${renda}/mo`,
-  ].join('\n') : [
-    `Prazo: ${prazo}`,
-    `Valor Inicial: R$ ${inicial}`,
-    `Valor Recorrente: R$ ${recorr}`,
-    `Valor Investido: R$ ${investido}`,
-    `Rendimentos: R$ ${rendim}`,
-    `Valor Acumulado: R$ ${acumulado}`,
-    `Taxa Mensal: ${taxa}%`,
-    `Taxa Anual: ${taxaAnual}%`,
-    `Renda Passiva: R$ ${renda}`,
-  ].join('\n');
-
-  const ctaWa = LANG === 'en' ? 'Calculate yours: https://calculatepassiveincome.com' : 'Calcule a sua: https://calcularrendapassiva.com';
-  const msg = `${frase}\n\n${resultados}\n\n${ctaWa}`;
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-
-async function compartilharResultado() {
-  evento('compartilhar', { metodo: 'imagem' });
-  const canvas = document.getElementById('cardCompartilhar');
-  if (!canvas) return;
-
-  const idx     = parseInt(sessionStorage.getItem('campoCalculado') ?? '4');
-  const prazo   = sessionStorage.getItem('prazo') || '---';
-  const renda   = sessionStorage.getItem('rendaPassivaResult') || '---';
-  const inicial = sessionStorage.getItem('valorInicialResult') || '---';
-  const recorr  = sessionStorage.getItem('valorRecorrenteResult') || '---';
-  const taxa    = sessionStorage.getItem('taxa') || '---';
-
-  const frases = LANG === 'en' ? [
-    `In ${prazo} I'll have $ ${renda}/month in passive income! 🎯`,
-    `I only need $ ${inicial} as initial investment to have $ ${renda}/month in passive income! 🎯`,
-    `Investing $ ${recorr}/month I'll have $ ${renda}/month in passive income! 🎯`,
-    `With ${taxa}% monthly return I'll reach $ ${renda}/month in passive income! 🎯`,
-    `My monthly passive income will be $ ${renda}! 🎯`,
-  ] : [
-    `Descobri que em ${prazo} terei renda passiva de R$ ${renda}/mês! 🎯`,
-    `Descobri que preciso de R$ ${inicial} de valor inicial para ter renda passiva de R$ ${renda}/mês! 🎯`,
-    `Descobri que preciso aportar R$ ${recorr}/mês para ter renda passiva de R$ ${renda}/mês! 🎯`,
-    `Descobri que preciso de ${taxa}% ao mês para ter renda passiva de R$ ${renda}/mês! 🎯`,
-    `Descobri que minha renda passiva será de R$ ${renda}/mês em ${prazo}! 🎯`,
-  ];
-  const texto = frases[idx >= 0 && idx < 5 ? idx : 4];
-  const url = LANG === 'en' ? 'https://calculatepassiveincome.com' : 'https://calcularrendapassiva.com';
-
-  if (navigator.share) {
-    try {
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-      const file = new File([blob], 'minha-renda-passiva.png', { type: 'image/png' });
-      const shareData = (navigator.canShare && navigator.canShare({ files: [file] }))
-        ? { files: [file], text: texto, url }
-        : { text: `${texto}\n\nCalcule a sua: ${url}` };
-      await navigator.share(shareData);
-      return;
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-      // Falhou com arquivo, tenta sem
-      try {
-        await navigator.share({ text: `${texto}\n\nCalcule a sua: ${url}` });
-        return;
-      } catch (_) { /* fallback para download */ }
-    }
-  }
-
-  // Fallback: download da imagem
-  const link = document.createElement('a');
-  link.download = 'minha-renda-passiva.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-}
-
-// Gera o card após as fontes carregarem para garantir renderização correta
-if (document.getElementById('cardCompartilhar')) {
-  document.fonts.ready.then(gerarCard);
-
-  // Lightbox: clique no canvas abre versão em tamanho real
-  const overlay = document.createElement('div');
-  overlay.className = 'lightbox-overlay';
-  const lbImg = document.createElement('img');
-  lbImg.alt = 'Resultado em tamanho real';
-  overlay.appendChild(lbImg);
-  document.body.appendChild(overlay);
-
-  document.getElementById('cardCompartilhar').addEventListener('click', function () {
-    lbImg.src = this.toDataURL('image/png');
-    overlay.classList.add('active');
-  });
-  overlay.addEventListener('click', function () {
-    overlay.classList.remove('active');
-  });
-}
-
-
-/* ===== BACK TO TOP ===== */
-const backToTop = document.getElementById('backToTop');
-if (backToTop) {
-  window.addEventListener('scroll', () => {
-    backToTop.style.display = document.documentElement.scrollTop > 300 ? 'block' : 'none';
-  });
-  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-}
+  requestAnimationFrame(() => requestAnimationFrame(syncFlipCardHeight));
+})();

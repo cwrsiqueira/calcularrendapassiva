@@ -2,7 +2,7 @@
 // Usado por scripts/paginas.js (páginas programáticas) e pela importação dos artigos do Lovable.
 
 const SITE = 'https://calcularrendapassiva.com';
-const CSS_VERSION = '2026101501';
+const CSS_VERSION = '2026110701';
 const AD_CLIENT = 'ca-pub-5865817649832793';
 
 // Bloco de afiliados Hotmart (só PT) — links e textos em js/afiliados.js
@@ -129,7 +129,7 @@ ${ld}  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <div class="wrapper">
     <main class="content">
       <div class="calculadora-container">
-        <script src="/js/header-card.js"></script>
+        <script src="/js/header-card.js?v=2026110701"></script>
         <article class="card">
           <a href="${t.home}" class="article-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> ${t.voltar}</a>
 

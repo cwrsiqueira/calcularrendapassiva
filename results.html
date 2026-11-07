@@ -12,7 +12,7 @@
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <meta name="theme-color" content="#7d38f0" />
+  <meta name="theme-color" content="#eef1f5" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,21 +26,19 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="/css/style.css?v=2026101501" />
+  <link rel="stylesheet" href="/css/style.css?v=2026110701" />
 </head>
 <body>
 
-  <button id="backToTop" aria-label="Voltar ao topo">
-    <i class="fa-solid fa-circle-arrow-up" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i>
-  </button>
+  <button id="backToTop" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
   <div class="wrapper">
     <main class="content">
-      <div class="calculadora-container">
-        <script src="/js/header-card.js"></script>
+      <div class="calculadora-container page-resultado">
+        <script src="/js/header-card.js?v=2026110701"></script>
 
         <!-- CRP top -->
         <div class="ad-top">
@@ -48,148 +46,63 @@
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <!-- Resultados com flip card já virado -->
-        <section class="flip-card flip-card-flipped" aria-label="Resultados da calculadora">
+        <!-- Resultado: flip card já virado -->
+        <section class="flip-card flip-card-flipped" aria-label="Resultado da simulação">
           <div class="flip-card-inner">
-
-            <!-- Frente (oculta) -->
-            <div class="flip-card-front">
-              <form id="rendaForm">
-                <p class="input-hint">Preencha Prazo em meses ou anos</p>
-                <div class="form-row">
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" id="periodo" placeholder=" " maxlength="3" autocomplete="off" />
-                    <label for="periodo">Prazo (meses)</label>
-                  </div>
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" id="periodoAnual" placeholder=" " maxlength="2" autocomplete="off" />
-                    <label for="periodoAnual">Prazo (anos)</label>
-                  </div>
-                </div>
-                <p class="input-hint">Preencha Taxa mensal ou anual (%)</p>
-                <div class="form-row">
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" class="percent" id="txPeriodo" placeholder=" " maxlength="6" autocomplete="off" />
-                    <label for="txPeriodo">Taxa mensal (%)</label>
-                  </div>
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" class="percent" id="txPeriodoAnual" placeholder=" " maxlength="7" autocomplete="off" />
-                    <label for="txPeriodoAnual">Taxa anual (%)</label>
-                  </div>
-                </div>
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
-                  <label for="valorInicial">Valor inicial (R$)</label>
-                </div>
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="valorRecorrente" placeholder=" " autocomplete="off" />
-                  <label for="valorRecorrente">Valor recorrente mensal (R$)</label>
-                </div>
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="rendaPassiva" placeholder=" " autocomplete="off" />
-                  <label for="rendaPassiva">Renda passiva desejada (R$)</label>
-                </div>
-                <button type="button" class="btn-primary" id="calcularBtn">Calcular</button>
-              </form>
+            <div class="flip-card-front flip-loading">
+              <div class="spinner" role="status"></div>
+              <p>Abrindo a calculadora…</p>
             </div>
 
-            <!-- Verso: resultados -->
-            <div class="flip-card-back">
-              <div class="result-header">
-                <div class="result-header__title-row">
-                  <div class="card-icon"><i class="fa-solid fa-square-poll-vertical" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-                  <span class="card-title">Resultados</span>
-                </div>
-                <div class="result-actions">
-                  <a href="#sec-compartilhar" class="btn-nav" title="Compartilhar resultado" aria-label="Compartilhar resultado">
-                    <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-grafico" class="btn-nav" title="Gráfico de evolução" aria-label="Gráfico de evolução">
-                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-email" class="btn-nav" title="Planilha gratuita" aria-label="Planilha gratuita">
-                    <i class="fa-solid fa-table" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-app" class="btn-nav" title="App gratuito" aria-label="App gratuito">
-                    <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-apoio" class="btn-nav" title="Apoie o site" aria-label="Apoie o site">
-                    <i class="fa-solid fa-coins" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-ferramentas" class="btn-nav" title="Outras ferramentas" aria-label="Outras ferramentas">
-                    <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
-                  </a>
-                  <a href="#blog" class="btn-nav" title="Artigos" aria-label="Artigos">
-                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
-                  </a>
-                  <a href="/articles/entendendo-os-resultados" class="btn-icon" title="Entendendo os resultados" aria-label="Entendendo os resultados">
-                    <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
-                  </a>
-                </div>
+            <div class="flip-card-back" id="resultado">
+              <div class="calc-head">
+                <h1 class="calc-title">Seu resultado</h1>
+                <a href="/articles/entendendo-os-resultados" class="btn-icon" title="Entendendo os resultados" aria-label="Entendendo os resultados"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></a>
               </div>
-
-              <div class="result-list" role="list">
-                <div class="result-item" id="resultPrazo" role="listitem"></div>
-                <div class="result-item" id="resultValorInicial" role="listitem"></div>
-                <div class="result-item" id="resultValorRecorrente" role="listitem"></div>
-                <div class="result-item" id="resultValorInvestido" role="listitem"></div>
-                <div class="result-item" id="resultRendimentos" role="listitem"></div>
-                <div class="result-item" id="resultValorAcumulado" role="listitem"></div>
-                <div class="result-item" id="resultTaxa" role="listitem"></div>
-                <div class="result-item" id="resultTaxaAnual" role="listitem"></div>
-                <div class="result-item" id="resultRendaPassiva" role="listitem"></div>
+              <div class="result-hero">
+                <p class="result-lead" id="resLead"></p>
+                <p class="result-big" id="resBig"></p>
+                <p class="result-sub" id="resSub"></p>
               </div>
-
-              <p class="result-disclaimer">⚠️ Estimativas para fins educacionais. Não constituem recomendação de investimento. Rentabilidades passadas não garantem resultados futuros. Consulte um profissional certificado antes de investir. Taxas sujeitas a variação conforme cenário econômico.</p>
-
-              <button type="button" class="btn-primary" id="voltarBtn" style="margin-top:1rem;">
-                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Recalcular
-              </button>
+              <ul class="result-chips" id="resChips"></ul>
+              <dl class="result-list" id="resLista"></dl>
+              <p class="result-disclaimer" id="resAviso"></p>
+              <p class="result-fontes" id="resFontes"></p>
+              <div class="calc-actions">
+                <button type="button" class="btn-primary" id="voltarBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Refazer simulação</button>
+                <a href="#sec-compartilhar" class="btn-secondary"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartilhar</a>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- Card Compartilhável -->
-        <section id="sec-compartilhar" class="card share-card-section" aria-label="Compartilhe seu resultado">
-          <div class="card-header">
-            <div class="card-icon"><i class="fa-solid fa-share-nodes" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Compartilhe seu resultado</span>
-          </div>
-          <div class="share-preview">
-            <canvas id="cardCompartilhar" aria-label="Card com seu resultado de renda passiva"></canvas>
-          </div>
-          <div class="share-buttons">
-            <button class="btn-share btn-whatsapp" onclick="compartilharWhatsApp()">
-              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
-            </button>
-            <button class="btn-share btn-download" onclick="compartilharResultado()">
-              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartilhar
-            </button>
-          </div>
-        </section>
+        <div class="result-grid">
+          <section id="sec-compartilhar" class="card" aria-label="Compartilhe seu resultado">
+            <div class="card-header"><span class="card-icon"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></span><h2 class="card-title">Compartilhe seu resultado</h2></div>
+            <div class="share-preview"><canvas id="cardCompartilhar" aria-label="Compartilhe seu resultado"></canvas></div>
+            <p class="card-note">Toque no card para ver em tamanho real.</p>
+            <div class="share-buttons">
+              <button type="button" class="btn-share btn-whatsapp" onclick="compartilharWhatsApp()"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</button>
+              <button type="button" class="btn-share btn-secondary" onclick="compartilharResultado()"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartilhar imagem</button>
+            </div>
+          </section>
 
-        <!-- Gráfico de Evolução do Patrimônio -->
-        <section id="sec-grafico" class="card chart-card" aria-label="Evolução do patrimônio">
-          <div class="card-header">
-            <div class="card-icon"><i class="fa-solid fa-chart-line" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-            <span class="card-title">Evolução do Patrimônio</span>
-          </div>
-          <div class="chart-container">
-            <canvas id="graficoPatrimonio" aria-label="Gráfico de evolução do patrimônio acumulado"></canvas>
-          </div>
-        </section>
+          <section id="sec-grafico" class="card chart-card" aria-label="Evolução do patrimônio">
+            <div class="card-header"><span class="card-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span><h2 class="card-title">Evolução do patrimônio</h2></div>
+            <div class="chart-container"><canvas id="graficoPatrimonio" aria-label="Evolução do patrimônio"></canvas></div>
+          </section>
+        </div>
 
-        <script src="/js/sections.js?v=2026110601"></script>
+        <script src="/js/sections.js?v=2026110701" data-pagina="resultado"></script>
         <script src="/js/afiliados.js?v=2026101701"></script>
         <script src="/js/ads.js"></script>
-
       </div>
     </main>
 
     <footer>
       <p>&copy; 2026 Calcular Renda Passiva. Todos os direitos reservados.</p>
-      <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Termos de Uso e Políticas de Privacidade</a>
-      <p style="margin-top:0.25rem;">Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <p><a href="/artigos">Artigos e Simulações</a> &middot; <a href="/termos-de-uso-e-politicas-de-privacidade.html" target="_blank">Termos de Uso e Políticas de Privacidade</a></p>
+      <p>Desenvolvido com ❤️ por <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
       <div class="social-icons">
         <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
         <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
@@ -200,7 +113,8 @@
 
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <script defer src="/js/calculadora.js?v=2026101701"></script>
+  <script defer src="/js/simulador.js?v=2026110701"></script>
+  <script defer src="/js/calculadora.js?v=2026110701"></script>
   <script defer src="/js/email.js?v=2026110601"></script>
 </body>
 </html>

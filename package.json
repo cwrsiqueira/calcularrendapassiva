@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "paginas": "node scripts/paginas.js",
+    "local": "node scripts/servidor-local.js",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {

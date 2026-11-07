@@ -27,15 +27,15 @@
   }
 
   const card = document.createElement('div');
-  card.className = 'card header-card';
+  card.className = 'header-card';
   card.innerHTML =
-    '<div class="header-card-brand">' +
-      '<i class="fa-solid fa-calculator header-card-icon" aria-hidden="true"></i>' +
-      '<div>' +
+    '<a class="header-card-brand" href="' + (isEn ? '/en/' : '/') + '">' +
+      '<span class="header-card-icon" aria-hidden="true"><i class="fa-solid fa-calculator"></i></span>' +
+      '<span>' +
         '<span class="header-card-title">' + title + '</span>' +
         '<span class="header-card-subtitle">' + subtitle + '</span>' +
-      '</div>' +
-    '</div>' +
+      '</span>' +
+    '</a>' +
     langHtml;
 
   const script = document.currentScript;

@@ -10,6 +10,9 @@
   "lciPercentCdi": 90,
   "fiiDividendYield": 10,
   "acoesDividendYield": 7,
+  "tesouroIpcaReal": 7.5,
+  "custodiaTesouro": 0.2,
+  "_estimativas": "fiiDividendYield, acoesDividendYield e tesouroIpcaReal são estimativas revisadas à mão (sem fonte oficial automática)",
   "fontes": "Banco Central (Copom 16/09/2026), IBGE (IPCA set/2026), BCB série 196 (poupança)",
   "en": {
     "_comentario": "Taxas EUA para as páginas EN (/en/articles). Atualizar junto com as PT.",
@@ -22,6 +25,8 @@
     "realReturn": 7,
     "inflation": 2.9,
     "withdrawal": 4,
+    "taxInterest": 22,
+    "taxDividends": 15,
     "gastoMensalMedio": 6440,
     "fontes": "CNBC Select and NerdWallet (savings and CD rates, Oct 2026), U.S. Treasury (3-month bill), BLS Consumer Expenditure Survey (household spending)"
   }

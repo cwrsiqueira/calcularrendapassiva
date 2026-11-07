@@ -32,7 +32,7 @@
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="shortcut icon" href="/favicon.svg" />
-  <meta name="theme-color" content="#7d38f0" />
+  <meta name="theme-color" content="#eef1f5" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,7 +62,7 @@
       {
         "@type": "Question",
         "name": "How does the passive income calculator work?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Enter the period, the expected rate of return, your initial amount, your monthly contribution and the monthly passive income you want. Leave one field blank and the calculator solves for it: the time to reach your goal, the monthly contribution required, or the return rate that makes the plan work. It compounds your balance month by month." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Choose what you want to find out (how much to invest each month, how long it takes, how much you will have, or how much you need), where you will invest (high-yield savings, CDs, T-bills, dividend ETFs or an S&P 500 index fund) and whether to subtract taxes and inflation. It compounds your balance month by month using reference rates updated every month." }
       },
       {
         "@type": "Question",
@@ -99,18 +99,16 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5865817649832793" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="/css/style.css?v=2026101501" />
+  <link rel="stylesheet" href="/css/style.css?v=2026110701" />
 </head>
 <body>
 
-  <button id="backToTop" aria-label="Back to top">
-    <i class="fa-solid fa-circle-arrow-up" style="color:#eb47eb;font-size:32px;"></i>
-  </button>
+  <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
 
   <div class="wrapper">
     <main class="content">
-      <div class="calculadora-container">
-        <script src="/js/header-card.js"></script>
+      <div class="calculadora-container page-home">
+        <script src="/js/header-card.js?v=2026110701"></script>
 
         <!-- CRP top -->
         <div class="ad-top">
@@ -118,99 +116,122 @@
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <!-- Calculator -->
-        <section class="flip-card" aria-label="Passive income calculator">
-          <div class="flip-card-inner">
+        <div class="home-grid">
+          <section class="flip-card" aria-label="Passive income calculator">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="calc-head">
+                  <h1 class="calc-title">Passive Income Calculator</h1>
+                  <a href="/en/articles/how-to-use-passive-income-calculator" class="btn-icon" title="How to use the calculator" aria-label="How to use the calculator"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></a>
+                </div>
 
-            <!-- Front: form -->
-            <div class="flip-card-front">
-              <div class="result-header" style="margin-bottom:0.5rem;">
-                <div class="result-header__title-row">
-                  <div class="card-icon"><i class="fa-solid fa-calculator" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div>
-                  <h1 class="card-title" style="margin:0;">Passive Income Calculator</h1>
-                </div>
-                <div class="result-actions">
-                  <a href="#sec-email" class="btn-nav" title="Free spreadsheet" aria-label="Free spreadsheet">
-                    <i class="fa-solid fa-table" aria-hidden="true"></i>
-                  </a>
-                  <a href="#sec-apoio" class="btn-nav" title="Support the site" aria-label="Support the site">
-                    <i class="fa-solid fa-coins" aria-hidden="true"></i>
-                  </a>
-                  <a href="#blog" class="btn-nav" title="Articles" aria-label="Articles">
-                    <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
-                  </a>
-                  <a href="/en/articles/how-to-use-passive-income-calculator" class="btn-icon" title="How to use the calculator" aria-label="How to use">
-                    <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
-                  </a>
-                </div>
+                <form id="simForm" novalidate>
+                  <fieldset class="grupo">
+                    <legend class="rotulo">What do you want to find out?</legend>
+                    <div class="modos">
+                      <label class="modo"><input type="radio" name="modo" value="aporte" checked /><span><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>How much to invest monthly</span></label>
+                      <label class="modo"><input type="radio" name="modo" value="prazo" /><span><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>How long it will take</span></label>
+                      <label class="modo"><input type="radio" name="modo" value="renda" /><span><i class="fa-solid fa-chart-line" aria-hidden="true"></i>How much I will have</span></label>
+                      <label class="modo"><input type="radio" name="modo" value="patrimonio" /><span><i class="fa-solid fa-bullseye" aria-hidden="true"></i>How much I need</span></label>
+                    </div>
+                  </fieldset>
+
+                  <div class="grupo">
+                    <label class="rotulo" for="produto">Where will you invest?</label>
+                    <select id="produto" name="produto" class="campo-input"><option>Loading rates…</option></select>
+                    <p id="produtoInfo" class="dica" aria-live="polite"></p>
+                  </div>
+
+                  <div class="grupo" id="grupoTaxa" hidden>
+                    <label class="rotulo" for="taxaAnual">Expected return</label>
+                    <div class="campo-com-sufixo"><input type="text" inputmode="numeric" id="taxaAnual" name="taxaAnual" class="campo-input js-pct" placeholder="7.00" autocomplete="off" /><span>% per year</span></div>
+                  </div>
+
+                  <div class="campos">
+                    <div class="campo" data-modos="aporte prazo patrimonio">
+                      <label class="rotulo" for="renda">Desired passive income</label>
+                      <div class="campo-com-prefixo"><span>$</span><input type="text" inputmode="numeric" id="renda" name="renda" class="campo-input js-moeda" placeholder="5,000.00" autocomplete="off" /><span class="sufixo">/month</span></div>
+                    </div>
+                    <div class="campo" data-modos="renda aporte prazo">
+                      <label class="rotulo" for="inicial">Current savings</label>
+                      <div class="campo-com-prefixo"><span>$</span><input type="text" inputmode="numeric" id="inicial" name="inicial" class="campo-input js-moeda" placeholder="0.00" autocomplete="off" /></div>
+                    </div>
+                    <div class="campo" data-modos="renda prazo">
+                      <label class="rotulo" for="aporte">Monthly contribution</label>
+                      <div class="campo-com-prefixo"><span>$</span><input type="text" inputmode="numeric" id="aporte" name="aporte" class="campo-input js-moeda" placeholder="1,000.00" autocomplete="off" /></div>
+                    </div>
+                    <div class="campo" data-modos="renda aporte">
+                      <label class="rotulo" for="anos">Time frame</label>
+                      <div class="campo-com-sufixo"><input type="text" inputmode="numeric" id="anos" name="anos" class="campo-input js-inteiro" placeholder="20" maxlength="2" autocomplete="off" /><span>years</span></div>
+                    </div>
+                  </div>
+
+                  <div class="opcoes">
+                    <label class="opcao"><input type="checkbox" id="imposto" name="imposto" checked /><span class="chave" aria-hidden="true"></span><span>Subtract taxes <small>(estimate)</small></span></label>
+                    <label class="opcao"><input type="checkbox" id="inflacao" name="inflacao" /><span class="chave" aria-hidden="true"></span><span>Show in today&rsquo;s money <small>(subtracts inflation)</small></span></label>
+                  </div>
+
+                  <p id="calcErro" class="calc-erro" role="alert"></p>
+
+                  <div class="calc-actions">
+                    <button type="submit" class="btn-primary" id="calcularBtn">Calculate <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                    <button type="button" class="btn-ghost" id="btn-reset" title="Clear fields" aria-label="Clear fields"><i class="fa-solid fa-eraser" aria-hidden="true"></i></button>
+                  </div>
+
+                  <p class="calc-aviso"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Educational simulation using reference rates from <span id="taxasRef">this month</span>. Not investment advice or a guarantee of returns.</p>
+                </form>
               </div>
-              <form id="rendaForm" novalidate>
-                <p class="input-hint">Fill in Period in months or years</p>
-                <div class="form-row">
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" id="periodo" placeholder=" " maxlength="3" autocomplete="off" />
-                    <label for="periodo">Period (months)</label>
-                  </div>
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" id="periodoAnual" placeholder=" " maxlength="2" autocomplete="off" />
-                    <label for="periodoAnual">Period (years)</label>
-                  </div>
-                </div>
 
-                <p class="input-hint">Fill in Monthly or Annual Rate (%)</p>
-                <div class="form-row">
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" class="percent" id="txPeriodo" placeholder=" " maxlength="6" autocomplete="off" />
-                    <label for="txPeriodo">Monthly rate (%)</label>
-                  </div>
-                  <div class="input-float">
-                    <input type="search" inputmode="numeric" class="percent" id="txPeriodoAnual" placeholder=" " maxlength="7" autocomplete="off" />
-                    <label for="txPeriodoAnual">Annual rate (%)</label>
-                  </div>
-                </div>
-
-                <p class="input-hint">Fill in the amounts — leave one blank to calculate it</p>
-
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="valorInicial" placeholder=" " autocomplete="off" />
-                  <label for="valorInicial">Initial amount</label>
-                </div>
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="valorRecorrente" placeholder=" " autocomplete="off" />
-                  <label for="valorRecorrente">Monthly contribution</label>
-                </div>
-                <div class="input-float">
-                  <input type="search" inputmode="numeric" class="value" id="rendaPassiva" placeholder=" " autocomplete="off" />
-                  <label for="rendaPassiva">Desired passive income</label>
-                </div>
-
-                <div class="calc-actions">
-                  <button type="button" class="btn-primary" id="calcularBtn">
-                    Calculate <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" class="btn-clear" id="btn-reset" title="Clear fields" aria-label="Clear fields">
-                    <i class="fa-solid fa-eraser" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </form>
+              <div class="flip-card-back flip-loading">
+                <div class="spinner" role="status"></div>
+                <p>Calculating…</p>
+              </div>
             </div>
+          </section>
 
-            <!-- Back: loading -->
-            <div class="flip-card-back flip-loading">
-              <div class="spinner" role="status"></div>
-              <p>Calculating, please wait...</p>
-            </div>
-          </div>
-        </section>
+          <aside id="lateral" class="lateral"></aside>
+        </div>
 
-        <!-- SEO Text -->
-        <section class="card seo-text" aria-label="About the passive income calculator">
-          <h2>Free Passive Income Calculator — Monthly Goal, Contribution and Time</h2>
-          <p>This <strong>passive income calculator</strong> answers the question most investors start with: <strong>how much do I need to invest for passive income?</strong> Enter the monthly income you want, your initial amount, how much you can save each month and the expected rate of return. The calculator compounds your balance month by month and shows the wealth you build and the monthly passive income it pays.</p>
-          <p>Leave one field blank and it solves for it: the time to reach your goal, the monthly contribution required, the initial amount needed or the return rate that makes your plan work. It works as a <strong>monthly passive income calculator</strong> — every result is shown per month, the way you actually spend money.</p>
+        <script src="/js/sections.js?v=2026110701" data-pagina="home"></script>
 
-          <h2>How Much Do I Need to Invest for Passive Income?</h2>
-          <p>The quick formula is <strong>monthly income × 12 ÷ annual yield</strong>. With the 4% rule, that means 300 times the monthly income you want: $1,000 a month needs about $300,000, and <a href="/en/articles/how-much-to-invest-to-make-5k-a-month">$5,000 a month needs about $1.5 million</a>. The lower the yield, the more you need invested — but savings rates move with interest rates, while stock dividends and the 4% rule are designed to keep up with inflation.</p>
+        <!-- FAQ / supporting text (SEO) -->
+        <section class="card faq" aria-label="Passive income calculator FAQ">
+          <div class="card-header"><span class="card-icon"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></span><h2 class="card-title">Frequently asked questions</h2></div>
+
+          <details>
+            <summary><h3>How does the passive income calculator work?</h3></summary>
+            <p>Choose what you want to find out (how much to invest each month, how long it takes, how much you will have, or how much you need), where you will invest (high-yield savings, CDs, T-bills, dividend ETFs or an S&P 500 index fund) and whether to subtract taxes and inflation. It compounds your balance month by month using reference rates updated every month.</p>
+          </details>
+
+          <details>
+            <summary><h3>How much do I need to invest to make $1,000 a month in passive income?</h3></summary>
+            <p>About $300,000 using the 4% rule, about $286,000 in a high-yield savings account at 4.2% APY, or about $324,000 in a dividend ETF yielding 3.7% (October 2026 rates, before taxes).</p>
+          </details>
+
+          <details>
+            <summary><h3>How much do I need to invest to make $5,000 a month?</h3></summary>
+            <p>About $1.5 million using the 4% rule. At 4.2% in savings or T-bills you would need around $1.43 million, and around $1.62 million in a dividend ETF yielding 3.7%.</p>
+          </details>
+
+          <details>
+            <summary><h3>How long does it take to build $1 million investing $1,000 a month?</h3></summary>
+            <p>At a 10% average annual return (the long-term S&P 500 average), investing $1,000 a month reaches $1 million in about 23 years. At 7% a year it takes about 28 years.</p>
+          </details>
+
+          <details>
+            <summary><h3>What is the 4% rule?</h3></summary>
+            <p>The 4% rule says you can withdraw 4% of your portfolio in the first year of retirement and adjust that amount for inflation each year with a low risk of running out of money over 30 years. To find the portfolio you need, multiply your annual spending by 25.</p>
+          </details>
+
+          <details>
+            <summary><h2>Free Passive Income Calculator — Monthly Goal, Contribution and Time</h2></summary>
+            <p>This <strong>passive income calculator</strong> answers the question most investors start with: <strong>how much do I need to invest for passive income?</strong> Enter the monthly income you want, your initial amount, how much you can save each month and the expected rate of return. The calculator compounds your balance month by month and shows the wealth you build and the monthly passive income it pays.</p>
+          <p>Choose what to solve for: the monthly contribution required, the time to reach your goal, how much you will have, or how much you need invested. Pick where you invest, and subtract taxes and inflation if you want. It works as a <strong>monthly passive income calculator</strong> — every result is shown per month, the way you actually spend money.</p>
+          </details>
+
+          <details>
+            <summary><h2>How Much Do I Need to Invest for Passive Income?</h2></summary>
+            <p>The quick formula is <strong>monthly income × 12 ÷ annual yield</strong>. With the 4% rule, that means 300 times the monthly income you want: $1,000 a month needs about $300,000, and <a href="/en/articles/how-much-to-invest-to-make-5k-a-month">$5,000 a month needs about $1.5 million</a>. The lower the yield, the more you need invested — but savings rates move with interest rates, while stock dividends and the 4% rule are designed to keep up with inflation.</p>
           <div class="article-content">
             <div class="table-wrapper">
               <table>
@@ -227,25 +248,33 @@
             </div>
           </div>
           <p><small>Amount you need invested for each monthly income. Savings = high-yield savings account; Div. ETF = dividend ETF yield. Rates as of October 2026, before taxes. Sources: CNBC Select and NerdWallet (savings and CD rates, Oct 2026), U.S. Treasury (3-month bill), BLS Consumer Expenditure Survey (household spending). Not financial advice.</small></p>
+          </details>
 
-          <h2>How Long Does It Take to Reach Your Goal?</h2>
-          <p>Time is the variable that matters most. Investing $1,000 a month at a 10% average annual return (the long-term stock market average), you reach <a href="/en/articles/how-long-to-save-1-million-investing-1000-a-month">$1 million in about 23 years</a>; at 7% a year (after inflation) it takes about 28 years. And once you get there, see <a href="/en/articles/how-much-does-1-million-earn-per-month">how much $1 million earns per month</a> in savings, CDs, T-bills and dividend ETFs. Use the calculator above to test your own contribution, rate and deadline.</p>
+          <details>
+            <summary><h2>How Long Does It Take to Reach Your Goal?</h2></summary>
+            <p>Time is the variable that matters most. Investing $1,000 a month at a 10% average annual return (the long-term stock market average), you reach <a href="/en/articles/how-long-to-save-1-million-investing-1000-a-month">$1 million in about 23 years</a>; at 7% a year (after inflation) it takes about 28 years. And once you get there, see <a href="/en/articles/how-much-does-1-million-earn-per-month">how much $1 million earns per month</a> in savings, CDs, T-bills and dividend ETFs. Use the calculator above to test your own contribution, rate and deadline.</p>
+          </details>
 
-          <h2>Best Investments for Passive Income in 2026</h2>
-          <p>The most popular passive income sources are <strong>dividend ETFs</strong> like SCHD, VYM, and JEPI (current yields 3–7%); <strong>REITs</strong> with monthly distributions; <strong>dividend stocks</strong> from established companies; and <strong>bonds and Treasury securities</strong> for stable fixed income. Use the calculator to compare scenarios and find the path that fits your timeline and risk tolerance.</p>
+          <details>
+            <summary><h2>Best Investments for Passive Income in 2026</h2></summary>
+            <p>The most popular passive income sources are <strong>dividend ETFs</strong> like SCHD, VYM, and JEPI (current yields 3–7%); <strong>REITs</strong> with monthly distributions; <strong>dividend stocks</strong> from established companies; and <strong>bonds and Treasury securities</strong> for stable fixed income. Use the calculator to compare scenarios and find the path that fits your timeline and risk tolerance.</p>
           <p>Want ready-made numbers? Browse <a href="/en/articles">all passive income simulations</a> — how much $100k to $10 million earns per month, how much to invest for $1,000 to $20,000 a month, and how long it takes to save $1 million.</p>
+          </details>
+
+          <details>
+            <summary><h3>Is the simulation exact?</h3></summary>
+            <p>No. It is an <strong>educational simulation</strong>: it uses reference rates that change over time and simplifies tax rules. It is not investment advice or a guarantee of returns. Dividend ETF yields and stock returns are long-term averages; real results vary a lot from year to year.</p>
+          </details>
         </section>
 
-        <script src="/js/sections.js?v=2026110601"></script>
         <script src="/js/ads.js"></script>
-
       </div>
     </main>
 
     <footer>
       <p>&copy; 2026 Passive Income Calculator. All rights reserved.</p>
-      <a href="/en/terms.html" target="_blank">Terms of Use &amp; Privacy Policy</a>
-      <p style="margin-top:0.25rem;">Developed with ❤️ by <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
+      <p><a href="/en/articles">Articles</a> &middot; <a href="/en/terms.html" target="_blank">Terms of Use &amp; Privacy Policy</a></p>
+      <p>Developed with ❤️ by <a href="https://carlosdev.com.br" target="_blank" rel="noopener">Carlos Dev</a></p>
       <div class="social-icons">
         <a href="https://www.youtube.com/@carlosjornadadev" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
         <a href="https://github.com/cwrsiqueira" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
@@ -256,7 +285,7 @@
 
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <script defer src="/js/calculadora.js?v=2026101701"></script>
-  <script defer src="/js/email.js?v=2026110601"></script>
+  <script defer src="/js/simulador.js?v=2026110701"></script>
+  <script defer src="/js/calculadora.js?v=2026110701"></script>
 </body>
 </html>

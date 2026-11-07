@@ -5,7 +5,7 @@
 | Ambiente | Onde | URL | Como publica |
 | --- | --- | --- | --- |
 | Produção | Vercel | https://calcularrendapassiva.com | push no `master` → Vercel roda `npm install && npm run build` → publica `dist/` + `api/` |
-| Dev | local | `http://localhost:8765` | `npm run build` e `python -m http.server 8765 -d dist` (a API não roda assim; para ela, `vercel dev`) |
+| Dev | local | `http://localhost:8765` | `npm run build` e `npm run local` (links sem .html como na Vercel; a API não roda assim; para ela, `vercel dev`) |
 
 `www.` redireciona para o domínio sem `www` (`vercel.json`).
 
