@@ -16,7 +16,7 @@
     return '<section id="sec-email" class="card email-section" aria-label="Planilha gratuita">' +
       '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-table" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Planilha grátis de renda passiva</span></div>' +
       '<p class="email-subtitle">Quanto você precisa investir para cada meta mensal — em poupança, CDB, LCI/LCA, FII e ações. Enviado no seu email.</p>' +
-      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Quero a planilha</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
+      '<form id="emailForm" class="email-form" novalidate><input type="text" name="website" id="emailWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" /><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="seu@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Quero a planilha</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
       '</section>';
   }
 
@@ -24,7 +24,7 @@
     return '<section id="sec-email" class="card email-section" aria-label="Free spreadsheet">' +
       '<div class="card-header"><div class="card-icon"><i class="fa-solid fa-table" style="color:#eb47eb;font-size:32px;" aria-hidden="true"></i></div><span class="card-title">Free passive income spreadsheet</span></div>' +
       '<p class="email-subtitle">How much you need invested for $500 to $10,000/month — across savings, HYSA, JEPI, SCHD and dividend stocks. Sent to your inbox.</p>' +
-      '<form id="emailForm" class="email-form" novalidate><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Get my spreadsheet</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
+      '<form id="emailForm" class="email-form" novalidate><input type="text" name="website" id="emailWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" /><div class="email-row"><input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" required /><button type="submit" id="emailBtn" class="btn-primary email-btn">Get my spreadsheet</button></div><p id="emailMsg" class="email-msg" aria-live="polite"></p></form>' +
       '</section>';
   }
 

@@ -21,10 +21,14 @@
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, lang: isEn ? 'en' : 'pt' }),
+        body: JSON.stringify({
+          email,
+          lang: isEn ? 'en' : 'pt',
+          website: (document.getElementById('emailWebsite') || {}).value || '',
+        }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
       if (res.ok) {
         msg.textContent = isEn

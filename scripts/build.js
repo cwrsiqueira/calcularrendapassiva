@@ -20,6 +20,7 @@ const EXCLUDED = new Set([
   'logo2.png',
   'favicon2.ico',
   'scripts',
+  'tests',
   'package.json',
   'package-lock.json',
   '.gitignore',

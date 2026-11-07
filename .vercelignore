@@ -4,3 +4,4 @@ docs/
 AGENTS.md
 .env.example
 .cursor/
+tests/

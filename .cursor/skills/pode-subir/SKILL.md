@@ -20,7 +20,7 @@ Branch única: `master`. A Vercel faz o deploy automaticamente a cada push
 
 ## 2. Build — portão de qualidade
 
-- `npm run build` — **abortar tudo se falhar** e mostrar o erro ao usuário.
+- `npm test` e `npm run build` — **abortar tudo se algum falhar** e mostrar o erro ao usuário.
 - Checar sintaxe dos JS alterados: `node -e "new Function(require('fs').readFileSync('<arquivo>','utf8'))"`.
 
 ## 3. Cache dos assets

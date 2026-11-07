@@ -11,6 +11,7 @@
 
 ## Feito recentemente
 
+- 2026-11-06: `/api/subscribe` protegido contra robôs (origem, campo-isca, limite por IP, tamanho) com 9 testes (`npm test`).
 - 2026-11-06: kit de contexto para IA instalado (`AGENTS.md`, `docs/`, `docs/padroes/`, skills).
 - Out/2026: home EN focada em "passive income calculator"; afiliados Hotmart recolocados; 34 páginas EN + 10 PT; eventos GA4; IndexNow.
 
@@ -19,7 +20,6 @@
 | Prioridade | Item | Depende de |
 | --- | --- | --- |
 | P1 | Concluir "Etapas para receber pagamentos" no AdSense | Carlos |
-| P2 | Rate limit / anti-robô no `/api/subscribe` | decisão do Carlos |
 | P2 | 2.4 Pixel do Meta | ID do pixel (Carlos) |
 | P2 | Despublicar `calcularrendapassiva.lovable.app`; importar site no Bing Webmaster | Carlos |
 | P3 | Aviso LGPD no formulário; headers de segurança | nada |

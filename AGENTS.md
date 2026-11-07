@@ -12,7 +12,7 @@ Estado atual e próximo passo: [docs/STATUS_PROJETO.md](docs/STATUS_PROJETO.md).
 | Backend | 1 Vercel Function: `api/subscribe.js` (Node, envia e-mail para o Brevo) |
 | Banco | nenhum (o calculador roda no navegador; e-mails ficam no Brevo) |
 | Build | Node: `scripts/build.js` (minifica para `dist/`), `scripts/paginas.js` (páginas programáticas) |
-| Testes | nenhum automatizado ainda |
+| Testes | `node --test` (sem dependência), em `tests/` — só a API por enquanto |
 | Hospedagem | Vercel, deploy automático a cada push no `master` |
 | Gerenciador de pacotes | npm — não trocar |
 
@@ -24,11 +24,12 @@ Não introduzir dependência nova sem justificar e pedir aprovação. Confirmar 
 npm install
 npm run build                                   # gera dist/ (é o que a Vercel roda)
 python -m http.server 8765 -d dist             # ver o site local (sem a API)
+npm test                                        # testes (tests/*.test.js)
 npm run paginas                                 # regenera páginas programáticas, hubs e bloco GERADO do sitemap
 node -e "new Function(require('fs').readFileSync('js/<arquivo>.js','utf8'))"   # checa sintaxe de um JS
 ```
 
-Antes de qualquer commit: `npm run build` sem erro + checagem de sintaxe dos JS alterados. Não há lint, tipos nem testes automatizados.
+Antes de qualquer commit: `npm test && npm run build` + checagem de sintaxe dos JS alterados. Não há lint nem checagem de tipos.
 
 ## Leia antes de alterar
 
@@ -74,6 +75,7 @@ Antes de qualquer commit: `npm run build` sem erro + checagem de sintaxe dos JS 
 | `css/` | estilos |
 | `api/` | Vercel Function `subscribe.js` |
 | `scripts/` | build, geradores de páginas, `taxas.json`, `template.js` |
+| `tests/` | testes `node --test` (não publicados) |
 | `docs/` | docs de contexto, padrões, e-mails do funil (não publicado) |
 
 ## Conduzir a pessoa

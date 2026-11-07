@@ -370,7 +370,7 @@ Os artigos escritos à mão **não** são regenerados — a cada mudança da Sel
 - **Scripts:** `npm run build` (`scripts/build.js`, minifica para `dist/`); `npm run paginas`
   (gera páginas programáticas PT e EN, hubs `/artigos` e `/en/articles` e bloco `GERADO` do sitemap)
 - **Cache:** `.js`/`.css` com `immutable` — ao alterar, subir o `?v=` nas referências dos HTML
-- **API:** `api/subscribe.js` (Brevo, listas 11 PT / 12 EN)
+- **API:** `api/subscribe.js` (Brevo, listas 11 PT / 12 EN) — anti-robô desde 06/11/2026: Origin = host, campo-isca `website`, 5 pedidos/10 min por IP; testes em `tests/` (`npm test`, não publicados)
 - **robots.txt:** ok (bloqueia só `/results.html`, aponta o sitemap)
 - **Analytics:** GA4 `G-V1JD0D4KM1` instalado; eventos personalizados em `js/calculadora.js` e `js/email.js`
 - **Pixel Meta:** não instalado — etapa 2.4 do checklist
