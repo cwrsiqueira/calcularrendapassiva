@@ -7,6 +7,9 @@ const { renderArticle } = require('./template');
 
 const T = require('./taxas.json');
 const E = T.en;
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthOf = iso => { const [y, m] = String(iso).split('-'); return `${MONTHS[+m - 1]} ${y}`; };
+const reviewed = monthOf(E.revisadoEm || T.dataISO); // last manual review of savings/CD/ETF estimates
 
 // ---------- formatação ----------
 const nf0 = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
@@ -43,7 +46,7 @@ const mesesPara = (alvo, aporte, r, inicial = 0) => {
   return x <= 0 ? Infinity : Math.log(x) / Math.log(1 + r);
 };
 
-const notaTaxas = `<p><small>Reference rates (${E.referencia}): high-yield savings ${pct(E.hysa / 100, 2)} APY, 1-year CD ${pct(E.cd1y / 100, 2)}, 3-month T-bills ${pct(E.tbill / 100, 2)}, dividend ETF yield ~${pct(E.dividendEtf / 100)}, stock market long-term average ${E.stockReturn}% a year (${E.realReturn}% after inflation). Figures are before taxes: interest is taxed as ordinary income, qualified dividends at lower rates. Sources: ${E.fontes}. Not financial advice.</small></p>`;
+const notaTaxas = `<p><small>Reference rates (${E.referencia}): 3-month T-bills ${pct(E.tbill / 100, 2)}; high-yield savings ${pct(E.hysa / 100, 2)} APY, 1-year CD ${pct(E.cd1y / 100, 2)} and dividend ETF yield ~${pct(E.dividendEtf / 100)} (estimates reviewed ${reviewed}); stock market long-term average ${E.stockReturn}% a year (${E.realReturn}% after inflation). Figures are before taxes: interest is taxed as ordinary income, qualified dividends at lower rates. Sources: ${E.fontes}. Not financial advice.</small></p>`;
 
 const callout = texto => `            <div class="article-callout">
               <span><strong>${texto}</strong></span>

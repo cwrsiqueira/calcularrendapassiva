@@ -8,6 +8,9 @@ const { SITE, renderArticle } = require('./template');
 
 const ROOT = path.resolve(__dirname, '..');
 const T = require('./taxas.json');
+const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const mesDe = iso => { const [a, m] = String(iso).split('-'); return `${MESES[+m - 1]} de ${a}`; };
+const revisao = mesDe(T.revisadoEm || T.dataISO); // data da última revisão das estimativas (FII, ações)
 
 // ---------- formatação ----------
 const nf0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
@@ -56,7 +59,7 @@ const anualDe = m => Math.pow(1 + m, 12) - 1;
 const mesesPara = (alvo, aporte, r) => Math.log(1 + alvo * r / aporte) / Math.log(1 + r);
 const aportePara = (alvo, meses, r) => alvo * r / (Math.pow(1 + r, meses) - 1);
 
-const notaTaxas = `<p><small>Taxas de referência (${T.referencia}): Selic ${pct(T.selic / 100)} a.a., CDI ${pct(T.cdi / 100)} a.a., poupança ${pct(T.poupancaMensal / 100)} a.m., IPCA 12 meses ${pct(T.ipca12m / 100)}. CDB e Tesouro com IR de ${T.irLongoPrazo}% (aplicações acima de 2 anos). FIIs e ações usam dividend yield médio estimado — não é garantia de rendimento. Fontes: ${T.fontes}.</small></p>`;
+const notaTaxas = `<p><small>Taxas de referência (${T.referencia}): Selic ${pct(T.selic / 100)} a.a., CDI ${pct(T.cdi / 100)} a.a., poupança ${pct(T.poupancaMensal / 100)} a.m., IPCA 12 meses ${pct(T.ipca12m / 100)}. CDB e Tesouro com IR de ${T.irLongoPrazo}% (aplicações acima de 2 anos). FIIs e ações usam dividend yield médio estimado (revisado em ${revisao}) — não é garantia de rendimento. Fontes: ${T.fontes}.</small></p>`;
 
 const callout = texto => `            <div class="article-callout">
               <span><strong>${texto}</strong></span>

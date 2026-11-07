@@ -2,6 +2,13 @@
 
 Registro curto do porquê das escolhas. Decisão nova no topo. Não apague as antigas: marque como substituídas. O histórico estratégico completo está no [CLAUDE.md](../CLAUDE.md) (seções 5 e 10).
 
+## 2026-11-07 — Site self-service para taxas
+
+- **Contexto:** algumas taxas não têm fonte oficial automática (FII/ações, poupança/CD/ETF dos EUA) e uma fonte pode falhar.
+- **Decisão:** o dono não revisa nem recebe avisos. Toda taxa tem data; se não for atualizada, o site usa a anterior e a calculadora mostra a data e sugere ao visitante ajustar a taxa (campo sempre visível e editável, mantendo o IR do investimento). O robô não abre issue.
+- **Alternativas descartadas:** lembrete trimestral/por variação para o dono revisar; esconder o campo de taxa atrás de "Ajustar taxa".
+- **Status:** vigente
+
 ## 2026-11-07 — Layout novo e calculadora por pergunta
 
 - **Contexto:** queda de visitas e calculadora difícil de usar ("deixe um campo em branco", taxa digitada à mão).

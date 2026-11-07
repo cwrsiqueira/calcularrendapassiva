@@ -2,7 +2,7 @@
 // Usado por scripts/paginas.js (páginas programáticas) e pela importação dos artigos do Lovable.
 
 const SITE = 'https://calcularrendapassiva.com';
-const CSS_VERSION = '2026110701';
+const CSS_VERSION = '2026110702';
 const AD_CLIENT = 'ca-pub-5865817649832793';
 
 // Bloco de afiliados Hotmart (só PT) — links e textos em js/afiliados.js

@@ -10,6 +10,7 @@ const EXCLUDED = new Set([
   'AGENTS.md',
   '.env.example',
   '.cursor',
+  '.github',
   'docs',
   '.claude',
   '.vercel',

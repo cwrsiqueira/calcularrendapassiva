@@ -217,6 +217,19 @@ select.campo-input {
 .campo-input::placeholder { color: #9aa3b0; }
 .dica { font-size: 0.8rem; color: var(--text-soft); margin-top: 0.4rem; line-height: 1.45; }
 .dica:empty { display: none; }
+/* Selo de situação da taxa */
+.selo { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 0.15rem 0.45rem; margin-top: 0.45rem; font-size: 0.8rem; line-height: 1.45; color: var(--text-muted); }
+.selo:empty { display: none; }
+.selo .link-btn { grid-column: 2; justify-self: start; }
+.selo-ponto { width: 0.5rem; height: 0.5rem; margin-top: 0.36rem; border-radius: 50%; background: var(--text-soft); }
+.selo-ok .selo-ponto { background: var(--success); }
+.selo-ok { color: var(--success); }
+.selo-alerta .selo-ponto { background: #c27803; }
+.selo-alerta { color: #8a5300; }
+.selo-propria .selo-ponto { background: var(--primary); }
+.selo-propria { color: var(--primary); }
+.link-btn { background: none; border: 0; padding: 0; color: var(--primary); font-size: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.link-btn:hover { color: var(--primary-hover); }
 .campos { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .campo-com-prefixo, .campo-com-sufixo { position: relative; display: flex; align-items: center; }
 .campo-com-prefixo > span:first-child { position: absolute; left: 0.85rem; color: var(--text-soft); font-weight: 600; pointer-events: none; }

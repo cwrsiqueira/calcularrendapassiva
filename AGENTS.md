@@ -55,7 +55,7 @@ Antes de qualquer commit: `npm test && npm run build` + checagem de sintaxe dos 
 5. **AdSense: exatamente 4 blocos por página** (topo, Footer CRP, laterais LE/LD via `js/ads.js`, laterais só em telas ≥ 1100px). Não adicionar outros.
 6. **Afiliados Hotmart só em `js/afiliados.js`** (fonte única).
 7. **Cache:** `.js`/`.css` são `immutable` — ao alterar um, subir o `?v=AAAAMMDD` em todas as referências dos HTML.
-8. **Páginas programáticas são geradas:** não editar à mão os HTML que `scripts/paginas.js` / `scripts/paginas-en.js` produzem; mudar template ou `scripts/taxas.json` e rodar `npm run paginas`.
+8. **Taxas e páginas programáticas são atualizadas por robô** (`.github/workflows/atualizar-taxas.yml`, todo dia 12, commits de `github-actions[bot]`): antes de commitar, `git pull --rebase`. **Páginas programáticas são geradas:** não editar à mão os HTML que `scripts/paginas.js` / `scripts/paginas-en.js` produzem; mudar template ou `scripts/taxas.json` e rodar `npm run paginas`.
 9. **Preço do PRO é R$19,90, pagamento único** — não questionar. Não pular fases do checklist do `CLAUDE.md`.
 
 ## Pare e pergunte quando
@@ -76,6 +76,7 @@ Antes de qualquer commit: `npm test && npm run build` + checagem de sintaxe dos 
 | `api/` | Vercel Function `subscribe.js` |
 | `scripts/` | build, geradores de páginas, `taxas.json`, `produtos.js` (investimentos da calculadora → `/dados/taxas.json` no build), `template.js` |
 | `tests/` | testes `node --test` (não publicados) |
+| `.github/workflows/` | robô mensal das taxas (não publicado) |
 | `docs/` | docs de contexto, padrões, e-mails do funil (não publicado) |
 
 ## Conduzir a pessoa

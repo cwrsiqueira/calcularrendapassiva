@@ -333,7 +333,17 @@ pergunta (aporte / prazo / quanto vou ter / quanto preciso juntar), 7 investimen
 e "valores de hoje" opcionais, aviso de simulação educativa. Próximo: automação mensal das taxas (GitHub Actions, publica
 sozinha com trava de faixa) — decisão de 07/11/2026.
 
-**Rotina mensal (após Copom/IPCA):** atualizar `scripts/taxas.json` (PT e bloco `en`) → `npm run paginas` → "pode subir".
+**Rotina mensal — AUTOMÁTICA desde 07/11/2026:** `.github/workflows/atualizar-taxas.yml` roda todo dia 12 (09h de Brasília):
+`scripts/atualizar-taxas.js` busca Selic/CDI/IPCA/poupança (BCB SGS), IPCA esperado (Focus), Tesouro IPCA+ (Tesouro
+Transparente), T-bill (Treasury) e CPI (BLS) → trava de faixa/salto → `npm run paginas` → testes → build → commit do
+robô no `master` (Vercel publica) → IndexNow. Se a trava barrar ou uma fonte falhar: nada é publicado e o site segue
+com as taxas anteriores. Rodar à mão: GitHub → Actions → "Atualizar taxas" → Run workflow (ou `node scripts/atualizar-taxas.js --dry-run`).
+**Site self-service (decisão de 07/11/2026): o dono não revisa taxas nem recebe avisos.** Cada taxa tem data
+(`atualizadoEm` do robô; `revisadoEm` das estimativas); a calculadora mostra o campo de rentabilidade sempre preenchido e
+editável, com selo: verde "Atualizada em…", amarelo "pode estar desatualizada" (mais de 45 dias) ou "Estimativa média
+(mês)", e roxo "sua própria taxa" quando o visitante digita outra (mantém o IR do investimento). Estimativas sem fonte
+automática (FII/ações, poupança/CD/ETF dos EUA) ficam fixas, com a data da última revisão nas páginas geradas.
+Antes de "Pode subir", fazer `git pull --rebase` (o robô commita sozinho).
 Os artigos escritos à mão **não** são regenerados — a cada mudança da Selic, buscar a taxa antiga
 (ex.: `grep -rn "13,75" artigos/`) e atualizar os números à mão.
 **Esperar 2–6 semanas** de reindexação antes de julgar o efeito no AdSense.

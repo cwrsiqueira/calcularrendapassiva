@@ -27,7 +27,15 @@ IDs públicos que ficam no HTML de propósito (não são segredo): GA4 `G-V1JD0D
 
 1. "Pode subir" (build sem erro, `?v=` atualizado se mudou `.js`/`.css`, commit, push no `master`).
 2. A Vercel faz o build e publica em alguns minutos.
-3. Depois de `npm run paginas`: reenviar URLs ao IndexNow (POST em `api.indexnow.org/indexnow`) e, se houver páginas novas, pedir indexação no Search Console.
+3. Depois de `npm run paginas` à mão: `node scripts/indexnow.js` e, se houver páginas novas, pedir indexação no Search Console.
+
+## Publicação automática (robô das taxas)
+
+- `.github/workflows/atualizar-taxas.yml`: todo dia 12, 09h de Brasília, e à mão em GitHub → Actions → "Atualizar taxas" → Run workflow.
+- Faz commit como `github-actions[bot]` no `master` sempre que as buscas passarem na trava (renova as datas de confirmação mesmo sem mudança de valor); a Vercel publica; depois roda o IndexNow.
+- Falhou ou travou ⇒ nada publicado; o resumo fica na própria execução (Actions). Sem issue: a calculadora mostra a data de cada taxa ao visitante.
+- O GitHub pode mandar o e-mail padrão de execução agendada que falhou; desligar em GitHub → Settings → Notifications → Actions.
+- Usa só o `GITHUB_TOKEN` da própria execução (permissão `contents: write`); nenhum segredo novo.
 
 ## Conferir depois de publicar
 

@@ -16,8 +16,16 @@
 
   const T = EN ? {
     personalizado: 'Custom rate',
-    semTaxas: 'Could not load this month\'s rates. Enter a custom rate.',
-    infoPersonalizado: 'Enter the expected annual return. Taxes (if on) use the long-term rate of 15%.',
+    selo: {
+      semTaxas: 'Could not load this month\'s rates. Enter the expected annual return.',
+      personalizado: 'Enter the expected annual return. Taxes (if on) use 15%.',
+      propria: 'You are using your own rate.',
+      voltar: v => `Back to the reference rate (${v}%)`,
+      atualizada: (d, f) => `Updated ${d}${f ? ` · ${f}` : ''}`,
+      velha: d => `Rate from ${d} — may be out of date. Check it and adjust if needed.`,
+      estimativa: d => `Average estimate (${d}). If you know your investment's rate, type it in.`,
+      historica: 'Long-term historical average. Lower it to be more conservative.',
+    },
     erros: {
       campos: 'Fill in the highlighted fields.',
       taxa: 'At this rate, after inflation and taxes, your money doesn\'t grow. Pick another investment or turn off "today\'s money".',
@@ -40,7 +48,10 @@
       semAporte: 'with no monthly contributions',
       jaAtingido: 'you have already reached your goal',
     },
-    chips: { ir: a => `Taxes deducted (${fmtPct(a)}%)`, semIr: 'Before taxes', isento: 'Tax-free', hoje: i => `Today's money (inflation ${fmtPct(i)}%/yr)`, nominal: 'Not adjusted for inflation' },
+    chips: { ir: a => `Taxes deducted (${fmtPct(a)}%)`, semIr: 'Before taxes', isento: 'Tax-free', hoje: i => `Today's money (inflation ${fmtPct(i)}%/yr)`, nominal: 'Not adjusted for inflation',
+      propria: 'Your own rate', mercado: d => `Rate as of ${d}`, estimativa: 'Average estimate', historica: 'Historical average' },
+    propriaAviso: 'The return rate was entered by you.',
+    propriaCard: 'rate entered by the user',
     linhas: { produto: 'Investment', taxa: 'Return used', prazo: 'Period', inicial: 'Initial amount', aporte: 'Monthly contribution', investido: 'Total invested', rendimentos: 'Earnings', acumulado: 'Final balance', renda: 'Monthly passive income' },
     taxaTxt: (m, a) => `${m}% per month (${a}% per year)`,
     liquida: 'after taxes', real: 'above inflation',
@@ -52,8 +63,16 @@
     grafico: ['Balance', 'Total invested'],
   } : {
     personalizado: 'Outra rentabilidade',
-    semTaxas: 'Não foi possível carregar as taxas do mês. Informe a rentabilidade.',
-    infoPersonalizado: 'Informe a rentabilidade esperada ao ano. Se descontar imposto, usa a alíquota de longo prazo (15%).',
+    selo: {
+      semTaxas: 'Não foi possível carregar as taxas do mês. Informe a rentabilidade esperada ao ano.',
+      personalizado: 'Informe a rentabilidade esperada ao ano. Se descontar imposto, usa 15%.',
+      propria: 'Você está usando sua própria taxa.',
+      voltar: v => `Voltar para a referência (${v}%)`,
+      atualizada: (d, f) => `Atualizada em ${d}${f ? ` · ${f}` : ''}`,
+      velha: d => `Taxa de ${d} — pode estar desatualizada. Confira e ajuste se quiser.`,
+      estimativa: d => `Estimativa média (${d}). Se souber a taxa do seu investimento, ajuste aqui.`,
+      historica: 'Média histórica de longo prazo. Reduza se quiser ser mais conservador.',
+    },
     erros: {
       campos: 'Preencha os campos destacados.',
       taxa: 'Com essa rentabilidade, descontados inflação e imposto, o dinheiro não cresce. Escolha outro investimento ou desligue "valores de hoje".',
@@ -76,7 +95,10 @@
       semAporte: 'sem precisar de aportes',
       jaAtingido: 'você já atingiu a meta',
     },
-    chips: { ir: a => `IR descontado (${fmtPct(a)}%)`, semIr: 'Sem descontar IR', isento: 'Isento de IR', hoje: i => `Valores de hoje (inflação ${fmtPct(i)}% a.a.)`, nominal: 'Sem descontar a inflação' },
+    chips: { ir: a => `IR descontado (${fmtPct(a)}%)`, semIr: 'Sem descontar IR', isento: 'Isento de IR', hoje: i => `Valores de hoje (inflação ${fmtPct(i)}% a.a.)`, nominal: 'Sem descontar a inflação',
+      propria: 'Taxa informada por você', mercado: d => `Taxa de ${d}`, estimativa: 'Estimativa média', historica: 'Média histórica' },
+    propriaAviso: 'A rentabilidade foi informada por você.',
+    propriaCard: 'taxa informada pelo usuário',
     linhas: { produto: 'Investimento', taxa: 'Rentabilidade considerada', prazo: 'Prazo', inicial: 'Valor inicial', aporte: 'Aporte mensal', investido: 'Total investido', rendimentos: 'Rendimentos', acumulado: 'Patrimônio final', renda: 'Renda passiva mensal' },
     taxaTxt: (m, a) => `${m}% ao mês (${a}% ao ano)`,
     liquida: 'líquida de IR', real: 'acima da inflação',
@@ -104,6 +126,11 @@
     const pm = m ? `${m} ${T.mes[m === 1 ? 0 : 1]}` : '';
     return [pa, pm].filter(Boolean).join(` ${T.e} `) || `0 ${T.mes[1]}`;
   }
+  const DIAS_VALIDADE = 45; // taxa de mercado confirmada há mais tempo que isso ⇒ "pode estar desatualizada"
+  const dataCurta = iso => new Date(iso + 'T12:00:00Z').toLocaleDateString(LOC, { timeZone: 'UTC' });
+  const mesAno = iso => new Date(iso + 'T12:00:00Z').toLocaleDateString(LOC, { month: 'short', year: 'numeric', timeZone: 'UTC' });
+  const diasDesde = iso => (Date.now() - new Date(iso + 'T12:00:00Z').getTime()) / 864e5;
+  const fmtTaxaCampo = v => Number(v).toFixed(2).replace('.', EN ? '.' : ',');
   function lerValor(txt) {
     const so = String(txt || '').replace(/\D/g, '');
     return so ? parseInt(so, 10) / 100 : 0;
@@ -180,13 +207,19 @@
     .then(j => { DADOS = j[LANG]; return DADOS; })
     .catch(() => null);
 
+  // Taxa digitada pela pessoa por cima da referência (mantém as regras de IR do investimento)
+  let taxaPropria = false;
+
   function produtoAtual(form) {
     const id = form.produto.value;
+    const anual = lerValor(form.taxaAnual.value);
     if (id === 'personalizado') {
-      const anual = lerValor(form.taxaAnual.value);
-      return anual > 0 ? { id, nome: T.personalizado, anual, ir: EN ? 15 : 'regressivo' } : null;
+      return anual > 0 ? { id, nome: T.personalizado, anual, ir: EN ? 15 : 'regressivo', propria: true, taxa: { tipo: 'propria' } } : null;
     }
-    return DADOS && DADOS.produtos.find(p => p.id === id);
+    const p = DADOS && DADOS.produtos.find(x => x.id === id);
+    if (!p) return null;
+    if (!taxaPropria) return p;
+    return anual > 0 ? Object.assign({}, p, { anual, mensal: undefined, propria: true }) : null;
   }
 
   /* ===== Formulário (home) ===== */
@@ -199,12 +232,12 @@
     form.querySelectorAll('.js-inteiro').forEach(mascaraInteiro);
     const erroEl = document.getElementById('calcErro');
     const info = document.getElementById('produtoInfo');
-    const grupoTaxa = document.getElementById('grupoTaxa');
+    const selo = document.getElementById('taxaSelo');
     const sel = form.produto;
 
     let salvo = {};
     try { salvo = JSON.parse(sessionStorage.getItem(CHAVE_FORM) || '{}') || {}; } catch (_) { salvo = {}; }
-    ['renda', 'inicial', 'aporte', 'anos', 'taxaAnual'].forEach(id => { if (salvo[id]) form[id].value = salvo[id]; });
+    ['renda', 'inicial', 'aporte', 'anos'].forEach(id => { if (salvo[id]) form[id].value = salvo[id]; });
     if (salvo.modo) { const r = form.querySelector(`input[name="modo"][value="${salvo.modo}"]`); if (r) r.checked = true; }
     if (typeof salvo.imposto === 'boolean') form.imposto.checked = salvo.imposto;
     if (typeof salvo.inflacao === 'boolean') form.inflacao.checked = salvo.inflacao;
@@ -219,13 +252,51 @@
       requestAnimationFrame(syncFlipCardHeight);
     }
 
-    function atualizarProduto() {
-      const personalizado = sel.value === 'personalizado';
-      grupoTaxa.hidden = !personalizado;
-      const p = !personalizado && DADOS && DADOS.produtos.find(x => x.id === sel.value);
-      info.textContent = personalizado ? (DADOS ? T.infoPersonalizado : T.semTaxas) : p ? p.nota : '';
+    const refDe = () => DADOS && DADOS.produtos.find(x => x.id === sel.value);
+
+    // Situação da taxa: atualizada, pode estar desatualizada, estimativa, histórica ou própria
+    function mostrarSelo() {
+      const p = refDe();
+      let estado = 'neutro', texto, voltar = '';
+      if (sel.value === 'personalizado') texto = DADOS ? T.selo.personalizado : T.selo.semTaxas;
+      else if (!p) texto = T.selo.semTaxas;
+      else if (taxaPropria) { estado = 'propria'; texto = T.selo.propria; voltar = T.selo.voltar(fmtPct(p.anual)); }
+      else if (p.taxa.tipo === 'mercado') {
+        const velha = diasDesde(p.taxa.data) > DIAS_VALIDADE;
+        estado = velha ? 'alerta' : 'ok';
+        texto = velha ? T.selo.velha(dataCurta(p.taxa.data)) : T.selo.atualizada(dataCurta(p.taxa.data), p.taxa.fonte);
+      } else if (p.taxa.tipo === 'estimativa') { estado = 'alerta'; texto = T.selo.estimativa(mesAno(p.taxa.data)); }
+      else texto = T.selo.historica;
+      selo.className = 'selo selo-' + estado;
+      selo.textContent = '';
+      selo.appendChild(el('span', 'selo-ponto'));
+      selo.appendChild(el('span', null, texto));
+      if (voltar) {
+        const b = el('button', 'link-btn', voltar);
+        b.type = 'button';
+        b.addEventListener('click', () => { taxaPropria = false; preencherReferencia(); });
+        selo.appendChild(b);
+      }
+      info.textContent = p && sel.value !== 'personalizado' ? p.nota : '';
       requestAnimationFrame(syncFlipCardHeight);
     }
+
+    function preencherReferencia() {
+      const p = refDe();
+      form.taxaAnual.value = p ? fmtTaxaCampo(p.anual) : '';
+      mostrarSelo();
+    }
+
+    function atualizarProduto() {
+      taxaPropria = false;
+      preencherReferencia();
+    }
+
+    form.taxaAnual.addEventListener('input', () => {
+      const p = refDe();
+      taxaPropria = !!p && Math.abs(lerValor(form.taxaAnual.value) - p.anual) > 0.004;
+      mostrarSelo();
+    });
 
     carregarDados.then(d => {
       sel.innerHTML = '';
@@ -235,7 +306,11 @@
       if (ref && d) ref.textContent = d.referencia;
       if (salvo.produto && [...sel.options].some(o => o.value === salvo.produto)) sel.value = salvo.produto;
       else if (!d) sel.value = 'personalizado';
-      atualizarProduto();
+      if ((salvo.taxaPropria || sel.value === 'personalizado') && salvo.produto === sel.value && salvo.taxaAnual) {
+        taxaPropria = sel.value !== 'personalizado';
+        form.taxaAnual.value = salvo.taxaAnual;
+        mostrarSelo();
+      } else atualizarProduto();
     });
 
     form.addEventListener('change', e => {
@@ -246,7 +321,8 @@
 
     document.getElementById('btn-reset').addEventListener('click', () => {
       sessionStorage.removeItem(CHAVE_FORM);
-      ['renda', 'inicial', 'aporte', 'anos', 'taxaAnual'].forEach(id => { form[id].value = ''; });
+      ['renda', 'inicial', 'aporte', 'anos'].forEach(id => { form[id].value = ''; });
+      atualizarProduto();
       form.querySelectorAll('.campo-erro').forEach(el => el.classList.remove('campo-erro'));
       erroEl.textContent = '';
     });
@@ -258,7 +334,7 @@
       const m = modo();
       const produto = produtoAtual(form);
       const estado = {
-        modo: m, produto: sel.value, taxaAnual: form.taxaAnual.value,
+        modo: m, produto: sel.value, taxaAnual: form.taxaAnual.value, taxaPropria,
         renda: form.renda.value, inicial: form.inicial.value, aporte: form.aporte.value, anos: form.anos.value,
         imposto: form.imposto.checked, inflacao: form.inflacao.checked,
       };
@@ -273,7 +349,7 @@
       if (m === 'renda' || m === 'prazo') {
         if (!lerValor(form.inicial.value) && !lerValor(form.aporte.value)) faltando.push('inicial', 'aporte');
       }
-      if (!produto) faltando.push(sel.value === 'personalizado' ? 'taxaAnual' : 'produto');
+      if (!produto) faltando.push(sel.value === 'personalizado' || taxaPropria || !DADOS ? 'taxaAnual' : 'produto');
       if (faltando.length) {
         faltando.forEach(id => form[id].closest('.campo, .grupo').classList.add('campo-erro'));
         erroEl.textContent = T.erros.campos;
@@ -297,7 +373,7 @@
 
       sessionStorage.setItem(CHAVE_RES, JSON.stringify({
         lang: LANG, res, rendaDesejada: lerValor(form.renda.value),
-        produto: { id: produto.id, nome: produto.nome, ir: produto.ir, estimativa: !!produto.estimativa },
+        produto: { id: produto.id, nome: produto.nome, ir: produto.ir, estimativa: !!produto.estimativa && !produto.propria, propria: !!produto.propria, taxa: produto.taxa || null },
         imposto: estado.imposto, inflacao: estado.inflacao,
         inflacaoAnual: DADOS ? DADOS.inflacaoAnual : null,
         referencia: DADOS ? DADOS.referencia : '',
@@ -341,6 +417,11 @@
     if (S.produto.ir === 'isento') lista.push(T.chips.isento);
     else lista.push(S.imposto ? T.chips.ir(r.taxa.aliquota) : T.chips.semIr);
     lista.push(S.inflacao && S.inflacaoAnual ? T.chips.hoje(S.inflacaoAnual) : T.chips.nominal);
+    const tx = S.produto.taxa;
+    if (S.produto.propria) lista.push(T.chips.propria);
+    else if (tx && tx.tipo === 'mercado') lista.push(T.chips.mercado(dataCurta(tx.data)));
+    else if (tx && tx.tipo === 'estimativa') lista.push(T.chips.estimativa);
+    else if (tx && tx.tipo === 'historica') lista.push(T.chips.historica);
     return lista;
   }
 
@@ -368,7 +449,7 @@
     chips(S).forEach(c => ch.appendChild(el('li', null, c)));
     const dl = document.getElementById('resLista');
     linhas(S).forEach(([k, v]) => { const row = el('div', 'result-item'); row.appendChild(el('dt', null, k)); row.appendChild(el('dd', null, v)); dl.appendChild(row); });
-    const aviso = [T.aviso(S.referencia || '—'), T.simplif, S.produto.estimativa ? T.estimativa(S.produto.nome) : ''].filter(Boolean).join(' ');
+    const aviso = [T.aviso(S.referencia || '—'), S.produto.propria ? T.propriaAviso : '', T.simplif, S.produto.estimativa ? T.estimativa(S.produto.nome) : ''].filter(Boolean).join(' ');
     document.getElementById('resAviso').textContent = aviso;
     const fontes = document.getElementById('resFontes');
     if (fontes && S.fontes) fontes.textContent = (EN ? 'Sources: ' : 'Fontes: ') + S.fontes;
@@ -475,7 +556,7 @@
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#7a8494'; ctx.font = `400 21px ${FONTE}`;
-    ctx.fillText(T.card.aviso + (S.referencia ? ` · ${S.referencia}` : ''), W / 2, H - 200);
+    ctx.fillText(T.card.aviso + (S.produto.propria ? ` · ${T.propriaCard}` : S.referencia ? ` · ${S.referencia}` : ''), W / 2, H - 200);
     ctx.fillStyle = '#4b5565'; ctx.font = `400 28px ${FONTE}`;
     ctx.fillText(T.card.cta, W / 2, H - 140);
     ctx.fillStyle = grad; ctx.font = `700 40px ${FONTE}`;

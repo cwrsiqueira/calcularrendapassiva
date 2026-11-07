@@ -20,7 +20,7 @@ Decisões de negócio (monetização, preço do PRO, AdSense, afiliados) estão 
 
 | Entidade | Fonte da verdade | Quem cria/altera |
 | --- | --- | --- |
-| Taxas de referência (Selic, CDI, poupança, IPCA, IR, yields, Tesouro IPCA+, custódia) | `scripts/taxas.json` → build gera `/dados/taxas.json` (lido pela calculadora) | dono, todo mês após Copom/IPCA (automação planejada) |
+| Taxas de referência (Selic, CDI, poupança, IPCA, IR, yields, Tesouro IPCA+, custódia) | `scripts/taxas.json` → build gera `/dados/taxas.json` (lido pela calculadora) | robô mensal (`.github/workflows/atualizar-taxas.yml`, dia 12) grava valor + `atualizadoEm`; estimativas sem fonte automática ficam fixas com `revisadoEm` (o visitante ajusta na calculadora) |
 | Links de afiliado | `js/afiliados.js` | dono |
 | Assinantes de e-mail | Brevo, listas 11 (PT) e 12 (EN) | visitante pelo formulário; IA não mexe |
 | Preço do PRO | lojas (Google Play / App Store) | dono |
@@ -44,13 +44,14 @@ Decisões de negócio (monetização, preço do PRO, AdSense, afiliados) estão 
 7. **[fato]** "Mostrar em valores de hoje" (desligado por padrão): usa a taxa real = (1 + taxa líquida) ÷ (1 + inflação mensal) − 1, com inflação = IPCA 12 meses (EN: CPI). Aportes e renda ficam no poder de compra de hoje.
 8. **[fato]** Todo resultado e o card de compartilhar avisam: simulação educativa, taxas de referência do mês, **não é recomendação nem garantia de rentabilidade**. FIIs/ações/ETFs são marcados como estimativa média.
 9. **[fato]** Meta acima de 100 anos ou taxa real ≤ 0 ⇒ mensagem de erro no formulário (sem `alert`).
+   - **Taxa sempre visível e editável** (decisão de 07/11/2026): o campo "Rentabilidade" vem preenchido com a referência do investimento. Selo: verde "Atualizada em <data> · <fonte>" (taxa de mercado confirmada há até 45 dias); amarelo "pode estar desatualizada" (mais de 45 dias) ou "Estimativa média (<mês>)"; neutro "Média histórica" (S&P 500); roxo "sua própria taxa" + "Voltar para a referência" quando a pessoa digita outro valor. A taxa própria mantém as regras de IR e custódia do investimento. Resultado e card dizem "taxa informada por você" quando for o caso.
 
 ### Páginas programáticas (`scripts/paginas.js`, `scripts/taxas.json`)
 
 10. **[fato]** CDB 100% do CDI e Tesouro Selic com IR de 15% (aplicações acima de 2 anos); poupança, LCI/LCA, FIIs e ações de dividendos isentos. LCI/LCA = 90% do CDI. (`scripts/paginas.js:39-48`)
 11. **[fato]** FIIs (10% a.a.) e ações (7% a.a.) usam dividend yield médio estimado, com aviso de que não é garantia. (`scripts/taxas.json`, `scripts/paginas.js:61`)
 12. **[fato]** Cenários de acumulação usam a taxa **real** (acima do IPCA) do CDB líquido. (`scripts/paginas.js:52`)
-13. **[fato]** Taxas atualizadas todo mês após Copom/IPCA → `npm run paginas`. Artigos manuais são corrigidos à mão. (CLAUDE.md §8)
+13. **[fato]** Taxas atualizadas todo mês por robô (dia 12): Selic, CDI, IPCA 12m, poupança, IPCA esperado (Focus), Tesouro IPCA+, T-bill e CPI. Trava: valor fora da faixa ou salto grande ⇒ nada publicado (o site segue com as taxas anteriores e mostra a data delas) (`scripts/atualizar-taxas.js`, testes em `tests/atualizar-taxas.test.js`). A calculadora usa o IPCA esperado (Focus) como inflação; as páginas geradas usam o IPCA 12 meses. Artigos manuais são corrigidos à mão.
 
 ### Captura de e-mail (`api/subscribe.js`, `js/email.js`)
 

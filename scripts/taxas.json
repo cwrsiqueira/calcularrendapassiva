@@ -12,7 +12,6 @@
   "acoesDividendYield": 7,
   "tesouroIpcaReal": 7.5,
   "custodiaTesouro": 0.2,
-  "_estimativas": "fiiDividendYield, acoesDividendYield e tesouroIpcaReal são estimativas revisadas à mão (sem fonte oficial automática)",
   "fontes": "Banco Central (Copom 16/09/2026), IBGE (IPCA set/2026), BCB série 196 (poupança)",
   "en": {
     "_comentario": "Taxas EUA para as páginas EN (/en/articles). Atualizar junto com as PT.",
@@ -28,6 +27,20 @@
     "taxInterest": 22,
     "taxDividends": 15,
     "gastoMensalMedio": 6440,
-    "fontes": "CNBC Select and NerdWallet (savings and CD rates, Oct 2026), U.S. Treasury (3-month bill), BLS Consumer Expenditure Survey (household spending)"
-  }
+    "fontes": "CNBC Select and NerdWallet (savings and CD rates, Oct 2026), U.S. Treasury (3-month bill), BLS Consumer Expenditure Survey (household spending)",
+    "atualizadoEm": {
+      "tbill": "2026-10-15",
+      "inflation": "2026-10-15"
+    },
+    "revisadoEm": "2026-10-15"
+  },
+  "atualizadoEm": {
+    "selic": "2026-10-15",
+    "cdi": "2026-10-15",
+    "ipca12m": "2026-10-15",
+    "poupancaMensal": "2026-10-15",
+    "tesouroIpcaReal": "2026-10-15"
+  },
+  "revisadoEm": "2026-10-15",
+  "_datas": "atualizadoEm: data em que o robô confirmou cada taxa de mercado (se a busca falhar, fica a data antiga e a calculadora avisa). revisadoEm: data da última revisão das estimativas (FII, ações, LCI % do CDI)."
 }

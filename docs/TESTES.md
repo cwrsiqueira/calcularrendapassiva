@@ -12,7 +12,7 @@ npm run build                                                        # portão p
 node -e "new Function(require('fs').readFileSync('js/<arquivo>.js','utf8'))"   # sintaxe de um JS
 ```
 
-Não há CI: os testes rodam no "Pode subir". A Vercel só publica se o build passar.
+CI: só no robô mensal das taxas (roda `npm test` antes de publicar). Nas mudanças normais, os testes rodam no "Pode subir". A Vercel só publica se o build passar.
 
 ## O que bloqueia a publicação
 
@@ -24,6 +24,7 @@ Não há CI: os testes rodam no "Pode subir". A Vercel só publica se o build pa
 | --- | --- |
 | Renda = patrimônio × taxa mensal; os modos se invertem entre si; IR regressivo; taxa real; erros | `tests/simulador.test.js` |
 | Lista pública de investimentos com taxas válidas (PT e EN) | `tests/simulador.test.js` |
+| Robô das taxas: leitura de SGS/Tesouro/Treasury/BLS e trava de faixa/salto | `tests/atualizar-taxas.test.js` |
 | `api/subscribe.js`: e-mail inválido ⇒ 400; método ≠ POST ⇒ 405; `lang=en` ⇒ lista 12; origem de fora ⇒ 403; campo-isca; limite por IP ⇒ 429 | `tests/subscribe.test.js` |
 | `dist/` não contém `docs/`, `scripts/`, `.env*`, `CLAUDE.md`, `AGENTS.md` | — |
 

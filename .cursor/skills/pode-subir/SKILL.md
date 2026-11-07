@@ -13,6 +13,9 @@ Branch única: `master`. A Vercel faz o deploy automaticamente a cada push
 
 ## 1. Conferir o que vai subir
 
+- `git fetch` e `git status -sb`. Se estiver **atrás** do remoto (o robô mensal das taxas faz commits
+  sozinho em `scripts/taxas.json`, `artigos/`, `en/` e `sitemap.xml`): `git pull --rebase` antes de seguir.
+  Conflito ⇒ parar e mostrar ao usuário.
 - `git status --short` e `git diff --stat`
 - Arquivos não rastreados que não fazem parte da mudança (ex.: PDFs em `docs/`) **não** entram
   no commit — listar para o usuário no final.

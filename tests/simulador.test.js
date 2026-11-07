@@ -90,6 +90,17 @@ test('lista pública de investimentos: PT e EN com taxas válidas', () => {
     const taxa = p.mensal != null ? p.mensal * 12 : p.anual;
     assert.ok(taxa > 0 && taxa < 40, `${p.id}: ${taxa}`);
     assert.ok(p.nome && p.nota && p.ir != null, p.id);
+    assert.ok(['mercado', 'estimativa', 'historica'].includes(p.taxa && p.taxa.tipo), `${p.id}: tipo da taxa`);
+    if (p.taxa.tipo !== 'historica') assert.match(p.taxa.data, /^\d{4}-\d{2}-\d{2}$/, `${p.id}: data da taxa`);
+    if (p.taxa.tipo === 'mercado') assert.ok(p.taxa.fonte, `${p.id}: fonte`);
   }
+  // Taxas buscadas pelo robô são "mercado"; FII/ações são estimativa
+  const tipo = id => d.pt.produtos.find(p => p.id === id).taxa.tipo;
+  assert.equal(tipo('cdb'), 'mercado');
+  assert.equal(tipo('tesouro-ipca'), 'mercado');
+  assert.equal(tipo('fii'), 'estimativa');
+  // Poupança traz o equivalente anual para o campo de taxa
+  const poup = d.pt.produtos.find(p => p.id === 'poupanca');
+  assert.ok(Math.abs(poup.anual - (Math.pow(1 + poup.mensal / 100, 12) - 1) * 100) < 0.01);
   assert.ok(d.pt.referencia && d.pt.inflacaoAnual > 0);
 });

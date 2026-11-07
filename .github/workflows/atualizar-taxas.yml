@@ -1,0 +1,77 @@
+# Atualização mensal das taxas (Selic, CDI, IPCA, poupança, Focus, Tesouro IPCA+, T-bill, CPI).
+# Decisão de 07/11/2026: publica sozinha se os números estiverem em faixas normais.
+# Se a trava barrar ou uma fonte falhar, não publica nada: o site segue com as taxas anteriores e a
+# calculadora mostra a data de cada uma ("pode estar desatualizada"), sugerindo ao visitante ajustar a taxa.
+# Sem avisos para o dono (site self-service).
+name: Atualizar taxas
+
+on:
+  schedule:
+    - cron: '0 12 12 * *'   # todo dia 12, 09h de Brasília (o IPCA sai por volta do dia 10)
+  workflow_dispatch: {}     # permite rodar à mão em Actions → Atualizar taxas → Run workflow
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-taxas
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Buscar taxas (com trava)
+        id: taxas
+        run: node scripts/atualizar-taxas.js
+
+      - name: Regenerar páginas, testar e montar
+        if: steps.taxas.outputs.mudou == 'true'
+        run: |
+          npm run paginas
+          npm test
+          npm run build
+
+      - name: Publicar (push no master → Vercel)
+        if: steps.taxas.outputs.mudou == 'true'
+        env:
+          REFERENCIA: ${{ steps.taxas.outputs.referencia }}
+          RESUMO: ${{ steps.taxas.outputs.resumo }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- scripts/taxas.json artigos articles en sitemap.xml
+          git commit -m "Taxas: atualização automática de ${REFERENCIA}" -m "${RESUMO}"
+          git push
+
+      - name: Avisar buscadores (IndexNow)
+        if: steps.taxas.outputs.mudou == 'true'
+        continue-on-error: true
+        run: node scripts/indexnow.js
+
+      - name: Resumo
+        if: always()
+        env:
+          RESUMO: ${{ steps.taxas.outputs.resumo }}
+          AVISOS: ${{ steps.taxas.outputs.avisos }}
+          PROBLEMAS: ${{ steps.taxas.outputs.problemas }}
+        run: |
+          {
+            echo "## Taxas"
+            echo '```'
+            echo "${RESUMO:-sem dados}"
+            echo '```'
+            [ -n "$AVISOS" ] && { echo "### Avisos"; echo '```'; echo "$AVISOS"; echo '```'; }
+            [ -n "$PROBLEMAS" ] && { echo "### Trava (nada publicado)"; echo '```'; echo "$PROBLEMAS"; echo '```'; }
+            true
+          } >> "$GITHUB_STEP_SUMMARY"
