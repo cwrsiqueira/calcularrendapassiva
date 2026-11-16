@@ -1,6 +1,6 @@
 # Status do projeto
 
-Última atualização: 2026-11-06
+Última atualização: 2026-11-16
 
 <!-- Curto e datado. O git manda: se este arquivo divergir do git, o git está certo. Detalhe estratégico no CLAUDE.md. -->
 
@@ -10,6 +10,8 @@
 - Fase atual: máquina de vendas — Fases 1 e 2 concluídas (falta 2.4 pixel Meta); Fase 3 (conteúdo SEO) em andamento. Ver checklist no `CLAUDE.md`.
 
 ## Feito recentemente
+
+- 2026-11-16: revisão de 30 dias (resumo no `CLAUDE.md`, seção 8). `vercel.json`: o www passa a redirecionar também `/` e caminhos com barra final (`/en/`), que antes respondiam 200 — conferir com `curl -sI https://www.calcularrendapassiva.com/` após publicar.
 
 - 2026-11-07: artigos "Como usar a calculadora" (PT e EN) e "Entendendo os resultados" reescritos para a calculadora nova, com exemplos calculados pelo motor (taxas de novembro de 2026); contas antigas erradas corrigidas; passo a passo da página de independência financeira atualizado.
 - 2026-11-07: taxa sempre editável na calculadora, com selo de situação (atualizada / pode estar desatualizada / estimativa / sua taxa); datas próprias das estimativas nas páginas geradas.

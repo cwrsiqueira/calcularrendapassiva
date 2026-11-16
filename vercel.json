@@ -4,6 +4,28 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.calcularrendapassiva.com"
+        }
+      ],
+      "destination": "https://calcularrendapassiva.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.calcularrendapassiva.com"
+        }
+      ],
+      "destination": "https://calcularrendapassiva.com/:path+/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

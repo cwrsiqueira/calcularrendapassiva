@@ -315,6 +315,13 @@ linhas em branco acumuladas. Sitemap reenviado no Search Console (138 URLs) e in
 how-much-does-1-million-earn-per-month). IndexNow (Bing): chave `98b4a40f84f382c9360e38a2bf94e1be.txt` na raiz;
 reenviar após cada `npm run paginas` com POST em api.indexnow.org/indexnow (lista de URLs do sitemap).
 
+**Revisão de 30 dias (16/11/2026):** Search Console (28d vs 28d anteriores): impressões 1,18 mil → **6,79 mil**, cliques 39 → 53,
+posição 20,8 → 18,8; **94 páginas indexadas** (antes 11; 35 "detectadas, não indexadas"). "passive income calculator" posição 45,5 → 34,5
+(sem cliques). Páginas novas com impressões: 1-milhão-e-meio (524), 80/600/800 mil, EN how-much-does-1/2/10-million. AdSense 30d (só
+CRP): 525 PV, RPM US$ 0,74, US$ 0,39 — tráfego ainda pequeno; saldo da conta US$ 100,74. GA4 (propriedade `calcularrendapassiva.com`
+na conta "Google Ads Account", **compartilhada com calcularemprestimo.com** — filtrar por Nome do host): ~320 sessões CRP, 175
+`clique_calcular`, 135 `resultado_gerado`, 2 `generate_lead`, **0 `clique_afiliado`**. `www.` respondia 200 em `/` e `/en/` (o redirect `/:path*` não pegava barra final) — corrigido no `vercel.json` em 16/11/2026.
+
 **Ações do Carlos (fora do código):**
 1. AdSense → concluir "Etapas para receber pagamentos" (dados fiscais/bancários) — o saldo está quase em US$ 100
 2. Lovable → despublicar `calcularrendapassiva.lovable.app` (precisa login no lovable.dev)
