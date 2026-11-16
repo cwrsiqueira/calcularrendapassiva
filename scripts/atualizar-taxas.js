@@ -70,14 +70,18 @@ function tbill13(csv) {
   return datas[datas.length - 1];
 }
 
-// Inflação EUA em 12 meses a partir do índice CPI-U (BLS)
+// Inflação EUA em 12 meses a partir do índice CPI-U (BLS).
+// Usa o mês mais recente que tem valor nele e no mesmo mês do ano anterior: o BLS marca meses
+// sem coleta com "-" (ex.: outubro/2025, paralisação do governo), e aí recua para o mês anterior.
 function cpi12m(json) {
-  const dados = json.Results.series[0].data.filter(x => /^M\d\d$/.test(x.period) && x.period !== 'M13');
+  const dados = json.Results.series[0].data.filter(x => /^M\d\d$/.test(x.period) && x.period !== 'M13' && isFinite(num(x.value)));
   const chave = x => `${x.year}${x.period}`;
-  const ult = dados.reduce((a, b) => (chave(b) > chave(a) ? b : a));
-  const anoAntes = dados.find(x => x.period === ult.period && +x.year === +ult.year - 1);
-  if (!anoAntes) throw new Error('CPI do ano anterior não encontrado');
-  return { v: arred((num(ult.value) / num(anoAntes.value) - 1) * 100, 1), d: `${ult.year}-${ult.period.slice(1)}` };
+  const ordenados = dados.slice().sort((a, b) => (chave(b) > chave(a) ? 1 : -1));
+  for (const ult of ordenados) {
+    const anoAntes = dados.find(x => x.period === ult.period && +x.year === +ult.year - 1);
+    if (anoAntes) return { v: arred((num(ult.value) / num(anoAntes.value) - 1) * 100, 1), d: `${ult.year}-${ult.period.slice(1)}` };
+  }
+  throw new Error('CPI do ano anterior não encontrado');
 }
 
 const pegar = (obj, chave) => chave.split('.').reduce((o, k) => (o ? o[k] : undefined), obj);

@@ -11,6 +11,8 @@
 
 ## Feito recentemente
 
+- 2026-11-16: robô das taxas corrigido — falhou em 12/11 porque o BLS marcou out/2025 com "-" (CPI virava NaN); agora recua para o último mês comparável (teste novo). Taxas de 12/11 publicadas à mão (IPCA 4,63%, Focus 4,98%, Tesouro IPCA+ 7,45%, T-bill 4,22%) e páginas regeneradas.
+
 - 2026-11-16: revisão de 30 dias (resumo no `CLAUDE.md`, seção 8). `vercel.json`: o www passa a redirecionar também `/` e caminhos com barra final (`/en/`), que antes respondiam 200 — conferir com `curl -sI https://www.calcularrendapassiva.com/` após publicar.
 
 - 2026-11-07: artigos "Como usar a calculadora" (PT e EN) e "Entendendo os resultados" reescritos para a calculadora nova, com exemplos calculados pelo motor (taxas de novembro de 2026); contas antigas erradas corrigidas; passo a passo da página de independência financeira atualizado.

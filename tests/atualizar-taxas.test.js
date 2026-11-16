@@ -43,6 +43,16 @@ test('CPI: variação em 12 meses do mesmo mês', () => {
   assert.deepEqual(A.cpi12m(json), { v: 3.7, d: '2026-09' });
 });
 
+test('CPI: mês do ano anterior sem coleta ("-") recua para o último mês comparável', () => {
+  const json = { Results: { series: [{ data: [
+    { year: '2026', period: 'M10', value: '337.511' },
+    { year: '2026', period: 'M09', value: '336.940' },
+    { year: '2025', period: 'M10', value: '-' },
+    { year: '2025', period: 'M09', value: '324.900' },
+  ] }] } };
+  assert.deepEqual(A.cpi12m(json), { v: 3.7, d: '2026-09' });
+});
+
 test('trava: valores normais passam', () => {
   assert.deepEqual(A.validar({ selic: 13.25, cdi: 13.15, ipca12m: 4.4, poupancaMensal: 0.66, 'en.tbill': 4.0 }, taxas), []);
 });
